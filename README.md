@@ -30,6 +30,7 @@ The Tabby folder's table is a different unpublished pack and is not this pack's 
 | Context served | 65,536 tokens per request, 65,536-token KV pool, 16 requests generating at once |
 | Decode without dflash | **49.57 tok/s** p50 |
 | Decode with dflash | **184.11 tok/s** p50 |
+| SixCat eval, strict, 120-item default | **68.7** overall — provisional, see [SixCat eval](#sixcat-eval-default-120) |
 | VRAM after load | — |
 | Max usable concurrency | 8 without dflash · 8 with dflash |
 | TabbyAPI route | not measured on this 2.20 bpw pack |
@@ -230,6 +231,26 @@ The eight-stream per-stream decode p50 on that profile is 34.95 tok/s without th
 54.46 tok/s with it, so the aggregate is queue throughput rather than eight interactive sessions.
 SixCat's summary TTFT is the balanced-profile confirmation, not the single-stream decode TTFT;
 both are in the table above. p99 is not quoted: each confirmation has fewer than 100 requests.
+
+## SixCat eval (default 120)
+
+This is the quality run, not the speed suite. Same pack, same default server (`bash serve.sh`, corrected DFlash drafter on), model id `MiMo-V2.6-Flash-RL-EXL3-2.20`.
+
+SixCat 0.7.0, schema `sixcat-v2`, policy `strict` (temperature 0, thinking off), `--limit 20` (20 items in each of six categories, 120 total), concurrency 1. The only flag off the built-in default was `--max-minutes 0`, so the 30-minute deadline could not cut the set short. Finished 1:36 AM PDT.
+
+| Category | Score | n |
+|---|---:|---:|
+| knowledge | 47.37 | 19 / 20 |
+| math | 95.0 | 20 |
+| truth | 80.0 | 20 |
+| instruct | 50.0 | 20 |
+| code | 45.0 | 20 |
+| tools | 95.0 | 20 |
+| **overall[strict]** | **68.7** | 119 / 120 |
+
+SixCat printed `PARTIAL / PROVISIONAL` and said not to treat this as a complete score. Flags: `truncated:instruct`, `loop-failures:instruct`, `incomplete-scope`. The missing item is `knowledge/mmlu:4`: the generation hit the default 768-token budget (`finish_reason=length`) and the grader raised `TypeError`, so that item is unscored. Instruct has one length truncation and two loop failures at its default budget; those rows are scored and counted as fails. A second pass with the knowledge budget raised to 2048 still truncated that same item and did not change the overall.
+
+The summary SixCat wrote is [`bench/sixcat-eval-2.20-dflash.json`](bench/sixcat-eval-2.20-dflash.json).
 
 ## The DFlash fix (two edits, no code change)
 
