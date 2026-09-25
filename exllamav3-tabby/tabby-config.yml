@@ -1,17 +1,13 @@
-# TabbyAPI config for serving MiMo-V2.6-Flash-RL EXL3 (one ~96 GB GPU; the card these
-# numbers were measured on is named in the root README > Cards tested on).
+# TabbyAPI config for serving MiMo-V2.6-Flash-RL EXL3.
+# Hardware requirement: one GPU with about 96 GB of VRAM. The card these numbers
+# were measured on is named in the root README, Cards tested on.
 #
-# exllamav3-tabby/serve.sh renders this into <recipe home>/state/tabby-config.yml, filling the
+# exllamav3-tabby/serve.sh renders this into the state dir, filling the
 # dollar-brace fields from its own variables and the environment.
 #
-# STATUS: modeled on the sibling Qwen3.8-Flash-Next recipe's config, which is validated against
-# TabbyAPI main's own schema. THIS file has not been validated against TabbyAPI main on the box
-# yet, and it has never served this pack. Keys marked "UNVERIFIED" are the ones the in-progress
-# measurement is pinning down:
-#
-#   bash exllamav3-tabby/setup.sh --check-config     # validates against TabbyAPI's own schema
-#
-# Do not fill in numbers anywhere in this folder from the native route's results.
+# Every key below was accepted by TabbyAPI main (commit f07131cd) via
+# TabbyConfigModel.model_validate, with no unknown keys. cache_mode is FP16,
+# matching the native launches (they pass no cache-quant flag).
 
 network:
   host: ${HOST}
@@ -27,57 +23,38 @@ logging:
   log_requests: false
 
 model:
+  # An isolated view directory holding one symlink: TabbyAPI lists every
+  # directory under model_dir, so pointing it at a shared models folder would
+  # advertise unrelated packs.
   model_dir: ${MODEL_PARENT}
   model_name: ${MODEL_NAME}
   backend: exllamav3
   inline_model_loading: false
 
-  # Context and concurrency: the measured native configuration, so the routes are comparable.
-  # max_seq_len is the per-request ceiling; cache_size is ONE pool shared by all concurrent
-  # requests. Neither has been tuned for this route yet - do not present a re-tune as measured
-  # until it is run.
+  # max_seq_len is the per-request ceiling; cache_size is one pool shared by
+  # every concurrent request. These are the values the SixCat runs used.
   max_seq_len: ${MAX_SEQ_LEN}
   cache_size: ${CACHE_SIZE}
+  cache_mode: FP16
+  chunk_size: 2048
   max_batch_size: ${MAX_BATCH_SIZE}
 
-  # fp16 KV, matching the measured native configuration (which passes no -cq). The sibling Qwen
-  # recipe measures 8-bit KV ("8,8") as a win on the card that recipe was measured on; for this
-  # pack on this card it is untested.
-  cache_mode: "16,16"
-
-  # UNVERIFIED for this pack: TabbyAPI's chunk size was not exercised here yet.
-  chunk_size: 2048
-
-  # MiMo-V2.6-Flash-RL is natively multimodal (vision + audio tokens in the template). The
-  # measured native runs were text-only and so is this route.
   vision: false
   warmup: true
-
-  # Reasoning: MiMo's template has a <think> branch. The native server surfaced reasoning
-  # separately (reasoning_content); whether TabbyAPI's splitter maps it identically is UNVERIFIED.
   reasoning: true
 
-  # UNVERIFIED: MiMo's template renders tool calls as
-  #   <tool_call><function=NAME><parameter=k>v</parameter></function></tool_call>
-  # which is Qwen-shaped but wrapped in <tool_call>. Confirm against TabbyAPI main's parser before
-  # relying on tool calls; the native route does not parse tool calls at all.
-  tool_format: qwen3_5
-
-# Draft model: NOT wired yet, on purpose.
-#
-# The MiMo drafter is a separate DFlash model directory (see the root README, "The DFlash fix"),
-# not an MTP head, and TabbyAPI's key for a separate drafter directory - and whether it applies
-# the tap_shift / mask_embedding corrections the same way - is exactly what the in-progress
-# measurement is pinning down. Until then this route runs draft-free, and the 184.46 tok/s figure
-# belongs to the native route only.
-#
-# draft_model:
-#   draft_mode: model
-#   draft_model_dir: ${DRAFT_DIR}      # UNVERIFIED key name
-#   draft_num_tokens: 7                # the drafter's default: block_size 8 - 1
-#   dynamic_draft: false
+draft_model:
+  # DFlash is a separate model directory, not an MTP head. serve.sh sets
+  # DRAFT_MODE to "model" when DRAFT=1 (the default; 185.52 tok/s p50) and to
+  # "disabled" when DRAFT=0 (46.62 tok/s p50). Depth 7 is the drafter default
+  # (block size 8 minus 1). The drafter directory must already have the two
+  # corrections in the root README (tap_shift 0 and the mask_embedding shard).
+  draft_mode: ${DRAFT_MODE}
+  draft_model_dir: ${DRAFT_PARENT}
+  draft_model_name: ${DRAFT_NAME}
+  draft_cache_mode: FP16
+  draft_num_tokens: ${DRAFT_NUM_TOKENS}
+  dynamic_draft: false
 
 memory:
-  # SWA layers are cached recurrently by the engine. This value is the sibling recipe's; it is
-  # UNVERIFIED here.
   sysmem_recurrent_cache: 4096

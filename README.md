@@ -6,14 +6,13 @@ GPU with about 96 GB of VRAM; see [Cards tested on](#cards-tested-on) for what t
 been verified on. The pack is 48 layers (9 full attention, 39 sliding-window at window 128), 256
 routed experts, top-8 sigmoid routing.
 
-**Two routes, one measured.** The **native `/v1` server** in [`server/`](server/) is the path
-whose numbers are measured here and it is what the quick start below runs:
-**184.46 tok/s p50 single-stream decode** with the corrected DFlash drafter, **47.63 tok/s**
-without it. The **TabbyAPI route** is a first-class second path in
-[`exllamav3-tabby/`](exllamav3-tabby/README.md) — same fork runtime, same pack, TabbyAPI at the
-tip of `main` — and **its measurement is in progress**: that folder's results table says
-"measurement in progress, numbers to be filled in" and nothing there is quoted as if it had
-been run here.
+**Two routes, both measured** on the 2.22 bpw pack, 65,536-token context, SixCat 0.7.0. The
+**native `/v1` server** in [`server/`](server/) is what the quick start below runs:
+**184.46 tok/s p50** decode with the corrected DFlash drafter, **47.63 tok/s** without it. The
+**TabbyAPI route** in [`exllamav3-tabby/`](exllamav3-tabby/README.md) is the same fork and the
+same pack, TabbyAPI at the tip of `main`: **185.52 tok/s p50** with dflash, **46.62 tok/s**
+without. Details, including what is client-observed rather than engine-timed, are in that
+folder's table.
 
 > **Agents and automation:** hand the agent the [Don't](#dont-the-short-list) list and the
 > [Troubleshooting](#troubleshooting) table below before it touches the card. The scripts check
@@ -35,7 +34,7 @@ been run here.
 | Decode with dflash | **184.46 tok/s** p50 (3.87×) — from the corrected DFlash drafter fix |
 | VRAM after load | 90,627 MiB (no drafter) · 94,723 MiB (with drafter) |
 | Max usable concurrency | 8 |
-| TabbyAPI route | [measurement in progress](exllamav3-tabby/README.md) |
+| TabbyAPI route | [measured](exllamav3-tabby/README.md): 46.62 / 185.52 tok/s p50 |
 
 ## Cards tested on
 
@@ -63,7 +62,7 @@ it has.
 | [`server/`](server/) | The native `/v1` server (`serve_native.py`, `protocol.py`, `worker.py`) |
 | [`configs/`](configs/) | The context/batch values actually used, one file per profile |
 | [`tools/`](tools/) | [`fix_dflash.py`](tools/fix_dflash.py), [`verify_dflash.py`](tools/verify_dflash.py), [`sixcat_speed.sh`](tools/sixcat_speed.sh), [`check_repo.py`](tools/check_repo.py) |
-| [`exllamav3-tabby/`](exllamav3-tabby/README.md) | **Second, first-class route:** the same fork under TabbyAPI. Own env/setup/serve/chat and config; measurement in progress |
+| [`exllamav3-tabby/`](exllamav3-tabby/README.md) | **Second route:** the same fork under TabbyAPI. Own env/setup/serve/chat and config; measured |
 | [Cards tested on](#cards-tested-on) | The one card this recipe has been verified on — the only place here a card model is named |
 | [Quants](#quants) | The two pack rungs, their sizes and their measured fidelity (`bpw`, top-1, KLD) |
 
@@ -316,8 +315,11 @@ that is genuinely different still fails the check.
   No long-context retrieval test has been run for this recipe.
 - **The drafter costs prefill** (−4.6%) and adds ~4 GiB resident. On a short-prompt workload it
   is a large win; on a prefill-heavy one it is not.
-- **The TabbyAPI route is unmeasured here.** Its README says so, and its config has not been
-  validated against TabbyAPI `main` on this box yet.
+- **The TabbyAPI route is measured**, on the same pack and the same SixCat suite. Decode matches
+  the native route (46.62 vs 47.63 tok/s without dflash, 185.52 vs 184.46 with it). Its prefill
+  figures are client-observed, because streamed responses did not carry the engine's timing
+  fields, and they are slower (2,051.7 vs 2,521.4 tok/s without dflash). Config validated
+  against TabbyAPI `f07131cd`. See [`exllamav3-tabby/README.md`](exllamav3-tabby/README.md).
 - Single runs, one card: the tables are one curve plus one confirmation run per configuration,
   not a campaign. Treat differences below a few percent as noise.
 - One card, no tensor parallelism: this recipe is TP1 by construction.

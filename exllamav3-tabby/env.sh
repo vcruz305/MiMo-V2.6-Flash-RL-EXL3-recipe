@@ -23,9 +23,11 @@ MAX_SEQ_LEN="${MAX_SEQ_LEN:-65536}"
 CACHE_SIZE="${CACHE_SIZE:-65536}"
 MAX_BATCH_SIZE="${MAX_BATCH_SIZE:-16}"
 
-# Drafter. The MiMo drafter is a separate DFlash model directory, not an MTP head, and wiring it
-# through TabbyAPI is one of the open items of the in-progress measurement - see README.
-DRAFT="${DRAFT:-0}"
+# Drafter. Default on: that is the measured fast path (DRAFT=0 is the no-draft row).
+# The directory must be the corrected copy (tap_shift 0 + mask_embedding shard).
+DRAFT="${DRAFT:-1}"
+DRAFT_NAME="${DRAFT_NAME:-MiMo-V2.6-Flash-RL-dflash-fixed}"
+DRAFT_NUM_TOKENS="${DRAFT_NUM_TOKENS:-7}"
 
 # Fork knobs that TabbyAPI has no config key for are read from the environment, which is what
 # this block is for. It is intentionally EMPTY: the measured native numbers were taken with no
@@ -55,6 +57,7 @@ os.chdir(tabby)  # TabbyAPI resolves its own relative paths from its directory
 loaded = yaml.safe_load(open(cfg_path, encoding="utf-8"))
 
 candidates = [
+    ("common.config_models", "TabbyConfigModel"),
     ("common.config", "Config"),
     ("util.config", "Config"),
     ("config", "Config"),
@@ -80,7 +83,10 @@ if not found:
 module_name, attribute, model_cls = found
 print(f"validating against {module_name}.{attribute}")
 try:
-    model_cls(**loaded)
+    if hasattr(model_cls, "model_validate"):
+        model_cls.model_validate(loaded)
+    else:
+        model_cls(**loaded)
 except TypeError as exc:
     print(f"schema mismatch: {exc}", file=sys.stderr)
     sys.exit(4)

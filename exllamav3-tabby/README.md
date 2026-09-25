@@ -7,33 +7,40 @@ at the tip of `main` as the server, in the same venv. Nothing here is a rewrite 
 route: one venv, one runtime, one pack, two servers. Which pack to download is the root README's
 [Quants](../README.md#quants) section; a re-quantization is not this route's business.
 
-> ## Measurement in progress
+> Both routes are measured, on the same pack (2.22 bpw), the same context (65,536), and the same
+> SixCat 0.7.0 `speed` suite. SixCat's speed runs are `unscored: true` (synthetic prompts, speed
+> only). TabbyAPI's streamed responses did not include the engine's own timing fields, so the
+> Tabby prefill and TTFT figures below are client-observed. Acceptance is from TabbyAPI's
+> per-request `draft N/M` log lines, not from SixCat.
 >
-> **The numbers for this route are not in yet.** The table below is deliberately empty. What is
-> known and measured lives in the [root README](../README.md) and belongs to the *native* route:
-> 47.63 tok/s p50 decode without a drafter and 184.46 tok/s p50 with the corrected DFlash drafter.
-> Do not copy those figures into the table below, and do not describe this route as measured
-> until it has been served and benchmarked on the card.
->
-> | Measurement | TabbyAPI route | (native route, for orientation only) |
+> | Measurement | TabbyAPI route | native `/v1` route |
 > |---|---:|---:|
-> | Decode without dflash | *measurement in progress — to be filled in* | 47.63 tok/s p50 (no draft) |
-> | Decode with dflash | *measurement in progress — to be filled in* | 184.46 (draft fixed, the 3.87× drafter fix) |
-> | Prefill, single stream | *measurement in progress — to be filled in* | 2,521.4 tok/s p50 |
-> | TTFT, idle, ~126-token prompt | *measurement in progress — to be filled in* | ~0.33 s |
-> | Balanced-profile TTFT | *measurement in progress — to be filled in* | 4,356 ms p50 (no draft) / 2,009 ms (draft fixed) |
-> | Aggregate output at `C=8` | *measurement in progress — to be filled in* | 208.2 tok/s (no draft) / 336.1 (draft fixed) |
-> | VRAM after load | *measurement in progress — to be filled in* | 90,627 MiB / 94,723 MiB |
-> | Load time | *measurement in progress — to be filled in* | ~90 s |
-> | TabbyAPI commit | *to be filled in* | — |
-> | Pack rung used | *to be filled in* (expect 2.22 bpw, 87.87 GB) | 2.22 bpw |
+> | Decode without dflash | **46.62 tok/s** p50 | 47.63 tok/s p50 |
+> | Decode with dflash | **185.52 tok/s** p50 | 184.46 tok/s p50 |
+> | Prefill without dflash | **2,051.7 tok/s** p50 (client-observed) | 2,521.4 tok/s p50 |
+> | Prefill with dflash | **1,906.9 tok/s** p50 (client-observed) | 2,404.4 tok/s p50 |
+> | Balanced TTFT without dflash | **4,574 ms** p50 @ C=8 | 4,357 ms p50 @ C=8 |
+> | Balanced TTFT with dflash | **2,613 ms** p50 @ C=4 | 2,009 ms p50 @ C=4 |
+> | Decode aggregate @ C=8, without dflash | **208.6 tok/s** | 208.2 tok/s |
+> | Decode aggregate @ C=8, with dflash | **318.0 tok/s** | 336.1 tok/s |
+> | Draft acceptance | **0.946** mean (n=199; 6.62 accepted per 7-token block) | 0.945 mean (n=209) |
+> | Load time | 12.4 s without dflash · 13.0 s with dflash | ~90 s |
+> | TabbyAPI commit | `f07131cd8fe34e449fe87cdd3a066b52b96d3cac` (`main` at measurement) | — |
+> | Pack rung used | 2.22 bpw | 2.22 bpw |
+>
+> Schema check on that commit: `TabbyConfigModel.model_validate` accepted the rendered config,
+> unknown keys none. Greedy (temperature 0, seed 7, 200 tokens) through TabbyAPI with the
+> corrected drafter was byte-identical to the native draft run (sha256 `6832e8992b88746b`) and,
+> like that run, diverges from the no-draft baseline at character 59. VRAM while the with-dflash
+> TabbyAPI server was up: 93,931 MiB. The no-draft TabbyAPI resident was not snapshotted.
 
 ## Quick start
 
 ```bash
-bash exllamav3-tabby/setup.sh                 # runtime + pack + drafter (root setup.sh), then TabbyAPI main
+bash exllamav3-tabby/setup.sh                 # runtime + pack + drafter, then TabbyAPI main
 bash exllamav3-tabby/setup.sh --check          # runtime, TabbyAPI commit, pack, drafter, config validation
-bash exllamav3-tabby/serve.sh                  # OpenAI-compatible API on 127.0.0.1:8096/v1
+bash exllamav3-tabby/serve.sh                  # DRAFT=1: 185.52 tok/s p50, OpenAI API on 127.0.0.1:8096/v1
+DRAFT=0 bash exllamav3-tabby/serve.sh          # the no-draft row: 46.62 tok/s p50
 bash exllamav3-tabby/chat.sh                   # readiness + the same two prompts the native route uses
 ```
 
@@ -53,32 +60,30 @@ use the same port, 8096, on purpose.
 
 ## What is pinned and what is not
 
-- **TabbyAPI is deliberately unpinned** (`TABBY_REF=main`), the same way the sibling
-  Qwen3.8-Flash-Next recipe tracks it. Re-run `setup.sh` to update.
+- **TabbyAPI is deliberately unpinned** (`TABBY_REF=main`). The run above was commit
+  `f07131cd8fe34e449fe87cdd3a066b52b96d3cac`. Re-run `setup.sh` to update; a newer `main` can
+  move a config key, which `--check-config` is there to catch.
 - **TabbyAPI's GPU extras are not installed.** Its `cu12`/`cu13` extras pull exllamav3 and torch
   wheels that would shadow the fork; `setup.sh` installs TabbyAPI's base package into the recipe
   venv and re-verifies the imported `exllamav3` afterwards, reinstalling the fork wheel if
   TabbyAPI dragged a stock one back in.
-- **The config is not yet validated against TabbyAPI `main` on this box.** `setup.sh
-  --check-config` loads the rendered YAML with TabbyAPI's own schema class; the folder README
-  says "measurement in progress" until that passes and a run has been recorded.
+- **The rendered config validated** against `common.config_models.TabbyConfigModel` on that
+  commit (`model_validate` accepted every value; unknown keys none). `serve.sh` runs the same
+  check before it execs.
 - **Fork knobs with no TabbyAPI config key** are exported from the environment by
-  [`env.sh`](env.sh). That block is empty on purpose: the measured native numbers were taken with
-  no `EXL3_*` override, so leaving them unset keeps this route comparable to the native one.
-  Candidates to try while tuning are listed there as comments, with the note that none of them is
-  measured for this pack on this card.
-- **The drafter is not wired into this route yet.** The MiMo drafter is a separate DFlash model
-  directory rather than an MTP head, and both the key name and whether TabbyAPI applies the
-  `tap_shift`/`mask_embedding` corrections the same way are open. Until it is confirmed,
-  `tabby-config.yml` has the `draft_model:` block commented out and this route runs draft-free.
+  [`env.sh`](env.sh). That block is empty on purpose: both measured routes were taken with no
+  `EXL3_*` override, so leaving them unset keeps this route comparable to the native one.
+- **The drafter is wired.** `DRAFT=1` (the default) sets `draft_mode: model`, depth 7, pointing
+  at the corrected drafter copy. `DRAFT=0` sets `draft_mode: disabled`. Acceptance on the
+  with-dflash run was 0.946 mean (6.62 of 7 drafted tokens), the same band as the native route.
 
 ## Why this route exists
 
-The native route is the measured one and is what almost everyone should run. TabbyAPI is worth
-having for what it brings on top: streaming with a fuller OpenAI surface (including
-`/v1/completions`), admin and model-management endpoints, sampler overrides, its own
-tool/reasoning handling, and clients that assume TabbyAPI. Same weights, same runtime, different
-server.
+The native route and this one land on the same decode: 46.62 vs 47.63 tok/s without dflash,
+185.52 vs 184.46 with it. TabbyAPI is the route to run when you want its OpenAI surface
+(including `/v1/completions`), admin endpoints, sampler overrides, and clients that assume
+TabbyAPI. Prefill through TabbyAPI was slower on this measurement (client-observed 2,051.7 vs
+2,521.4 tok/s without dflash). Same weights, same runtime, different server.
 
 ## Troubleshooting
 
