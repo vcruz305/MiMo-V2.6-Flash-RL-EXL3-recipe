@@ -60,7 +60,7 @@ if [[ "$MODE" == "check" ]]; then
   [[ -f "$TABBY_DIR/main.py" ]] || die "no TabbyAPI at $TABBY_DIR; run: bash exllamav3-tabby/setup.sh"
   say "TabbyAPI $(git -C "$TABBY_DIR" rev-parse --short HEAD) at $TABBY_DIR"
   verify_pack
-  [[ "${DRAFT:-0}" == "1" ]] && verify_draft
+  [[ "${DRAFT:-1}" == "1" ]] && verify_draft
   render_config
   check_config "$STATE_DIR/tabby-config.yml"
   exit 0
@@ -108,7 +108,7 @@ fi
 say "step 3/3: verify"
 verify_runtime
 verify_pack
-if [[ "${DRAFT:-0}" == "1" ]]; then verify_draft; fi
+if [[ "${DRAFT:-1}" == "1" ]]; then verify_draft; fi
 render_config
 check_config "$STATE_DIR/tabby-config.yml" || echo "warning: config validation did not pass; fix it before serving (see exllamav3-tabby/README.md)" >&2
 

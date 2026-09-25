@@ -48,7 +48,7 @@ esac
 DRAFT_PARENT="$STATE_DIR/draft-tabby"
 mkdir -p "$DRAFT_PARENT"
 find "$DRAFT_PARENT" -mindepth 1 -maxdepth 1 -type l -delete
-if [[ "${DRAFT:-0}" == "1" ]]; then
+if [[ "${DRAFT:-1}" == "1" ]]; then
   DRAFT_MODE=model
   if [[ -d "$DRAFT_DIR" ]]; then
     ln -sfn "$(cd "$DRAFT_DIR" && pwd)" "$DRAFT_PARENT/$DRAFT_NAME"
@@ -78,7 +78,7 @@ fi
 verify_runtime
 [[ -f "$TABBY_DIR/main.py" ]] || die "no TabbyAPI at $TABBY_DIR. Run: bash exllamav3-tabby/setup.sh"
 verify_pack
-[[ "${DRAFT:-0}" == "1" ]] && verify_draft
+[[ "${DRAFT:-1}" == "1" ]] && verify_draft
 check_card_free
 check_config "$CONFIG" \
   || die "the rendered config did not validate against TabbyAPI's schema; see exllamav3-tabby/README.md"
