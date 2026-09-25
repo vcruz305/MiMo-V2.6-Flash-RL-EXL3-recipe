@@ -1,12 +1,10 @@
-# MiMo-V2.6-Flash-RL EXL3 on one 96 GB card
+# MiMo-V2.6-Flash-RL in EXL3 — serving recipe
 
-Serves **MiMo-V2.6-Flash-RL** in EXL3 on a single 96 GB-class GPU, with the
-[vcruz305/exllamav3](https://github.com/vcruz305/exllamav3) fork as the runtime. The pack is 48
-layers (9 full attention, 39 sliding-window at window 128), 256 routed experts, top-8 sigmoid
-routing.
-
-**Tested on:** NVIDIA RTX 6000 (96 GB) — this is one of the cards the recipe was tested on, and
-every measured number below comes from that card.
+Serves the **MiMo-V2.6-Flash-RL** EXL3 pack with the
+[vcruz305/exllamav3](https://github.com/vcruz305/exllamav3) fork as the runtime. Needs a single
+GPU with about 96 GB of VRAM; see [Cards tested on](#cards-tested-on) for what this has actually
+been verified on. The pack is 48 layers (9 full attention, 39 sliding-window at window 128), 256
+routed experts, top-8 sigmoid routing.
 
 **Two routes, one measured.** The **native `/v1` server** in [`server/`](server/) is the path
 whose numbers are measured here and it is what the quick start below runs:
@@ -39,6 +37,20 @@ been run here.
 | Max usable concurrency | 8 |
 | TabbyAPI route | [measurement in progress](exllamav3-tabby/README.md) |
 
+## Cards tested on
+
+This recipe serves the model, not a card. It needs a single GPU with about 96 GB of VRAM, and
+exactly one card has been verified for it so far:
+
+| Card | VRAM | Status |
+|---|---|---|
+| NVIDIA RTX 6000 | 96 GB | **Verified** — every measured number in this repo comes from this card |
+
+That card is the provenance of the numbers below and the only place in this repository where a
+card model is named. **No other card has been measured**: on anything else, treat every figure
+here as unverified until it has been served and benchmarked there, and add it to this table when
+it has.
+
 ## Repository layout
 
 | Path | What it is |
@@ -52,6 +64,8 @@ been run here.
 | [`configs/`](configs/) | The context/batch values actually used, one file per profile |
 | [`tools/`](tools/) | [`fix_dflash.py`](tools/fix_dflash.py), [`verify_dflash.py`](tools/verify_dflash.py), [`sixcat_speed.sh`](tools/sixcat_speed.sh), [`check_repo.py`](tools/check_repo.py) |
 | [`exllamav3-tabby/`](exllamav3-tabby/README.md) | **Second, first-class route:** the same fork under TabbyAPI. Own env/setup/serve/chat and config; measurement in progress |
+| [Cards tested on](#cards-tested-on) | The one card this recipe has been verified on — the only place here a card model is named |
+| [Quants](#quants) | The two pack rungs, their sizes and their measured fidelity (`bpw`, top-1, KLD) |
 
 ## Quick start
 
@@ -135,6 +149,21 @@ displacing a running server. The first load takes about 90 seconds.
   stop and find out whose run it is.
 - **Don't add a number to this README you did not measure** on the pack named in the table header.
 
+## Quants
+
+These are the [MiMo-V2.6-Flash-RL EXL3 packs](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3). Pick one bitrate before downloading.
+
+The following table is copied from the [Hugging Face model README](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3/blob/main/README.md). Sizes are whole folders, not just model shards; the smallest-card column is the pack's own estimate, not a promise that every card like it can serve the pack.
+
+| bpw | size | smallest card | top-1 vs original | mean KLD | p99 KLD | download |
+| --- | --- | --- | --- | --- | --- | --- |
+| **2.50** | 98.48 GB | >96 GB — does not fit | 83.76% | 0.2055 | 3.380 | [2.50bpw](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3/tree/main/2.50bpw) |
+| **2.22** | 87.87 GB | 96 GB | 79.07% | 0.3010 | — | publication pending |
+
+**Top-1** is next-token agreement with the original checkpoint on the held-out evaluation set. **KLD** is the mean/99th-percentile KL(reference ‖ pack) on those positions; lower is closer. These are quantization-fidelity measures, not task-accuracy scores, and evaluation text was not used to calibrate the packs.
+
+Every measured result in this repository is tied to one card, one pack and one set of server settings — see [Cards tested on](#cards-tested-on) — and does not predict another card or another pack.
+
 ## Downloads
 
 | Artifact | Where | Size | Fits 96 GB |
@@ -174,7 +203,7 @@ are not published here.
 
 ## Measured results (native `/v1`, 2026-09-25)
 
-> **Hardware:** the NVIDIA RTX 6000 (96 GB) we measured on, x86_64 host.
+> **Hardware:** the card in [Cards tested on](#cards-tested-on), x86_64 host.
 > **Software:** [`server/serve_native.py`](server/serve_native.py) on `vcruz305/exllamav3`
 > (`93e58ca`, which is in the `v1.5.1.post1` lineage), pack 2.22 bpw, 65,536-token pool,
 > 16 concurrent, greedy (temperature 0).

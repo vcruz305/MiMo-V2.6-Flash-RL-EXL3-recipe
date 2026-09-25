@@ -1,4 +1,4 @@
-# Shared defaults for the MiMo-V2.6-Flash-RL EXL3 recipe on one 96 GB-class GPU.
+# Shared defaults for the MiMo-V2.6-Flash-RL EXL3 serving recipe (needs a single ~96 GB-class GPU).
 # Sourced by setup.sh, serve.sh, chat.sh, preflight.sh and exllamav3-tabby/env.sh.
 # Every value can be overridden from the environment before calling those scripts.
 

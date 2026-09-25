@@ -1,10 +1,11 @@
-# TabbyAPI route: MiMo-V2.6-Flash-RL EXL3 on one 96 GB card
+# TabbyAPI route: MiMo-V2.6-Flash-RL in EXL3 — serving recipe
 
 The second, self-contained route in this repository: the **same fork runtime**
 ([vcruz305/exllamav3](https://github.com/vcruz305/exllamav3)) and the **same pack** as the native
 `/v1` route at the repository root, with **[TabbyAPI](https://github.com/theroyallab/tabbyAPI)**
 at the tip of `main` as the server, in the same venv. Nothing here is a rewrite of the native
-route: one venv, one runtime, one pack, two servers.
+route: one venv, one runtime, one pack, two servers. Which pack to download is the root README's
+[Quants](../README.md#quants) section; a re-quantization is not this route's business.
 
 > ## Measurement in progress
 >

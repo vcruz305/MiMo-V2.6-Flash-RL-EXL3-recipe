@@ -1,4 +1,5 @@
-# TabbyAPI config for MiMo-V2.6-Flash-RL EXL3 on one 96 GB card.
+# TabbyAPI config for serving MiMo-V2.6-Flash-RL EXL3 (one ~96 GB GPU; the card these
+# numbers were measured on is named in the root README > Cards tested on).
 #
 # exllamav3-tabby/serve.sh renders this into <recipe home>/state/tabby-config.yml, filling the
 # dollar-brace fields from its own variables and the environment.

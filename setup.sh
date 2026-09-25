@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Install the runtime and stage the pack for MiMo-V2.6-Flash-RL EXL3 on one 96 GB card.
+# Install the runtime and stage the pack for serving MiMo-V2.6-Flash-RL EXL3 (needs one ~96 GB GPU;
+# the card the numbers were measured on is named in README > Cards tested on).
 #
 #   bash setup.sh                 released wheel (recommended) + pack + DFlash fix
 #   bash setup.sh --from-source   build vcruz305/exllamav3 from a checkout instead
