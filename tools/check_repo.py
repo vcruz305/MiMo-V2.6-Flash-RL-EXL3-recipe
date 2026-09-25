@@ -8,7 +8,9 @@ Checks, all of them static (nothing is executed except `bash -n`):
   2. every referenced repo path resolves - markdown links and backticked paths in the docs;
   3. every .sh passes `bash -n`, every .py compiles;
   4. every .sh/.py carries the git executable bit in the index (when run inside a repo);
-  5. no internal absolute paths and no quantization-method internals in any file.
+  5. no internal absolute paths and no quantization-method internals in any file. Identifier-shaped
+     needles must start on a token boundary, so an innocuous key like `usage_source` is not read as
+     a reference to how a pack was quantized;
 """
 from __future__ import annotations
 
@@ -33,9 +35,36 @@ FORBIDDEN = [
     "replay procedure", "measurement procedure",
 ]
 
+IDENT_RX = re.compile(r"^[A-Za-z][A-Za-z0-9_-]*$")
+
+
+def needle_pattern(needle: str) -> "re.Pattern[str]":
+    """Matcher for one forbidden needle.
+
+    Identifier-shaped needles ('sage_', 'k_map', 'sentinel', 'frosty') must start on a token
+    boundary. A plain substring test flags the JSON key `usage_source` for containing 'sage_' --
+    'us|age_s|ource' -- and that key is ordinary API output, not a reference to how a pack was
+    quantized. Path-shaped needles ('/home/', 'C:\\Users', '10.80.10.') keep the plain substring
+    test: a preceding word character does not make an absolute path safe to publish.
+    """
+    pattern = re.escape(needle)
+    if IDENT_RX.match(needle):
+        pattern = r"(?<![A-Za-z0-9_])" + pattern
+    return re.compile(pattern)
+
+
+FORBIDDEN_RX = [(needle, needle_pattern(needle)) for needle in FORBIDDEN]
+
 LINK_RX = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
 BACKTICK_RX = re.compile(r"`([^`\n]+)`")
 PATHY_RX = re.compile(r"^[A-Za-z0-9_./-]+$")
+
+
+# Windows: a redirect to "NUL" (a cmd.exe habit) creates a real file rather than the null device,
+# and os.walk then yields a path that os.path.relpath rejects with ValueError. Nothing in this repo
+# should be named for a DOS device, so skip such names instead of dying on them.
+RESERVED_NAMES = {"nul", "con", "aux", "prn",
+                  *(f"com{i}" for i in range(1, 10)), *(f"lpt{i}" for i in range(1, 10))}
 
 
 def walk_files() -> list[str]:
@@ -43,6 +72,8 @@ def walk_files() -> list[str]:
     for base, dirs, names in os.walk(ROOT):
         dirs[:] = [d for d in dirs if d not in (".git", "__pycache__")]
         for name in sorted(names):
+            if os.name == "nt" and os.path.splitext(name)[0].lower() in RESERVED_NAMES:
+                continue
             out.append(os.path.relpath(os.path.join(base, name), ROOT))
     return sorted(out)
 
@@ -148,11 +179,10 @@ def check_forbidden(files: list[str], problems: list[str]) -> None:
         if ext not in TEXT_EXT and os.path.basename(rel) not in (".gitattributes", ".gitignore", ".env.example"):
             continue
         text = open(os.path.join(ROOT, rel), encoding="utf-8", errors="replace").read()
-        for needle in FORBIDDEN:
-            if needle in text:
-                for i, line in enumerate(text.splitlines(), 1):
-                    if needle in line:
-                        problems.append(f"{rel}:{i}: forbidden string {needle!r}")
+        for needle, rx in FORBIDDEN_RX:
+            for i, line in enumerate(text.splitlines(), 1):
+                if rx.search(line):
+                    problems.append(f"{rel}:{i}: forbidden string {needle!r}")
 
 
 def main() -> int:

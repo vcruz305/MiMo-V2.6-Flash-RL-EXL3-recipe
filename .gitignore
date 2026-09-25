@@ -7,6 +7,7 @@ results/
 models/
 *.jsonl
 *.log
+NUL
 .env
 .hf-token
 *.safetensors
