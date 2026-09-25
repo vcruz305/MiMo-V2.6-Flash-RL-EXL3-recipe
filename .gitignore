@@ -1,0 +1,13 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+state/
+results/
+models/
+*.jsonl
+*.log
+.env
+.hf-token
+*.safetensors
+*.pt
