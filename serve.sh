@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Serve MiMo-V2.6-Flash-RL EXL3 on one RTX PRO 6000 as an OpenAI-compatible /v1 API.
+# Serve MiMo-V2.6-Flash-RL EXL3 on one 96 GB card as an OpenAI-compatible /v1 API.
 # This is the route whose numbers are measured (README "Measured results").
 #
 #   bash serve.sh                       # PROFILE=with-draft  (184.46 tok/s p50 decode)

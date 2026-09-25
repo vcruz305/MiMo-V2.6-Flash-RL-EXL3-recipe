@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install the runtime and stage the pack for MiMo-V2.6-Flash-RL EXL3 on one RTX PRO 6000.
+# Install the runtime and stage the pack for MiMo-V2.6-Flash-RL EXL3 on one 96 GB card.
 #
 #   bash setup.sh                 released wheel (recommended) + pack + DFlash fix
 #   bash setup.sh --from-source   build vcruz305/exllamav3 from a checkout instead

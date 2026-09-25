@@ -1,4 +1,4 @@
-# TabbyAPI route: MiMo-V2.6-Flash-RL EXL3 on one RTX PRO 6000 (96 GB)
+# TabbyAPI route: MiMo-V2.6-Flash-RL EXL3 on one 96 GB card
 
 The second, self-contained route in this repository: the **same fork runtime**
 ([vcruz305/exllamav3](https://github.com/vcruz305/exllamav3)) and the **same pack** as the native
@@ -16,7 +16,8 @@ route: one venv, one runtime, one pack, two servers.
 >
 > | Measurement | TabbyAPI route | (native route, for orientation only) |
 > |---|---:|---:|
-> | Decode, single stream | *measurement in progress — to be filled in* | 47.63 tok/s p50 (no draft) / 184.46 (draft fixed) |
+> | Decode without dflash | *measurement in progress — to be filled in* | 47.63 tok/s p50 (no draft) |
+> | Decode with dflash | *measurement in progress — to be filled in* | 184.46 (draft fixed, the 3.87× drafter fix) |
 > | Prefill, single stream | *measurement in progress — to be filled in* | 2,521.4 tok/s p50 |
 > | TTFT, idle, ~126-token prompt | *measurement in progress — to be filled in* | ~0.33 s |
 > | Balanced-profile TTFT | *measurement in progress — to be filled in* | 4,356 ms p50 (no draft) / 2,009 ms (draft fixed) |

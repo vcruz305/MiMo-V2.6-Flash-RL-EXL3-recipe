@@ -1,4 +1,4 @@
-# TabbyAPI config for MiMo-V2.6-Flash-RL EXL3 on one RTX PRO 6000 (96 GB).
+# TabbyAPI config for MiMo-V2.6-Flash-RL EXL3 on one 96 GB card.
 #
 # exllamav3-tabby/serve.sh renders this into <recipe home>/state/tabby-config.yml, filling the
 # dollar-brace fields from its own variables and the environment.
@@ -40,7 +40,8 @@ model:
   max_batch_size: ${MAX_BATCH_SIZE}
 
   # fp16 KV, matching the measured native configuration (which passes no -cq). The sibling Qwen
-  # recipe measures 8-bit KV ("8,8") as a win on GB10; for this pack on this card it is untested.
+  # recipe measures 8-bit KV ("8,8") as a win on the card that recipe was measured on; for this
+  # pack on this card it is untested.
   cache_mode: "16,16"
 
   # UNVERIFIED for this pack: TabbyAPI's chunk size was not exercised here yet.

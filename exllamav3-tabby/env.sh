@@ -31,7 +31,8 @@ DRAFT="${DRAFT:-0}"
 # this block is for. It is intentionally EMPTY: the measured native numbers were taken with no
 # EXL3_* override set, so leaving them unset keeps this route comparable to the native one.
 # Candidates to try when tuning this route (see the sibling Qwen3.8 recipe for what they were
-# worth on GB10 - none of it is measured for this pack on this card):
+# worth on the box that recipe was measured on - none of it is measured for this pack on this
+# card):
 #   export EXL3_MOE_COOP_WIDE=1
 #   export EXL3_GR_INT8=1
 #   export EXL3_INT8_GEMV=0

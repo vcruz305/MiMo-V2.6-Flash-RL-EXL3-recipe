@@ -1,9 +1,12 @@
-# MiMo-V2.6-Flash-RL EXL3 on one RTX PRO 6000 (96 GB)
+# MiMo-V2.6-Flash-RL EXL3 on one 96 GB card
 
-Serves **MiMo-V2.6-Flash-RL** in EXL3 on a single NVIDIA RTX PRO 6000 Blackwell
-(96 GB HBM3e), with the [vcruz305/exllamav3](https://github.com/vcruz305/exllamav3) fork as
-the runtime. The pack is 48 layers (9 full attention, 39 sliding-window at window 128),
-256 routed experts, top-8 sigmoid routing.
+Serves **MiMo-V2.6-Flash-RL** in EXL3 on a single 96 GB-class GPU, with the
+[vcruz305/exllamav3](https://github.com/vcruz305/exllamav3) fork as the runtime. The pack is 48
+layers (9 full attention, 39 sliding-window at window 128), 256 routed experts, top-8 sigmoid
+routing.
+
+**Tested on:** NVIDIA RTX 6000 (96 GB) — this is one of the cards the recipe was tested on, and
+every measured number below comes from that card.
 
 **Two routes, one measured.** The **native `/v1` server** in [`server/`](server/) is the path
 whose numbers are measured here and it is what the quick start below runs:
@@ -24,13 +27,14 @@ been run here.
 |---|---|
 | Model | [XiaomiMiMo/MiMo-V2.6-Flash-RL](https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL) |
 | Pack | [vcruz305/MiMo-V2.6-Flash-RL-EXL3](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3), an EXL3 trellis build |
-| Card | one RTX PRO 6000 Blackwell, 96 GB HBM3e, x86_64 host |
+| Card requirement | one GPU with at least ~96 GB of VRAM, x86_64 host |
 | Runtime | `vcruz305/exllamav3` release **`v1.5.1.post1`** (prebuilt wheel; source build documented) |
 | Server | [`server/serve_native.py`](server/serve_native.py) — native `/v1/chat/completions`, no engine patch |
 | Pack served for the numbers | **2.22 bpw**, 87.87 GB, 24 files — **publication pending** |
 | Pack published today | **2.50 bpw**, 98.48 GB, 26 files — **does not fit a 96 GB card** |
 | Context served | 65,536 tokens per request, 65,536-token KV pool, 16 requests generating at once |
-| Decode, single stream | **47.63 tok/s** p50 without a drafter · **184.46 tok/s** p50 with the corrected DFlash drafter (3.87×) |
+| Decode without dflash | **47.63 tok/s** p50 |
+| Decode with dflash | **184.46 tok/s** p50 (3.87×) — from the corrected DFlash drafter fix |
 | VRAM after load | 90,627 MiB (no drafter) · 94,723 MiB (with drafter) |
 | Max usable concurrency | 8 |
 | TabbyAPI route | [measurement in progress](exllamav3-tabby/README.md) |
@@ -170,7 +174,7 @@ are not published here.
 
 ## Measured results (native `/v1`, 2026-09-25)
 
-> **Hardware:** one NVIDIA RTX PRO 6000 Blackwell (96 GB HBM3e), x86_64 host.
+> **Hardware:** the NVIDIA RTX 6000 (96 GB) we measured on, x86_64 host.
 > **Software:** [`server/serve_native.py`](server/serve_native.py) on `vcruz305/exllamav3`
 > (`93e58ca`, which is in the `v1.5.1.post1` lineage), pack 2.22 bpw, 65,536-token pool,
 > 16 concurrent, greedy (temperature 0).
