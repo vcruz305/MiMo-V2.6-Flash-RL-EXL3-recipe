@@ -37,17 +37,18 @@ The Tabby folder's table is a different unpublished pack and is not this pack's 
 
 ## Cards tested on
 
-This recipe serves the model, not a card. It needs a single GPU with about 96 GB of VRAM, and
-exactly one card has been verified for it so far:
+This recipe serves the model, not a card. It needs a single GPU with about 96 GB of VRAM, or a
+unified-memory host with at least that much addressable memory. Two hosts have been served on it:
 
-| Card | VRAM | Status |
+| Host | Memory | Status |
 |---|---|---|
-| NVIDIA RTX 6000 | 96 GB | **Verified** — every measured number in this repo comes from this card |
+| NVIDIA RTX 6000 | 96 GB | **Verified** — every measured number in the sections below comes from this card |
+| NVIDIA DGX Spark / GB10 (aarch64, sm_121) | 121.7 GiB unified | **Measured** — the drafter works, but the with/without ratio is far lower than this card's. See [Measured on a unified-memory host](#measured-on-a-unified-memory-host-aarch64) |
 
-That card is the provenance of the numbers below and the only place in this repository where a
-card model is named. **No other card has been measured**: on anything else, treat every figure
-here as unverified until it has been served and benchmarked there, and add it to this table when
-it has.
+This table is the only place in the repository where a host model is named; each row's figures live
+in the section it links to. **No other host has been measured**: on anything else, treat every
+figure here as unverified until it has been served and benchmarked there, and add it to this table
+when it has.
 
 ## Repository layout
 
@@ -62,6 +63,7 @@ it has.
 | [`configs/`](configs/) | The context/batch values actually used, one file per profile |
 | [`tools/`](tools/) | [`fix_dflash.py`](tools/fix_dflash.py), [`verify_dflash.py`](tools/verify_dflash.py), [`sixcat_speed.sh`](tools/sixcat_speed.sh), [`check_repo.py`](tools/check_repo.py) |
 | [`exllamav3-tabby/`](exllamav3-tabby/README.md) | **Second route:** the same fork under TabbyAPI. Own env/setup/serve/chat and config |
+| [`DGX-Spark/`](DGX-Spark/README.md) | **Host notes:** the unified-memory (aarch64) host — its measured numbers, and the profile it needs to load |
 | [Cards tested on](#cards-tested-on) | The one card this recipe has been verified on — the only place here a card model is named |
 | [Quants](#quants) | The pack rungs, their sizes and their measured fidelity (`bpw`, top-1, KLD) |
 
@@ -232,6 +234,14 @@ The eight-stream per-stream decode p50 on that profile is 34.95 tok/s without th
 SixCat's summary TTFT is the balanced-profile confirmation, not the single-stream decode TTFT;
 both are in the table above. p99 is not quoted: each confirmation has fewer than 100 requests.
 
+## Measured on a unified-memory host (aarch64)
+
+The second row of [Cards tested on](#cards-tested-on) has been served and measured: the drafter
+works, but the with/without ratio (**1.0× – 2.2×**, prompt-dependent; `draft_accept` 0.211 – 0.675)
+is far below this card's 3.71×, and the cause is **not yet attributed**. Everything for that host —
+the launch profile it needs (`GPU_SPLIT=112`), the per-prompt table, and the candidates for the gap —
+is in [`DGX-Spark/README.md`](DGX-Spark/README.md).
+
 ## SixCat eval (default 120)
 
 This is the quality run, not the speed suite. Same pack, same default server (`bash serve.sh`, corrected DFlash drafter on), model id `MiMo-V2.6-Flash-RL-EXL3-2.20`.
@@ -329,6 +339,10 @@ that is genuinely different still fails the check.
 - One card, no tensor parallelism: this recipe is TP1 by construction.
 - **2.50 bpw does not fit a 96 GB card.** It is published; it is not the pack `serve.sh` loads
   by default.
+- **On the unified-memory host the with/without-drafter ratio is 1.0× - 2.2×**, not this card's
+  3.71×, and it moves more between prompts than between configurations. The cause is not yet
+  attributed; see [Measured on a unified-memory host](#measured-on-a-unified-memory-host-aarch64)
+  for the candidates.
 
 ## Troubleshooting
 
@@ -343,6 +357,8 @@ that is genuinely different still fails the check.
 | acceptance near zero | the drafter is attached but unfixed; `python tools/verify_dflash.py --dir "$DRAFT_DIR"` names the missing edit |
 | `error: MAX_ACTIVE_REQUESTS (16) > AUTOSPLIT_MAX_BATCH (8)` | lower `MAX_ACTIVE_REQUESTS` or raise `AUTOSPLIT_MAX_BATCH`; the server refuses this combination |
 | load refuses for memory | confirm the rung: the 2.50 bpw pack does not fit. Check `nvidia-smi` for another process |
+| load refuses for memory on a unified-memory host (GB10 / Grace-Blackwell), well under the card size | CUDA's free excludes reclaimable page cache and `model.py` freezes the budget at process start. Use `PROFILE=spark-with-draft` (`GPU_SPLIT=112`) — see [Measured on a unified-memory host](#measured-on-a-unified-memory-host-aarch64) |
+| drafter looks broken: acceptance near 0.04 with garbage drafts | if the number came from a custom harness, it may be the harness — one that wraps the drafter's generate generator corrupts the path it observes. Re-measure with `bash chat.sh`, which reads the server's own `draft_accept` |
 | replies truncated | the client set `max_tokens`; the server honours it |
 
 ## Related repositories
