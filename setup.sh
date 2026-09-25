@@ -81,10 +81,7 @@ fetch_pack() {
   fi
   say "downloading $PACK_REPO subset '$PACK_SUBDIR/*' into $PACK_HOME"
   if ! hf download "$PACK_REPO" --include "$PACK_SUBDIR/*" --local-dir "$PACK_HOME"; then
-    if [[ "$PACK_SUBDIR" == "2.22bpw" ]]; then
-      die "the 2.22 bpw rung is not on the Hub yet (its publication is pending). Use the published 2.50 bpw rung on a >96 GB card with PACK_SUBDIR=2.50bpw, or point PACK_DIR at your copy of the servable rung."
-    fi
-    die "pack download failed; check the repo/revision in README 'Downloads'"
+    die "pack download failed. The servable rung is 2.20bpw (see README Downloads). The 2.50bpw rung does not fit a 96 GB card."
   fi
 }
 

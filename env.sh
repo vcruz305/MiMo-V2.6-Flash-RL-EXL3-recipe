@@ -13,10 +13,10 @@ EXL3_WHEEL_TAG="${EXL3_WHEEL_TAG:-v1.5.1.post1}"   # released wheel: the preferr
 EXL3_WHEEL="${EXL3_WHEEL:-exllamav3-1.5.1.post1+cu128.torch2.11.0-cp312-cp312-linux_x86_64.whl}"
 EXL3_REF="${EXL3_REF:-master}"                     # source fallback, used with --from-source
 
-# The pack. 2.22 bpw is the servable rung for one 96 GB card (87.87 GB, 24 files);
+# The pack. 2.20 bpw is the servable rung for one 96 GB card (86.94 GB);
 # 2.50 bpw is published but does not fit the card (98.48 GB, 26 files). See README.
 PACK_REPO="${PACK_REPO:-vcruz305/MiMo-V2.6-Flash-RL-EXL3}"
-PACK_SUBDIR="${PACK_SUBDIR:-2.22bpw}"
+PACK_SUBDIR="${PACK_SUBDIR:-2.20bpw}"
 # The DFlash drafter ships in the ORIGINAL checkpoint, not in the pack.
 BASE_MODEL_REPO="${BASE_MODEL_REPO:-XiaomiMiMo/MiMo-V2.6-Flash-RL}"
 DRAFT_SUBDIR="${DRAFT_SUBDIR:-dflash}"
@@ -145,11 +145,12 @@ if isinstance(emb, str) and not same_norm:
 if isinstance(emb, str) and not same_raw:
     print("note: they differ by whitespace only - expected for this pack, see README 'Template gotcha'", file=sys.stderr)
 
-# Card fit. Measured on the 2.22 bpw pack: 90,627 MiB resident with no draft, 94,723 MiB
-# with the drafter, at 65,536 context. The 2.50 bpw pack is 10.6 GB larger and does not fit.
+# Card fit. The 2.20 bpw pack is 86.94 GB and is the rung that fits a 96 GB card.
+# The 2.50 bpw pack is 98.48 GB and does not. Resident MiB for 2.20 bpw was not
+# in the SixCat speed files, so this check uses folder size only.
 if total > 95e9:
-    print(f"warning: this pack is {total/1e9:.2f} GB; the 96 GB card fits the 2.22 bpw rung "
-          f"(87.87 GB), not this one", file=sys.stderr)
+    print(f"warning: this pack is {total/1e9:.2f} GB; the 96 GB card fits the 2.20 bpw rung "
+          f"(86.94 GB), not this one", file=sys.stderr)
 PY
 }
 

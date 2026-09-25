@@ -3,8 +3,8 @@
 # the numbers in this repo were measured on is named in README > Cards tested on.
 # This is the route whose numbers are measured (README "Measured results").
 #
-#   bash serve.sh                       # PROFILE=with-draft  (184.46 tok/s p50 decode)
-#   PROFILE=no-draft bash serve.sh      # no drafter          ( 47.63 tok/s p50 decode)
+#   bash serve.sh                       # PROFILE=with-draft  (184.11 tok/s p50 decode, client-observed)
+#   PROFILE=no-draft bash serve.sh      # no drafter          ( 49.57 tok/s p50 decode, client-observed)
 #   DRY_RUN=1 bash serve.sh             # print the exact command line and exit
 #   PORT=8097 bash serve.sh             # any value can be overridden like this
 #

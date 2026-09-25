@@ -6,13 +6,11 @@ GPU with about 96 GB of VRAM; see [Cards tested on](#cards-tested-on) for what t
 been verified on. The pack is 48 layers (9 full attention, 39 sliding-window at window 128), 256
 routed experts, top-8 sigmoid routing.
 
-**Two routes, both measured** on the 2.22 bpw pack, 65,536-token context, SixCat 0.7.0. The
-**native `/v1` server** in [`server/`](server/) is what the quick start below runs:
-**184.46 tok/s p50** decode with the corrected DFlash drafter, **47.63 tok/s** without it. The
-**TabbyAPI route** in [`exllamav3-tabby/`](exllamav3-tabby/README.md) is the same fork and the
-same pack, TabbyAPI at the tip of `main`: **185.52 tok/s p50** with dflash, **46.62 tok/s**
-without. Details, including what is client-observed rather than engine-timed, are in that
-folder's table.
+**Two routes.** The **native `/v1` server** in [`server/`](server/) is what the quick start
+below runs. The **TabbyAPI route** in [`exllamav3-tabby/`](exllamav3-tabby/README.md) is the
+same fork and a second server. Speed in this README is SixCat speed on the **2.20 bpw** pack
+(unscored, synthetic prompts); see [Measured results](#measured-results-native-v1-2026-09-25).
+The Tabby folder's table is a different unpublished pack and is not this pack's speed.
 
 > **Agents and automation:** hand the agent the [Don't](#dont-the-short-list) list and the
 > [Troubleshooting](#troubleshooting) table below before it touches the card. The scripts check
@@ -27,14 +25,14 @@ folder's table.
 | Card requirement | one GPU with at least ~96 GB of VRAM, x86_64 host |
 | Runtime | `vcruz305/exllamav3` release **`v1.5.1.post1`** (prebuilt wheel; source build documented) |
 | Server | [`server/serve_native.py`](server/serve_native.py) — native `/v1/chat/completions`, no engine patch |
-| Pack served for the numbers | **2.22 bpw**, 87.87 GB, 24 files — **publication pending** |
-| Pack published today | **2.50 bpw**, 98.48 GB, 26 files — **does not fit a 96 GB card** |
+| Pack served for the numbers | **2.20 bpw**, 86.94 GB — [2.20bpw](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3/tree/main/2.20bpw) |
+| Larger rung | **2.50 bpw**, 98.48 GB — **does not fit a 96 GB card** |
 | Context served | 65,536 tokens per request, 65,536-token KV pool, 16 requests generating at once |
-| Decode without dflash | **47.63 tok/s** p50 |
-| Decode with dflash | **184.46 tok/s** p50 (3.87×) — from the corrected DFlash drafter fix |
-| VRAM after load | 90,627 MiB (no drafter) · 94,723 MiB (with drafter) |
-| Max usable concurrency | 8 |
-| TabbyAPI route | [measured](exllamav3-tabby/README.md): 46.62 / 185.52 tok/s p50 |
+| Decode without dflash | **49.57 tok/s** p50 |
+| Decode with dflash | **184.11 tok/s** p50 |
+| VRAM after load | — |
+| Max usable concurrency | 8 without dflash · 8 with dflash |
+| TabbyAPI route | not measured on this 2.20 bpw pack |
 
 ## Cards tested on
 
@@ -62,9 +60,9 @@ it has.
 | [`server/`](server/) | The native `/v1` server (`serve_native.py`, `protocol.py`, `worker.py`) |
 | [`configs/`](configs/) | The context/batch values actually used, one file per profile |
 | [`tools/`](tools/) | [`fix_dflash.py`](tools/fix_dflash.py), [`verify_dflash.py`](tools/verify_dflash.py), [`sixcat_speed.sh`](tools/sixcat_speed.sh), [`check_repo.py`](tools/check_repo.py) |
-| [`exllamav3-tabby/`](exllamav3-tabby/README.md) | **Second route:** the same fork under TabbyAPI. Own env/setup/serve/chat and config; measured |
+| [`exllamav3-tabby/`](exllamav3-tabby/README.md) | **Second route:** the same fork under TabbyAPI. Own env/setup/serve/chat and config |
 | [Cards tested on](#cards-tested-on) | The one card this recipe has been verified on — the only place here a card model is named |
-| [Quants](#quants) | The two pack rungs, their sizes and their measured fidelity (`bpw`, top-1, KLD) |
+| [Quants](#quants) | The pack rungs, their sizes and their measured fidelity (`bpw`, top-1, KLD) |
 
 ## Quick start
 
@@ -77,7 +75,7 @@ bash setup.sh
 # 2. Read-only check: card free, pack intact, drafter wired, port free
 bash preflight.sh
 
-# 3. Serve. OpenAI-compatible /v1 on 127.0.0.1:8096 (184.46 tok/s p50 decode)
+# 3. Serve the 2.20 bpw pack. OpenAI-compatible /v1 on 127.0.0.1:8096
 bash serve.sh
 ```
 
@@ -112,9 +110,9 @@ allowance — the same pool backs all 16 generating requests. `--max-model-len` 
 Both are 65,536 in the measured configuration. Arithmetic from the pack's `config.json` (an
 estimate, not a measurement): the 9 full-attention layers cost about 22.5 KiB per token in fp16
 (4 KV heads × (192 K + 128 V) × 2 bytes), so a 65,536-token pool is ~1.4 GiB; the 39
-sliding-window layers are bounded by their 128-token window. The authority on card fit is the
-measured resident total above. `serve.sh` prints the sizing and refuses combinations that cannot
-work (`CACHE_SIZE < MAX_SEQ_LEN`, `MAX_ACTIVE_REQUESTS > AUTOSPLIT_MAX_BATCH`).
+sliding-window layers are bounded by their 128-token window. `serve.sh` prints the sizing and
+refuses combinations that cannot work (`CACHE_SIZE < MAX_SEQ_LEN`, `MAX_ACTIVE_REQUESTS >
+AUTOSPLIT_MAX_BATCH`).
 
 Do not raise `MAX_SEQ_LEN` past 65,536 expecting a measured result. The checkpoint's own
 position limit is 1,048,576, but nothing above 65,536 has been validated for this recipe.
@@ -128,17 +126,17 @@ tail -f ~/mimo-exl3/state/serve.log      # "Native API listening 127.0.0.1:8096;
 ```
 
 The server binds the port *before* it loads weights, so an occupied port aborts instead of
-displacing a running server. The first load takes about 90 seconds.
+displacing a running server.
 
 ## Don't (the short list)
 
 - **Don't install a stock exllamav3** (PyPI or upstream) as the runtime. It has no MiMo-V2
   architecture and no DFlash port. `source env.sh && verify_runtime` must print
   `exllamav3 1.5.1.post1 (fork) at ...`; if it does not, the scripts exit rather than load.
-- **Don't serve the 2.50 bpw pack on a 96 GB card.** It is 98.48 GB; the smaller rung already
-  residents 90,627 MiB.
-- **Don't attach the drafter without `tools/fix_dflash.py`.** An unfixed drafter measures ~0.04
-  acceptance and is slower than no drafter.
+- **Don't serve the 2.50 bpw pack on a 96 GB card.** It is 98.48 GB and does not fit. The pack
+  this recipe serves is **2.20 bpw**, 86.94 GB.
+- **Don't attach the drafter without `tools/fix_dflash.py`.** An unfixed drafter is rejected
+  and is slower than no drafter.
 - **Don't edit the original `dflash/` folder.** The fixer copies first and refuses `--src == --dst`.
 - **Don't loosen the template check beyond whitespace normalization.** See
   [Template gotcha](#template-gotcha-it-bites-everyone).
@@ -147,19 +145,23 @@ displacing a running server. The first load takes about 90 seconds.
 - **Don't start either route while another process holds the card.** Over ~2000 MiB resident,
   stop and find out whose run it is.
 - **Don't add a number to this README you did not measure** on the pack named in the table header.
+- **Don't treat the Tabby folder's speed table as this 2.20 bpw pack.** That table is a different
+  unpublished pack.
 
 ## Quants
 
 These are the [MiMo-V2.6-Flash-RL EXL3 packs](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3). Pick one bitrate before downloading.
 
-The following table is copied from the [Hugging Face model README](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3/blob/main/README.md). Sizes are whole folders, not just model shards; the smallest-card column is the pack's own estimate, not a promise that every card like it can serve the pack.
+The following table mirrors the [Hugging Face model README](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3/blob/main/README.md). Sizes are whole folders, not just model shards; the smallest-card column is the pack's own estimate, not a promise that every card like it can serve the pack.
 
 | bpw | size | smallest card | top-1 vs original | mean KLD | p99 KLD | download |
 | --- | --- | --- | --- | --- | --- | --- |
-| **2.50** | 98.48 GB | >96 GB — does not fit | 83.76% | 0.2055 | 3.380 | [2.50bpw](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3/tree/main/2.50bpw) |
-| **2.22** | 87.87 GB | 96 GB | 79.07% | 0.3010 | — | publication pending |
+| **2.50** | 98.48 GB | >96 GB — does not fit | 83.76% (8,577 / 10,240) | 0.2055 | 3.380 | [2.50bpw](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3/tree/main/2.50bpw) |
+| **2.20** | 86.94 GB | 96 GB | 82.16% (8,413 / 10,240) | 0.19265 | 2.241 | [2.20bpw](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3/tree/main/2.20bpw) |
 
-**Top-1** is next-token agreement with the original checkpoint on the held-out evaluation set. **KLD** is the mean/99th-percentile KL(reference ‖ pack) on those positions; lower is closer. These are quantization-fidelity measures, not task-accuracy scores, and evaluation text was not used to calibrate the packs.
+**Top-1** is next-token agreement with the original checkpoint on the held-out evaluation set. **KLD** is the mean/99th-percentile KL(reference ‖ pack) on those positions; lower is closer. These are quantization-fidelity measures, not task-accuracy scores. Evaluation text was not used for calibration.
+
+On a separate independent set, not the held-out cell above: **2.20 bpw** is 82.64% (8,462 / 10,240) top-1, mean KLD 0.19861, p99 KLD 2.498. The 2.50 bpw independent figures already recorded for that rung are 87.30% top-1 and mean KLD 0.1086.
 
 Every measured result in this repository is tied to one card, one pack and one set of server settings — see [Cards tested on](#cards-tested-on) — and does not predict another card or another pack.
 
@@ -167,13 +169,17 @@ Every measured result in this repository is tied to one card, one pack and one s
 
 | Artifact | Where | Size | Fits 96 GB |
 |---|---|---|---|
-| EXL3 pack, **2.50 bpw** | [vcruz305/MiMo-V2.6-Flash-RL-EXL3](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3) (`2.50bpw/`) | 98.48 GB, 26 files | **no** (measured load of the 87.87 GB rung is already 90.6 GiB) |
-| EXL3 pack, **2.22 bpw** — the servable rung | same repo, not published yet | 87.87 GB, 24 files | **yes** |
+| EXL3 pack, **2.20 bpw** — the servable rung | [vcruz305/MiMo-V2.6-Flash-RL-EXL3](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3) (`2.20bpw/`) | 86.94 GB, 24 files | **yes** |
+| EXL3 pack, **2.50 bpw** | same repo (`2.50bpw/`) | 98.48 GB, 26 files | **no** |
 | DFlash drafter | [XiaomiMiMo/MiMo-V2.6-Flash-RL](https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL) (`dflash/`) | 2.94 GB + `mask_embedding.pt` + config | — |
 | Runtime wheel | [vcruz305/exllamav3 releases](https://github.com/vcruz305/exllamav3/releases/tag/v1.5.1.post1) | per python/torch row | — |
 
 ```bash
-# published pack (2.50 bpw) - a >96 GB card or a second machine
+# the pack that fits one 96 GB card (default PACK_SUBDIR=2.20bpw)
+hf download vcruz305/MiMo-V2.6-Flash-RL-EXL3 --include "2.20bpw/*" \
+  --local-dir "$RECIPE_HOME/models/MiMo-V2.6-Flash-RL-EXL3"
+
+# 2.50 bpw does not fit a 96 GB card
 hf download vcruz305/MiMo-V2.6-Flash-RL-EXL3 --include "2.50bpw/*" \
   --local-dir "$RECIPE_HOME/models/MiMo-V2.6-Flash-RL-EXL3"
 
@@ -182,60 +188,48 @@ hf download XiaomiMiMo/MiMo-V2.6-Flash-RL --include "dflash/*" \
   --local-dir "$RECIPE_HOME/models/MiMo-V2.6-Flash-RL"
 ```
 
-The **2.22 bpw rung is the one that fits one 96 GB card** and is the one every number in this
-README was measured on. Its publication to the public pack repo is still pending, so this repo
-does not link it: point `PACK_DIR` at it (or set `PACK_SUBDIR=2.22bpw` once it lands and let
-`setup.sh` fetch it).
-
-**Quality of the two rungs.** Both were scored with the same harness on held-out text and on an
-independent text set (top-1 agreement with the full-precision model, and KL divergence):
-
-| Rung | Size | Files | Held-out top-1 | Held-out KLD | Independent top-1 | Independent KLD |
-|---|---:|---:|---:|---:|---:|---:|
-| 2.50 bpw (published) | 98.48 GB | 26 | 83.76% | 0.2055 | 87.30% | 0.1086 |
-| 2.22 bpw (servable) | 87.87 GB | 24 | 79.07% | 0.3010 | 84.35% | 0.1595 |
-
-The quantization method is **SAGE**, which stores different parts of the model at different bit
-widths instead of one width everywhere; the published 2.50 bpw rung carries 6 head bits.
-Evaluation text was not used for calibration. The method itself, its knobs and its per-layer maps
-are not published here.
+The **2.20 bpw rung is the one that fits one 96 GB card** and is the one the speed table below
+was measured on. `setup.sh` fetches `PACK_SUBDIR` (default `2.20bpw`).
 
 ## Measured results (native `/v1`, 2026-09-25)
 
+SixCat speed (unscored, synthetic prompts). Not a quality score.
+
 > **Hardware:** the card in [Cards tested on](#cards-tested-on), x86_64 host.
-> **Software:** [`server/serve_native.py`](server/serve_native.py) on `vcruz305/exllamav3`
-> (`93e58ca`, which is in the `v1.5.1.post1` lineage), pack 2.22 bpw, 65,536-token pool,
-> 16 concurrent, greedy (temperature 0).
-> **Harness:** SixCat 0.7.0 `speed` — [`tools/sixcat_speed.sh`](tools/sixcat_speed.sh) is the
-> command. Each column is one curve of 4 levels plus a 32-request confirmation run.
+> **Pack:** 2.20 bpw. The served model id in the run was `MiMo-V2.6-Flash-RL-EXL3-2.20`.
+> **Harness:** SixCat 0.7.0 `speed` (schema `sixcat-speed-v2`). [`tools/sixcat_speed.sh`](tools/sixcat_speed.sh)
+> is the command: `--max-seconds 7200 --curve-seconds 1500`, strict policy (temperature 0, thinking off, seed 1).
+> **Context:** 65,536. The server advertised `max_model_len` 65536 and `cache_size` 65536.
+> **Timing:** these are **client-observed** figures. SixCat reported no per-request provider timing
+> on this route, so they are not the server's own counters. Decode, prefill, and TTFT are
+> separate rows so the two configurations are not crammed into one cell.
 
-| Measurement | No drafter | Corrected DFlash drafter |
-|---|---:|---:|
-| Decode, single stream (`C=1`) | **47.63 tok/s** p50 (max 47.68) | **184.46 tok/s** p50 (max 184.91) — **3.87×** |
-| Prefill, single stream | **2,521.4 tok/s** p50 (max 2,526.1) | 2,404.4 tok/s p50 (max 2,445.6), −4.6% |
-| TTFT, idle, ~126-token prompt | ~0.33 s | ~0.36 s |
-| TTFT, idle, ~388-token prompt | ~0.59 s | ~0.62 s |
-| Balanced-profile TTFT (`C=8` / `C=4`) | 4,356 ms p50 · 4,376 p95 · 4,499 p99 | 2,009 ms p50 · 2,458 p95 |
-| Draft acceptance | — | **0.945 mean**, 6.62 accepted tokens per 7-token block (n=209) |
-| VRAM after load | 90,627 MiB | 94,723 MiB |
+| Measurement | Result |
+|---|---:|
+| Decode without dflash | **49.57 tok/s** p50 (max 49.64), single stream |
+| Decode with dflash | **184.11 tok/s** p50 (max 191.02), single stream |
+| Prefill without dflash | **2,370.2 tok/s** p50 (max 2,375.8), single stream |
+| Prefill with dflash | **2,257.7 tok/s** p50 (max 2,260.1), single stream |
+| TTFT without dflash | **4,685 ms** p50 (p95 4,707 ms), SixCat summary, balanced profile |
+| TTFT with dflash | **4,851 ms** p50 (p95 5,058 ms), SixCat summary, balanced profile |
+| TTFT without dflash, single stream | **0.360 s** p50, decode profile, C=1 |
+| TTFT with dflash, single stream | **0.400 s** p50, decode profile, C=1 |
 
-**Throughput under load** (decode profile: 32-word prompt, 512 max tokens, aggregate output
-across the level, prefill and queueing included):
+The with-dflash / without-dflash decode ratio is **3.71×**, arithmetic on the two single-stream
+p50s, not a third measurement. Max usable concurrency is **8** in both runs.
 
-| Concurrency | 1 | 2 | 4 | 8 | confirmation `C=8` |
+**Throughput under load**, decode profile only (32-word synthetic prompt, 512 max tokens,
+aggregate output tok/s, prefill and queueing included, client-observed):
+
+| Profile | C=1 | C=2 | C=4 | C=8 | confirmation |
 |---|---:|---:|---:|---:|---:|
-| No drafter | 46.3 | 73.7 | 131.7 | 208.2 | 213.7 |
-| Corrected DFlash drafter | 163.0 | 171.5 | 252.4 | 336.1 | 335.1 |
+| Decode without dflash | 47.9 | 77.8 | 138.9 | 236.2 | 222.5 at C=8 |
+| Decode with dflash | 161.7 | 170.3 | 251.9 | 330.6 | 321.9 at C=8 |
 
-Max usable concurrency is **8** in both configurations (the level where ≥95% of requests
-succeed). The eight-stream per-stream rate is ~26 tok/s without the drafter and ~48 tok/s with
-it, so the aggregate is queue throughput rather than eight interactive sessions.
-
-**What the drafter is worth.** With the wiring fixed, acceptance is 0.945 and single-stream
-decode is 3.87× the draft-free figure; prefill pays 4.6% for the drafter's extra forward pass,
-and TTFT at load drops because the drafter shortens generation. Before the fix the same pack and
-the same arguments measured a mean acceptance of **0.0418** (n=202) and single-stream decode of
-~7 tok/s — the drafter was drafting, being rejected, and paying for both.
+The eight-stream per-stream decode p50 on that profile is 34.95 tok/s without the drafter and
+54.46 tok/s with it, so the aggregate is queue throughput rather than eight interactive sessions.
+SixCat's summary TTFT is the balanced-profile confirmation, not the single-stream decode TTFT;
+both are in the table above. p99 is not quoted: each confirmation has fewer than 100 requests.
 
 ## The DFlash fix (two edits, no code change)
 
@@ -271,16 +265,10 @@ python tools/verify_dflash.py --dir "$DRAFT_DIR"
 PROFILE=with-draft bash serve.sh
 ```
 
-**Confirming it worked.** `chat.sh` prints `draft_accept` for every prompt, and it is the
-network-visible form of the fix:
-
-| Wiring | Mean `draft_accept` | Accepted per 7-token block | Single-stream decode |
-|---|---:|---:|---:|
-| shipped `config.json`, no `mask_embedding` shard | 0.0418 (n=202, min 0.0095, max 0.0946) | 0.29 | ~7 tok/s p50 |
-| `tap_shift: 0` + the shard in place | **0.9452** (n=209, min 0.310, max 1.0) | **6.62** | **184.46 tok/s p50** |
-
-If acceptance comes back near 0.04 rather than near 0.94, `tools/verify_dflash.py` names which
-of the two edits is missing.
+**Confirming it worked.** `chat.sh` prints `draft_accept` for every prompt. The SixCat speed
+runs behind [Measured results](#measured-results-native-v1-2026-09-25) did not record acceptance,
+so this README does not quote an acceptance figure for the 2.20 bpw pack. If acceptance comes
+back near zero, `tools/verify_dflash.py` names which of the two edits is missing.
 
 ## Template gotcha (it bites everyone)
 
@@ -303,26 +291,23 @@ that is genuinely different still fails the check.
 
 ## Known limitations
 
-- **Greedy output is not bit-identical between the draft and draft-free configurations.** With
-  the drafter attached, a greedy (temperature 0) 200-token generation diverges from the
-  draft-free run at character 59, even though each configuration reproduces itself exactly
-  (repeat runs are byte-identical within a configuration). The reason is mechanical: the
-  speculative verification window takes different kernels than 1-row decode steps, so the
-  result is distributionally equivalent but not bit-identical. Nothing was changed to hide it.
-- **The servable pack rung is not published yet.** 2.22 bpw is what fits the card and what was
-  measured; today's public download is 2.50 bpw, which does not fit one 96 GB card.
+- **Greedy output is not expected to be bit-identical between the draft and draft-free configurations.**
+  Speculative verification uses different kernels than 1-row decode steps, so the two
+  configurations can diverge even when each reproduces itself. This recipe has not re-checked
+  that divergence on the 2.20 bpw pack.
 - **Only 65,536 tokens of context are validated**, on a model whose position limit is 1,048,576.
   No long-context retrieval test has been run for this recipe.
-- **The drafter costs prefill** (−4.6%) and adds ~4 GiB resident. On a short-prompt workload it
-  is a large win; on a prefill-heavy one it is not.
-- **The TabbyAPI route is measured**, on the same pack and the same SixCat suite. Decode matches
-  the native route (46.62 vs 47.63 tok/s without dflash, 185.52 vs 184.46 with it). Its prefill
-  figures are client-observed, because streamed responses did not carry the engine's timing
-  fields, and they are slower (2,051.7 vs 2,521.4 tok/s without dflash). Config validated
-  against TabbyAPI `f07131cd`. See [`exllamav3-tabby/README.md`](exllamav3-tabby/README.md).
-- Single runs, one card: the tables are one curve plus one confirmation run per configuration,
-  not a campaign. Treat differences below a few percent as noise.
+- **The drafter changes prefill.** Single-stream prefill p50 is 2,257.7 tok/s with it and
+  2,370.2 tok/s without, both client-observed. Resident memory with the drafter attached was
+  not in the SixCat files.
+- **The TabbyAPI route has not been remeasured on the 2.20 bpw pack.** The table in
+  [`exllamav3-tabby/README.md`](exllamav3-tabby/README.md) is a different unpublished pack.
+  Do not use it as this pack's speed.
+- Single runs, one card: each speed row is one SixCat suite, not a campaign. Treat differences
+  below a few percent as noise.
 - One card, no tensor parallelism: this recipe is TP1 by construction.
+- **2.50 bpw does not fit a 96 GB card.** It is published; it is not the pack `serve.sh` loads
+  by default.
 
 ## Troubleshooting
 
@@ -334,7 +319,7 @@ that is genuinely different still fails the check.
 | `error: N MiB already resident on the GPU` | this recipe wants the whole card; stop the other process (make sure it is not someone else's run) |
 | `error: no pack at ...` | set `PACK_DIR=/path/to/pack`, or see [Downloads](#downloads) |
 | `error: .../config.json has tap_shift=None` | the drafter copy is unfixed; `python tools/fix_dflash.py` |
-| acceptance near 0.04 instead of 0.94 | the drafter is attached but unfixed; `python tools/verify_dflash.py --dir "$DRAFT_DIR"` names the missing edit |
+| acceptance near zero | the drafter is attached but unfixed; `python tools/verify_dflash.py --dir "$DRAFT_DIR"` names the missing edit |
 | `error: MAX_ACTIVE_REQUESTS (16) > AUTOSPLIT_MAX_BATCH (8)` | lower `MAX_ACTIVE_REQUESTS` or raise `AUTOSPLIT_MAX_BATCH`; the server refuses this combination |
 | load refuses for memory | confirm the rung: the 2.50 bpw pack does not fit. Check `nvidia-smi` for another process |
 | replies truncated | the client set `max_tokens`; the server honours it |
@@ -344,7 +329,7 @@ that is genuinely different still fails the check.
 | Repo | Role |
 |---|---|
 | [vcruz305/exllamav3](https://github.com/vcruz305/exllamav3) | the runtime fork: MiMo-V2 architecture, the DFlash draft port, released wheels |
-| [vcruz305/MiMo-V2.6-Flash-RL-EXL3](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3) | the pack (2.50 bpw published today) |
+| [vcruz305/MiMo-V2.6-Flash-RL-EXL3](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3) | the pack (2.20 bpw fits a 96 GB card; 2.50 bpw does not) |
 | [XiaomiMiMo/MiMo-V2.6-Flash-RL](https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL) | the original checkpoint, including the DFlash drafter this recipe fixes |
 | [Qwen3.8-Flash-Next-EXL3-DGX-Spark-recipe](https://github.com/vcruz305/Qwen3.8-Flash-Next-EXL3-DGX-Spark-recipe) | sibling recipe this one is modeled on |
 

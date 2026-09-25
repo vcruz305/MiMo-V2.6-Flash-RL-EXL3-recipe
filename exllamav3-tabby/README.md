@@ -1,19 +1,19 @@
 # TabbyAPI route: MiMo-V2.6-Flash-RL in EXL3 — serving recipe
 
 The second, self-contained route in this repository: the **same fork runtime**
-([vcruz305/exllamav3](https://github.com/vcruz305/exllamav3)) and the **same pack** as the native
-`/v1` route at the repository root, with **[TabbyAPI](https://github.com/theroyallab/tabbyAPI)**
-at the tip of `main` as the server, in the same venv. Nothing here is a rewrite of the native
-route: one venv, one runtime, one pack, two servers. Which pack to download is the root README's
+([vcruz305/exllamav3](https://github.com/vcruz305/exllamav3)) as the native `/v1` route, with
+**[TabbyAPI](https://github.com/theroyallab/tabbyAPI)** at the tip of `main` as the server, in
+the same venv. Which pack to download is the root README's
 [Quants](../README.md#quants) section; a re-quantization is not this route's business.
 
-> Both routes are measured, on the same pack (2.22 bpw), the same context (65,536), and the same
-> SixCat 0.7.0 `speed` suite. SixCat's speed runs are `unscored: true` (synthetic prompts, speed
-> only). TabbyAPI's streamed responses did not include the engine's own timing fields, so the
-> Tabby prefill and TTFT figures below are client-observed. Acceptance is from TabbyAPI's
+> The speed table below was measured on a **different unpublished pack**, not on the 2.20 bpw
+> pack in the root Quants table and not on the root Measured results. Do not read these figures
+> as the 2.20 bpw speed. SixCat 0.7.0 `speed`, unscored synthetic prompts, context 65,536.
+> TabbyAPI's streamed responses did not include the engine's own timing fields, so the Tabby
+> prefill and TTFT figures below are client-observed. Acceptance is from TabbyAPI's
 > per-request `draft N/M` log lines, not from SixCat.
 >
-> | Measurement | TabbyAPI route | native `/v1` route |
+> | Measurement | TabbyAPI route | native `/v1` on that unpublished pack |
 > |---|---:|---:|
 > | Decode without dflash | **46.62 tok/s** p50 | 47.63 tok/s p50 |
 > | Decode with dflash | **185.52 tok/s** p50 | 184.46 tok/s p50 |
@@ -40,8 +40,8 @@ route: one venv, one runtime, one pack, two servers. Which pack to download is t
 ```bash
 bash exllamav3-tabby/setup.sh                 # runtime + pack + drafter, then TabbyAPI main
 bash exllamav3-tabby/setup.sh --check          # runtime, TabbyAPI commit, pack, drafter, config validation
-bash exllamav3-tabby/serve.sh                  # DRAFT=1: 185.52 tok/s p50, OpenAI API on 127.0.0.1:8096/v1
-DRAFT=0 bash exllamav3-tabby/serve.sh          # the no-draft row: 46.62 tok/s p50
+bash exllamav3-tabby/serve.sh                  # DRAFT=1, OpenAI API on 127.0.0.1:8096/v1
+DRAFT=0 bash exllamav3-tabby/serve.sh          # no drafter
 bash exllamav3-tabby/chat.sh                   # readiness + the same two prompts the native route uses
 ```
 
@@ -76,16 +76,18 @@ use the same port, 8096, on purpose.
   [`env.sh`](env.sh). That block is empty on purpose: both measured routes were taken with no
   `EXL3_*` override, so leaving them unset keeps this route comparable to the native one.
 - **The drafter is wired.** `DRAFT=1` (the default) sets `draft_mode: model`, depth 7, pointing
-  at the corrected drafter copy. `DRAFT=0` sets `draft_mode: disabled`. Acceptance on the
-  with-dflash run was 0.946 mean (6.62 of 7 drafted tokens), the same band as the native route.
+  at the corrected drafter copy. `DRAFT=0` sets `draft_mode: disabled`. Acceptance on that
+  unpublished pack's with-dflash run was 0.946 mean (6.62 of 7 drafted tokens). It is not a
+  2.20 bpw result.
 
 ## Why this route exists
 
-The native route and this one land on the same decode: 46.62 vs 47.63 tok/s without dflash,
-185.52 vs 184.46 with it. TabbyAPI is the route to run when you want its OpenAI surface
-(including `/v1/completions`), admin endpoints, sampler overrides, and clients that assume
-TabbyAPI. Prefill through TabbyAPI was slower on this measurement (client-observed 2,051.7 vs
-2,521.4 tok/s without dflash). Same weights, same runtime, different server.
+On that unpublished pack, not on 2.20 bpw, the native route and this one landed on the same
+decode: 46.62 vs 47.63 tok/s without dflash, 185.52 vs 184.46 with it. TabbyAPI is the route to
+run when you want its OpenAI surface (including `/v1/completions`), admin endpoints, sampler
+overrides, and clients that assume TabbyAPI. Prefill through TabbyAPI was slower on that
+measurement (client-observed 2,051.7 vs 2,521.4 tok/s without dflash). Same runtime, different
+server. Those figures are not the 2.20 bpw speed in the root README.
 
 ## Troubleshooting
 
