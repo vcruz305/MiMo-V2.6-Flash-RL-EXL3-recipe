@@ -129,6 +129,11 @@ def check_exec_bits(files: list[str], problems: list[str]) -> None:
     for rel in files:
         if not (rel.endswith(".sh") or rel.endswith(".py")):
             continue
+        # Only files meant to be executed need the bit: shells are, and so are python files
+        # that carry a shebang. Imported modules (server/protocol.py, server/worker.py) are not.
+        if rel.endswith(".py"):
+            if not open(os.path.join(ROOT, rel), "rb").read(2) == b"#!":
+                continue
         key = rel.replace(os.sep, "/")
         mode = modes.get(key, "100644")
         if mode != "100755":
