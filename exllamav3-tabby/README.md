@@ -31,8 +31,9 @@ route: one venv, one runtime, one pack, two servers. Which pack to download is t
 > Schema check on that commit: `TabbyConfigModel.model_validate` accepted the rendered config,
 > unknown keys none. Greedy (temperature 0, seed 7, 200 tokens) through TabbyAPI with the
 > corrected drafter was byte-identical to the native draft run (sha256 `6832e8992b88746b`) and,
-> like that run, diverges from the no-draft baseline at character 59. VRAM while the with-dflash
-> TabbyAPI server was up: 93,931 MiB. The no-draft TabbyAPI resident was not snapshotted.
+> like that run, diverges from the no-draft baseline at character 59. The no-draft TabbyAPI run
+> was byte-identical to the native no-draft baseline (sha256 `9ad711c7af0fcb22`). Resident VRAM
+> while serving, from `nvidia-smi`: 89,095 MiB without dflash, 93,217–93,931 MiB with dflash.
 
 ## Quick start
 
@@ -66,7 +67,8 @@ use the same port, 8096, on purpose.
 - **TabbyAPI's GPU extras are not installed.** Its `cu12`/`cu13` extras pull exllamav3 and torch
   wheels that would shadow the fork; `setup.sh` installs TabbyAPI's base package into the recipe
   venv and re-verifies the imported `exllamav3` afterwards, reinstalling the fork wheel if
-  TabbyAPI dragged a stock one back in.
+  TabbyAPI dragged a stock one back in. It does install `uvloop` on Linux: `main.py` imports it
+  unconditionally, and a plain install of the base package does not, which aborts startup.
 - **The rendered config validated** against `common.config_models.TabbyConfigModel` on that
   commit (`model_validate` accepted every value; unknown keys none). `serve.sh` runs the same
   check before it execs.

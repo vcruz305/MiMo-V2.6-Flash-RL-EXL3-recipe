@@ -90,6 +90,12 @@ else
 fi
 say "TabbyAPI at $(git -C "$TABBY_DIR" log -1 --format='%h %cs %s' | cut -c1-90)"
 ( cd "$TABBY_DIR" && "$VENV/bin/python" -m pip install -q . )
+# main.py imports uvloop unconditionally, but the package metadata only pulls it in on
+# Linux x86_64 extras. A plain `pip install .` leaves the server dying at startup
+# with ModuleNotFoundError. Install it explicitly on Linux.
+if [[ "$(uname -s)" == Linux ]]; then
+  "$VENV/bin/python" -m pip install -q 'uvloop==0.22.1'
+fi
 
 # TabbyAPI's dependency set can drag a stock exllamav3 back into the venv on some platforms.
 if "$VENV/bin/python" -m pip show exllamav3 2>/dev/null | grep -q "^Location:.*site-packages$" \
