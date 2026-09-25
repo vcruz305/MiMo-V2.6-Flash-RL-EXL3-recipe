@@ -125,13 +125,14 @@ def check_exec_bits(files: list[str], problems: list[str]) -> None:
     for line in done.stdout.splitlines():
         parts = line.split()
         if len(parts) >= 4:
-            modes[parts[3]] = parts[0]
+            modes[parts[3].replace("\\", "/")] = parts[0]
     for rel in files:
         if not (rel.endswith(".sh") or rel.endswith(".py")):
             continue
-        mode = modes.get(rel, "100644")
+        key = rel.replace(os.sep, "/")
+        mode = modes.get(key, "100644")
         if mode != "100755":
-            problems.append(f"{rel}: not executable in the git index (mode {mode}); git update-index --chmod=+x {rel}")
+            problems.append(f"{rel}: not executable in the git index (mode {mode}); git update-index --chmod=+x {key}")
 
 
 def check_forbidden(files: list[str], problems: list[str]) -> None:
