@@ -56,7 +56,7 @@ when it has.
 | Path | What it is |
 |---|---|
 | [`env.sh`](env.sh) | Every path, pin and check. Sourced by the other scripts; the imported-runtime check lives here |
-| [`setup.sh`](setup.sh) | Runtime (released wheel, or `--from-source`), pack download, DFlash fix. `--check` verifies an existing install |
+| [`setup.sh`](setup.sh) | Runtime (released wheel, or `--from-source`), pack download, **drafter download** (EXL3 4.0 bpw). `--check` verifies an existing install |
 | [`serve.sh`](serve.sh) | **The serve command.** `PROFILE=with-draft` (default) or `no-draft`, `DRY_RUN=1`, sizing sanity check |
 | [`chat.sh`](chat.sh) | Readiness poll plus two sanity prompts; prints `finish_reason`, decode tok/s and `draft_accept` |
 | [`preflight.sh`](preflight.sh) | Read-only: card, disk, runtime, pack, drafter wiring, port |
@@ -176,7 +176,7 @@ Every measured result in this repository is tied to one card, one pack and one s
 |---|---|---|---|
 | EXL3 pack, **2.20 bpw** — the servable rung | [vcruz305/MiMo-V2.6-Flash-RL-EXL3](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3) (`2.20bpw/`) | 86.94 GB, 24 files | **yes** |
 | EXL3 pack, **2.50 bpw** | same repo (`2.50bpw/`) | 98.48 GB, 26 files | **no** |
-| DFlash drafter | [XiaomiMiMo/MiMo-V2.6-Flash-RL](https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL) (`dflash/`) | 2.94 GB + `mask_embedding.pt` + config | — |
+| DFlash drafter, **EXL3 4.0 bpw** — the one served | [vcruz305/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0bpw](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0bpw) | 735 MB, 13 files | — |
 | Runtime wheel | [vcruz305/exllamav3 releases](https://github.com/vcruz305/exllamav3/releases/tag/v1.5.1.post1) | per python/torch row | — |
 
 ```bash
@@ -188,10 +188,16 @@ hf download vcruz305/MiMo-V2.6-Flash-RL-EXL3 --include "2.20bpw/*" \
 hf download vcruz305/MiMo-V2.6-Flash-RL-EXL3 --include "2.50bpw/*" \
   --local-dir "$RECIPE_HOME/models/MiMo-V2.6-Flash-RL-EXL3"
 
-# the drafter comes from the ORIGINAL checkpoint, not from the pack
-hf download XiaomiMiMo/MiMo-V2.6-Flash-RL --include "dflash/*" \
-  --local-dir "$RECIPE_HOME/models/MiMo-V2.6-Flash-RL"
+# the drafter: its own repo, and the files land where env.sh expects them
+hf download vcruz305/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0bpw \
+  --local-dir "$RECIPE_HOME/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0"
 ```
+
+`setup.sh` fetches both. The drafter's own repository carries the corrected, quantized build (both
+DFlash fixes are already baked into its `config.json` and shards — see
+[The DFlash fix](#the-dflash-fix-two-edits-no-code-change)), so serving needs no staging step.
+Rebuilding it from Xiaomi's original folder is still documented: `tools/fix_dflash.py` stages the
+BF16 copy, `tools/quantize_dflash.sh` converts it.
 
 The **2.20 bpw rung is the one that fits one 96 GB card** and is the one the speed table below
 was measured on. `setup.sh` fetches `PACK_SUBDIR` (default `2.20bpw`).
@@ -370,9 +376,12 @@ The summary SixCat wrote is [`bench/sixcat-eval-2.20-dflash.json`](bench/sixcat-
 
 `XiaomiMiMo/MiMo-V2.6-Flash-RL` ships a DFlash draft model in `dflash/`. exllamav3's port of it
 needs two corrections, and both are checkpoint/config edits, so nothing in the runtime is
-patched and the fix survives a fork update that keeps the same reader keys.
-[`tools/fix_dflash.py`](tools/fix_dflash.py) applies them **to a copy** — never the original
-folder — and [`tools/verify_dflash.py`](tools/verify_dflash.py) checks the result on CPU.
+patched and the fix survives a fork update that keeps the same reader keys. **Both are already
+applied in the served drafter** ([`vcruz305/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0bpw`](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0bpw)),
+so a normal install needs neither tool. This section is what the fix is and how to rebuild it from
+Xiaomi's original folder: [`tools/fix_dflash.py`](tools/fix_dflash.py) applies both **to a copy** —
+never the original folder — and [`tools/verify_dflash.py`](tools/verify_dflash.py) checks the
+result on CPU.
 
 **(a) `tap_shift`.** The port reads `dflash_config->tap_shift` (or a top-level `tap_shift`) and
 adds it to `target_layer_ids` *before* the target decides which layers export a hidden state, and
@@ -394,10 +403,11 @@ shard `mask_embedding.safetensors` in the same folder is enough** — ~8 KB, and
 drafter shard is not touched.
 
 ```bash
-# whole flow, from the pristine dflash/ folder to a served drafter
-python tools/fix_dflash.py --src "$DRAFT_SRC" --dst "$DRAFT_DIR"
-python tools/verify_dflash.py --dir "$DRAFT_DIR"
-PROFILE=with-draft bash serve.sh
+# rebuild path (only if you want your own copy): pristine dflash/ -> BF16 copy -> EXL3 4.0 bpw
+python tools/fix_dflash.py --src "$DRAFT_SRC" --dst "$DRAFT_FIXED"
+python tools/verify_dflash.py --dir "$DRAFT_FIXED"
+bash tools/quantize_dflash.sh "$DRAFT_FIXED" "$DRAFT_DIR"
+PROFILE=with-draft bash serve.sh     # or: bash setup.sh, which just downloads $DRAFT_DIR
 ```
 
 **Confirming it worked.** `chat.sh` prints `draft_accept` for every prompt. The SixCat speed
@@ -407,12 +417,15 @@ back near zero, `tools/verify_dflash.py` names which of the two edits is missing
 
 ### Quantizing the drafter (optional, measured)
 
+**The quantized drafter is published and is what the recipe serves**: [`vcruz305/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0bpw`](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0bpw)
+(735 MB, 13 files), fetched by `setup.sh`. Rebuilding it takes about a minute on the card
+([`tools/quantize_dflash.sh`](tools/quantize_dflash.sh)).
+
 The drafter runs one forward per decode step, so its weights sit on the critical path: on a
-524,288-context configuration it costs roughly **8 ms of a 42 ms step**. Quantizing it to EXL3
-4.0 bpw ([`tools/quantize_dflash.sh`](tools/quantize_dflash.sh), about a minute on the card) takes
-it from 2.94 GB to **735 MB** and measured **+3.8%** decode — 193.66 → 201.06 tok/s p50 on the
-SixCat speed suite — at unchanged draft acceptance on the single-stream probe (0.25902668759811615
-on every run, both drafters).
+524,288-context configuration it costs roughly **8 ms of a 42 ms step**. Taking it from 2.94 GB to
+**735 MB** measured **+3.8%** decode — 193.66 → 201.06 tok/s p50 on the SixCat speed suite — at
+unchanged draft acceptance on the single-stream probe (0.25902668759811615 on every run, both
+drafters).
 
 It **cannot change what the server outputs.** The target verifies every drafted token, so under
 greedy decoding the completion is identical. That was verified rather than argued: same prompt,

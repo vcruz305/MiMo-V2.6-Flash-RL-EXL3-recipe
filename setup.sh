@@ -87,16 +87,15 @@ fetch_pack() {
 
 fetch_draft() {
   command -v hf >/dev/null || die "the 'hf' CLI is missing"
-  if [[ -f "$DRAFT_SRC/config.json" ]]; then
-    say "drafter source already present at $DRAFT_SRC"
-  else
-    say "downloading the DFlash drafter from $BASE_MODEL_REPO ($DRAFT_SUBDIR/)"
-    hf download "$BASE_MODEL_REPO" --include "$DRAFT_SUBDIR/*" \
-      --local-dir "$MODELS_DIR/MiMo-V2.6-Flash-RL" \
-      || die "drafter download failed; it is required for the default (with-draft) profile"
+  if [[ -f "$DRAFT_DIR/config.json" ]]; then
+    say "drafter already present at $DRAFT_DIR"
+    return 0
   fi
-  say "staging the corrected copy at $DRAFT_DIR"
-  "$VENV/bin/python" "$RECIPE_DIR/tools/fix_dflash.py" --src "$DRAFT_SRC" --dst "$DRAFT_DIR"
+  say "downloading the EXL3 4.0 bpw drafter from $DRAFT_EXL3_REPO into $DRAFT_DIR"
+  if ! hf download "$DRAFT_EXL3_REPO" --local-dir "$DRAFT_DIR"; then
+    say "download failed; to build it locally instead: python tools/fix_dflash.py (from $BASE_MODEL_REPO/$DRAFT_SUBDIR) then bash tools/quantize_dflash.sh"
+    die "drafter download failed; it is required for the default (with-draft) profile"
+  fi
 }
 
 # ---------------------------------------------------------------------------
