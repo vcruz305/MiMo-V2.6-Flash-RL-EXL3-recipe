@@ -63,7 +63,8 @@ when it has.
 | [`configs/`](configs/) | The context/batch values actually used, one file per profile |
 | [`tools/`](tools/) | [`fix_dflash.py`](tools/fix_dflash.py), [`verify_dflash.py`](tools/verify_dflash.py), [`sixcat_speed.sh`](tools/sixcat_speed.sh), [`check_repo.py`](tools/check_repo.py) |
 | [`exllamav3-tabby/`](exllamav3-tabby/README.md) | **Second route:** the same fork under TabbyAPI. Own env/setup/serve/chat and config |
-| [`DGX-Spark/`](DGX-Spark/README.md) | **Host notes:** the unified-memory (aarch64) host — its measured numbers, and the profile it needs to load |
+| [`DGX-Spark/`](DGX-Spark/README.md) | **Host notes:** the unified-memory (aarch64) host — measured numbers, the profile it needs to load, the rental wrapper ([`serve-uma-rental.sh`](DGX-Spark/serve-uma-rental.sh)) and the optional [profiler overlay](DGX-Spark/profiler-overlay/README.md) |
+| [`bench/`](bench/) | Raw measurement records: the SixCat runs, and the per-profile `france-*.json` records behind the DGX Spark numbers |
 | [Cards tested on](#cards-tested-on) | The one card this recipe has been verified on — the only place here a card model is named |
 | [Quants](#quants) | The pack rungs, their sizes and their measured fidelity (`bpw`, top-1, KLD) |
 
@@ -236,11 +237,51 @@ both are in the table above. p99 is not quoted: each confirmation has fewer than
 
 ## Measured on a unified-memory host (aarch64)
 
-The second row of [Cards tested on](#cards-tested-on) has been served and measured: the drafter
-works, but the with/without ratio (**1.0× – 2.2×**, prompt-dependent; `draft_accept` 0.211 – 0.675)
-is far below this card's 3.71×, and the cause is **not yet attributed**. Everything for that host —
-the launch profile it needs (`GPU_SPLIT=112`), the per-prompt table, and the candidates for the gap —
-is in [`DGX-Spark/README.md`](DGX-Spark/README.md).
+The second row of [Cards tested on](#cards-tested-on) has been served and measured. On the
+GB10 the **2.50 bpw** pack (~98.5 GB) is the size that fits — loaded with the runtime's
+opt-in unified-memory budget (`EXL3_UMA=1`, `EXL3_UMA_RESERVE_MB=8192`), because CUDA's
+"free" figure on that host excludes the reclaimable page cache the model can actually use.
+
+Current default profile: DFlash ceiling 7 with adaptive drafting (`-dds -dc 0.6`), Q4 paged
+KV, **4096-token prefill chunks**, 4K context, serial verification, batch 1.
+
+| Workload | Measured |
+|---|---|
+| Warmed decode, code (256 tokens) | **34.9 tok/s** |
+| Warmed decode, prose (256 tokens) | **23.7 tok/s** |
+| `draft_accept` | **0.78** |
+| Fresh 3527-token prefill | **709 – 718 tok/s** |
+| Fresh 3959-token prefill (single chunk, at the context ceiling) | **795 tok/s** |
+| Decode with no drafter, same prompts | 17.9 – 18.0 tok/s |
+
+Three results from that work are worth knowing before tuning anything here:
+
+- **Prefill chunk size is the big lever and it is a flag, not a patch.** On the same
+  3527-token prompt, `-chunk_size 1024` measured 472 – 474 tok/s, 2048 measured 569, and
+  4096 measured 709 – 718 — about **+51%**, with byte-identical response text and
+  unchanged warmed decode. Short prompts see no such gain.
+- **The draft window is capped at 7 and acceptance is not the objective.** `-ndt` above 7
+  fails inside the drafter (its pinned draft buffer holds 7 tokens) and leaves the engine
+  reporting `engine_unavailable`; raising the confidence target to 0.9 pushed
+  `draft_accept` to 0.87 – 1.0 while cutting decode to 15 tok/s, because each verify step
+  then confirms fewer tokens.
+- **Decode is MoE-expert bound, prefill is MoE-plus-dequant bound.** One bounded profiler
+  capture on this profile: the unified mixed-K expert kernel is ~62% of summed device
+  kernel time during decode, while prefill splits into ~30% mixed-K MoE, ~14% trellis
+  reconstruction, ~9% cutlass GEMMs and only ~3.5% `_paged_attn_prefill_kernel`.
+
+The full comparison (every rejected kernel knob, the memory-guard telemetry, the profiler
+trace tables) is in [`DGX-Spark/README.md`](DGX-Spark/README.md) and
+[`DGX-Spark/France-UMA.md`](DGX-Spark/France-UMA.md), with raw records under
+[`bench/`](bench/). The runtime side of it — the unified-memory budget, the native
+draft-block reserve and the explicit batch-verification opt-in — is in
+[vcruz305/exllamav3](https://github.com/vcruz305/exllamav3), and the optional profiler
+overlay is in [`DGX-Spark/profiler-overlay/`](DGX-Spark/profiler-overlay/README.md).
+
+**Not qualified by any of this:** the drafter's with/without ratio on that host is still far
+below this card's, the copy-style prompt that returns `LAPINE-7426` instead of `LARCH-7426`
+is unchanged by every profile measured, no profile here has a quality score, and the memory
+guard is mitigation rather than a kernel-enforced OOM guarantee.
 
 ## SixCat eval (default 120)
 

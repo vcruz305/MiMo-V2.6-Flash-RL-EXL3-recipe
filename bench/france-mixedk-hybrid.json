@@ -1,0 +1,2574 @@
+{
+  "arms": {
+    "unified-control": {
+      "requests": [
+        {
+          "wall_s": 0.709857564070262,
+          "ttft_s": 0.556457955040969,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 4,
+            "total_tokens": 30,
+            "decode_tok_s": 12.2,
+            "draft_accept": 0.14285714285714285,
+            "time_prefill": 0.3311619758605957,
+            "time_generate": 0.3277604579925537,
+            "time_enqueued": 0.00022220611572265625
+          },
+          "finish": "stop",
+          "text": "323",
+          "reasoning": "",
+          "prefill_tok_s": 78.51142913504306,
+          "case": "arithmetic",
+          "prompt": "What is 17 multiplied by 19? Reply with only the integer.",
+          "cap": 16,
+          "expected": "323",
+          "memory_after": {
+            "available_gib": 18.924762725830078,
+            "free_gib": 3.6394805908203125,
+            "cached_gib": 15.678382873535156,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.129066467285156,
+            "cgroup_headroom_gib": 112.6038932800293,
+            "psi_full10": 0.47,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 3.451588170020841,
+          "ttft_s": 0.48185335099697113,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 67,
+            "total_tokens": 93,
+            "decode_tok_s": 21.5,
+            "draft_accept": 0.323943661971831,
+            "time_prefill": 0.33136916160583496,
+            "time_generate": 3.1160788536071777,
+            "time_enqueued": 0.00010752677917480469
+          },
+          "finish": "stop",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update every index associated with that table to keep them in sync.",
+          "reasoning": "",
+          "prefill_tok_s": 78.46234053284388,
+          "case": "explanation",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 96,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.999542236328125,
+            "free_gib": 3.7173728942871094,
+            "cached_gib": 15.675235748291016,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.138908386230469,
+            "cgroup_headroom_gib": 112.5908317565918,
+            "psi_full10": 0.38,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.08890627301298,
+          "ttft_s": 0.5970156500115991,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 33.78,
+            "draft_accept": 0.7649402390438247,
+            "time_prefill": 0.505516529083252,
+            "time_generate": 7.579365015029907,
+            "time_enqueued": 0.00011420249938964844
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The merging step runs in O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last",
+          "reasoning": "",
+          "prefill_tok_s": 110.77778228449881,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.903480529785156,
+            "free_gib": 3.6025314331054688,
+            "cached_gib": 15.69387435913086,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.174041748046875,
+            "cgroup_headroom_gib": 112.57444763183594,
+            "psi_full10": 0.17,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.85409338993486,
+          "ttft_s": 0.5828161669196561,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 247,
+            "total_tokens": 299,
+            "decode_tok_s": 23.88,
+            "draft_accept": 0.7808988764044944,
+            "time_prefill": 0.5065793991088867,
+            "time_generate": 10.343833684921265,
+            "time_enqueued": 9.679794311523438e-05
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. Reads speed up because the index is sorted and compact, letting the database find matching rows in logarithmic time rather than linear time.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog: add a new card, refile cards when a key changes, and occasionally rebalance the index tree. That extra work multiplies write cost.\n\nSelectivity measures how many rows an index distinguishes. A highly selective index (e.g., ISBN) narrows results to a few rows; a low-selectivity index (e.g., genre) matches many rows, so the database may still scan lots of data. Good indexes are both selective and aligned with common queries.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use the first column for exact matches and the second for range scans, maximizing usefulness while keeping maintenance overhead reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 102.64925911213942,
+          "case": "prose-1",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.748912811279297,
+            "free_gib": 3.5974197387695312,
+            "cached_gib": 15.68502426147461,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.166679382324219,
+            "cgroup_headroom_gib": 112.5728988647461,
+            "psi_full10": 0.05,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 7.806526278029196,
+          "ttft_s": 0.5720947829540819,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 35.04,
+            "draft_accept": 0.7791164658634538,
+            "time_prefill": 0.4971449375152588,
+            "time_generate": 7.30636739730835,
+            "time_enqueued": 9.369850158691406e-05
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last",
+          "reasoning": "",
+          "prefill_tok_s": 112.64320678772114,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.556568145751953,
+            "free_gib": 3.576923370361328,
+            "cached_gib": 15.685047149658203,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.167366027832031,
+            "cgroup_headroom_gib": 112.57223129272461,
+            "psi_full10": 0.02,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.837804917013273,
+          "ttft_s": 0.5601438379380852,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 247,
+            "total_tokens": 299,
+            "decode_tok_s": 23.86,
+            "draft_accept": 0.7808988764044944,
+            "time_prefill": 0.4828829765319824,
+            "time_generate": 10.350878238677979,
+            "time_enqueued": 9.1552734375e-05
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. Reads speed up because the index is sorted and compact, letting the database find matching rows in logarithmic time rather than linear time.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog: add a new card, refile cards when a key changes, and occasionally rebalance the index tree. That extra work multiplies write cost.\n\nSelectivity measures how many rows an index distinguishes. A highly selective index (e.g., ISBN) narrows results to a few rows; a low-selectivity index (e.g., genre) matches many rows, so the database may still scan lots of data. Good indexes are both selective and aligned with common queries.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use the first column for exact matches and the second for range scans, maximizing usefulness while keeping maintenance overhead reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 107.68654627971944,
+          "case": "prose-2",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.58605194091797,
+            "free_gib": 3.6063232421875,
+            "cached_gib": 15.685089111328125,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.167442321777344,
+            "cgroup_headroom_gib": 112.57222366333008,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.353735332028009,
+          "ttft_s": 3.008371343021281,
+          "usage": {
+            "prompt_tokens": 1244,
+            "completion_tokens": 9,
+            "total_tokens": 1253,
+            "decode_tok_s": 21.5,
+            "draft_accept": 1.0,
+            "time_prefill": 2.9290993213653564,
+            "time_generate": 0.4185168743133545,
+            "time_enqueued": 0.0001251697540283203
+          },
+          "finish": "stop",
+          "text": "LAPINE-7426",
+          "reasoning": "",
+          "prefill_tok_s": 424.70393234058304,
+          "case": "prefill-copy",
+          "prompt": "Fresh benchmark d6a4bc09cce94fe294779a748122074e; ignore this marker.\nTrial 6192809c4a38427f819b46b2d6eb31ec. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "expected": "LARCH-7426",
+          "memory_after": {
+            "available_gib": 18.603710174560547,
+            "free_gib": 3.6761856079101562,
+            "cached_gib": 15.63287353515625,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.163871765136719,
+            "cgroup_headroom_gib": 112.52357864379883,
+            "psi_full10": 0.15,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": false
+        },
+        {
+          "wall_s": 0.45272819604724646,
+          "ttft_s": 0.4526071560103446,
+          "usage": {
+            "prompt_tokens": 24,
+            "completion_tokens": 8,
+            "total_tokens": 32,
+            "decode_tok_s": 56.65,
+            "draft_accept": 1.0,
+            "time_prefill": 0.3070211410522461,
+            "time_generate": 0.14122533798217773,
+            "time_enqueued": 9.775161743164062e-05
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 78.17051268113129,
+          "case": "copy-control",
+          "prompt": "Repeat this code exactly and nothing else: MAPLE-9362",
+          "cap": 24,
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.60240936279297,
+            "free_gib": 3.6748695373535156,
+            "cached_gib": 15.632888793945312,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.162090301513672,
+            "cgroup_headroom_gib": 112.52536392211914,
+            "psi_full10": 0.15,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        }
+      ],
+      "warm": [
+        {
+          "wall_s": 7.856309504946694,
+          "ttft_s": 0.5994082619436085,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 34.93,
+            "draft_accept": 0.7791164658634538,
+            "time_prefill": 0.49990081787109375,
+            "time_generate": 7.329983472824097,
+            "time_enqueued": 0.0001354217529296875
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last",
+          "reasoning": "",
+          "prefill_tok_s": 112.02222120476779,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.879043579101562,
+            "free_gib": 3.6386070251464844,
+            "cached_gib": 15.633312225341797,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.163578033447266,
+            "cgroup_headroom_gib": 112.52426528930664,
+            "psi_full10": 0.05,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.86517787806224,
+          "ttft_s": 0.5587180639849976,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 247,
+            "total_tokens": 299,
+            "decode_tok_s": 23.8,
+            "draft_accept": 0.7808988764044944,
+            "time_prefill": 0.4829216003417969,
+            "time_generate": 10.378630876541138,
+            "time_enqueued": 0.0001423358917236328
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. Reads speed up because the index is sorted and compact, letting the database find matching rows in logarithmic time rather than linear time.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog: add a new card, refile cards when a key changes, and occasionally rebalance the index tree. That extra work multiplies write cost.\n\nSelectivity measures how many rows an index distinguishes. A highly selective index (e.g., ISBN) narrows results to a few rows; a low-selectivity index (e.g., genre) matches many rows, so the database may still scan lots of data. Good indexes are both selective and aligned with common queries.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use the first column for exact matches and the second for range scans, maximizing usefulness while keeping maintenance overhead reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 107.67793356767645,
+          "case": "prose-1",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.886756896972656,
+            "free_gib": 3.6463394165039062,
+            "cached_gib": 15.633346557617188,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.162933349609375,
+            "cgroup_headroom_gib": 112.52485656738281,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 7.84797106590122,
+          "ttft_s": 0.5755026909755543,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 34.86,
+            "draft_accept": 0.7791164658634538,
+            "time_prefill": 0.4992713928222656,
+            "time_generate": 7.344213008880615,
+            "time_enqueued": 0.0001392364501953125
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last",
+          "reasoning": "",
+          "prefill_tok_s": 112.16344618393808,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.85601043701172,
+            "free_gib": 3.6154632568359375,
+            "cached_gib": 15.633369445800781,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.163043975830078,
+            "cgroup_headroom_gib": 112.52484130859375,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.888708405080251,
+          "ttft_s": 0.5592054250882939,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 247,
+            "total_tokens": 299,
+            "decode_tok_s": 23.74,
+            "draft_accept": 0.7808988764044944,
+            "time_prefill": 0.4823334217071533,
+            "time_generate": 10.40277361869812,
+            "time_enqueued": 0.0001418590545654297
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. Reads speed up because the index is sorted and compact, letting the database find matching rows in logarithmic time rather than linear time.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog: add a new card, refile cards when a key changes, and occasionally rebalance the index tree. That extra work multiplies write cost.\n\nSelectivity measures how many rows an index distinguishes. A highly selective index (e.g., ISBN) narrows results to a few rows; a low-selectivity index (e.g., genre) matches many rows, so the database may still scan lots of data. Good indexes are both selective and aligned with common queries.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use the first column for exact matches and the second for range scans, maximizing usefulness while keeping maintenance overhead reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 107.80924078607926,
+          "case": "prose-2",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.011459350585938,
+            "free_gib": 3.3931312561035156,
+            "cached_gib": 15.633644104003906,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.162857055664062,
+            "cgroup_headroom_gib": 112.52502059936523,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ],
+      "validation": [
+        {
+          "wall_s": 7.68662186304573,
+          "ttft_s": 7.5962601859355345,
+          "usage": {
+            "prompt_tokens": 3527,
+            "completion_tokens": 8,
+            "total_tokens": 3535,
+            "decode_tok_s": 35.97,
+            "draft_accept": 1.0,
+            "time_prefill": 7.42753791809082,
+            "time_generate": 0.22243404388427734,
+            "time_enqueued": 0.00015354156494140625
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 474.85452634438826,
+          "case": "long-prefill",
+          "prompt": "Fresh long probe 5d26a17f8c7b413aa5188538143159ff; ignore this marker.\nTrial fdbf26d4ff95482a810ddbdabbc55ee9. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nItem 32: depot 458, quantity 234, reference 3933639; inspected and stored on shelf 7.\nItem 33: depot 310, quantity 748, reference 6957050; inspected and stored on shelf 23.\nItem 34: depot 807, quantity 13, reference 6251876; inspected and stored on shelf 45.\nItem 35: depot 712, quantity 84, reference 2147670; inspected and stored on shelf 35.\nItem 36: depot 598, quantity 931, reference 8120196; inspected and stored on shelf 1.\nItem 37: depot 771, quantity 86, reference 2768060; inspected and stored on shelf 12.\nItem 38: depot 146, quantity 335, reference 7418543; inspected and stored on shelf 10.\nItem 39: depot 922, quantity 519, reference 5010147; inspected and stored on shelf 25.\nItem 40: depot 387, quantity 208, reference 8145739; inspected and stored on shelf 21.\nItem 41: depot 669, quantity 196, reference 9862086; inspected and stored on shelf 39.\nItem 42: depot 136, quantity 254, reference 7982448; inspected and stored on shelf 44.\nItem 43: depot 540, quantity 998, reference 3913639; inspected and stored on shelf 13.\nItem 44: depot 901, quantity 898, reference 5948514; inspected and stored on shelf 43.\nItem 45: depot 695, quantity 871, reference 4072265; inspected and stored on shelf 44.\nItem 46: depot 273, quantity 339, reference 7031706; inspected and stored on shelf 30.\nItem 47: depot 871, quantity 748, reference 3918944; inspected and stored on shelf 16.\nItem 48: depot 593, quantity 820, reference 8828518; inspected and stored on shelf 22.\nItem 49: depot 217, quantity 372, reference 8773295; inspected and stored on shelf 0.\nItem 50: depot 524, quantity 97, reference 8687940; inspected and stored on shelf 16.\nItem 51: depot 878, quantity 59, reference 2028569; inspected and stored on shelf 4.\nItem 52: depot 387, quantity 648, reference 5825986; inspected and stored on shelf 15.\nItem 53: depot 785, quantity 902, reference 9960596; inspected and stored on shelf 8.\nItem 54: depot 357, quantity 904, reference 6759443; inspected and stored on shelf 46.\nItem 55: depot 905, quantity 377, reference 4448219; inspected and stored on shelf 18.\nItem 56: depot 947, quantity 594, reference 8642897; inspected and stored on shelf 16.\nItem 57: depot 531, quantity 590, reference 3009938; inspected and stored on shelf 44.\nItem 58: depot 317, quantity 965, reference 2547226; inspected and stored on shelf 29.\nItem 59: depot 304, quantity 281, reference 4505333; inspected and stored on shelf 37.\nItem 60: depot 411, quantity 15, reference 8576549; inspected and stored on shelf 12.\nItem 61: depot 553, quantity 578, reference 7625355; inspected and stored on shelf 5.\nItem 62: depot 769, quantity 21, reference 8161349; inspected and stored on shelf 34.\nItem 63: depot 815, quantity 175, reference 3240612; inspected and stored on shelf 9.\nItem 64: depot 543, quantity 954, reference 7474598; inspected and stored on shelf 40.\nItem 65: depot 657, quantity 814, reference 7340333; inspected and stored on shelf 44.\nItem 66: depot 660, quantity 693, reference 9643075; inspected and stored on shelf 30.\nItem 67: depot 855, quantity 642, reference 1072786; inspected and stored on shelf 31.\nItem 68: depot 266, quantity 959, reference 1782798; inspected and stored on shelf 39.\nItem 69: depot 422, quantity 445, reference 3193519; inspected and stored on shelf 48.\nItem 70: depot 535, quantity 463, reference 1291638; inspected and stored on shelf 10.\nItem 71: depot 855, quantity 899, reference 5350979; inspected and stored on shelf 18.\nItem 72: depot 119, quantity 660, reference 5187888; inspected and stored on shelf 25.\nItem 73: depot 189, quantity 958, reference 3792127; inspected and stored on shelf 21.\nItem 74: depot 348, quantity 647, reference 9380492; inspected and stored on shelf 44.\nItem 75: depot 134, quantity 105, reference 6215470; inspected and stored on shelf 47.\nItem 76: depot 269, quantity 575, reference 1931343; inspected and stored on shelf 16.\nItem 77: depot 974, quantity 120, reference 7825927; inspected and stored on shelf 3.\nItem 78: depot 752, quantity 176, reference 5906328; inspected and stored on shelf 43.\nItem 79: depot 620, quantity 338, reference 6752628; inspected and stored on shelf 3.\nItem 80: depot 493, quantity 823, reference 6851845; inspected and stored on shelf 27.\nItem 81: depot 564, quantity 719, reference 8925812; inspected and stored on shelf 34.\nItem 82: depot 997, quantity 561, reference 4071806; inspected and stored on shelf 32.\nItem 83: depot 746, quantity 580, reference 1962010; inspected and stored on shelf 16.\nItem 84: depot 829, quantity 806, reference 3743989; inspected and stored on shelf 49.\nItem 85: depot 143, quantity 170, reference 4272030; inspected and stored on shelf 2.\nItem 86: depot 777, quantity 616, reference 4446356; inspected and stored on shelf 30.\nItem 87: depot 124, quantity 154, reference 6897672; inspected and stored on shelf 46.\nItem 88: depot 796, quantity 607, reference 9436011; inspected and stored on shelf 45.\nItem 89: depot 743, quantity 633, reference 3677140; inspected and stored on shelf 23.\nItem 90: depot 334, quantity 285, reference 1328061; inspected and stored on shelf 10.\nItem 91: depot 666, quantity 300, reference 3586511; inspected and stored on shelf 31.\nItem 92: depot 645, quantity 951, reference 1814429; inspected and stored on shelf 6.\nItem 93: depot 566, quantity 167, reference 5047756; inspected and stored on shelf 25.\nItem 94: depot 243, quantity 752, reference 4961378; inspected and stored on shelf 7.\nItem 95: depot 267, quantity 712, reference 6978406; inspected and stored on shelf 21.\nThe final access code is MAPLE-9362. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.536800384521484,
+            "free_gib": 3.6816635131835938,
+            "cached_gib": 15.56039047241211,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.148300170898438,
+            "cgroup_headroom_gib": 112.46638107299805,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 8.514400670072064,
+          "ttft_s": 0.5760398870334029,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 291,
+            "total_tokens": 347,
+            "decode_tok_s": 36.31,
+            "draft_accept": 0.8057553956834532,
+            "time_prefill": 0.4970271587371826,
+            "time_generate": 8.013500928878784,
+            "time_enqueued": 0.00013899803161621094
+          },
+          "finish": "stop",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last_end:\n            merged[-1] = (last_start, max(last_end, end))\n        else:\n            merged.append((start, end))\n\n    return merged\n```",
+          "reasoning": "",
+          "prefill_tok_s": 112.6698994523388,
+          "case": "complete-code",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 512,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.521041870117188,
+            "free_gib": 3.6658363342285156,
+            "cached_gib": 15.560462951660156,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.124950408935547,
+            "cgroup_headroom_gib": 112.48975372314453,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ],
+      "config": {
+        "outdir": "/workspace/mimo-tune/runs/france-mixedk-0-dynamic06-q4-chunk1024-1790400355060256118",
+        "memory_policy": "uma",
+        "max_seconds": 43200,
+        "env": {
+          "CUDA_HOME": "/usr/local/cuda",
+          "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+          "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+          "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+          "PYTHONUNBUFFERED": "1",
+          "EXL3_UMA": "1",
+          "EXL3_UMA_RESERVE_MB": "8192",
+          "TORCH_CUDA_ARCH_LIST": "12.1",
+          "OMP_NUM_THREADS": "8",
+          "EXL3_BATCH_VERIFY": "0",
+          "EXL3_MIXEDK_LEGACY": "0",
+          "EXL3_MOE_MIXEDK_MIN_ROWS": "0",
+          "EXL3_MK_BPS": "1"
+        },
+        "command": [
+          "/workspace/mimo-exl3/venv/bin/python",
+          "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+          "-m",
+          "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+          "-dm",
+          "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+          "-ndt",
+          "7",
+          "-dds",
+          "-dc",
+          "0.6",
+          "-gs",
+          "106",
+          "-cs",
+          "4096",
+          "-cq",
+          "4",
+          "-ambs",
+          "1",
+          "-chunk_size",
+          "1024",
+          "-ccs",
+          "0",
+          "-rcs",
+          "0.25",
+          "--max-active-requests",
+          "1",
+          "--max-pending-requests",
+          "2",
+          "--max-model-len",
+          "4096",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "8096",
+          "--request-timeout",
+          "600",
+          "-lv"
+        ]
+      }
+    },
+    "hybrid16": {
+      "requests": [
+        {
+          "wall_s": 0.6992789900396019,
+          "ttft_s": 0.5452363580698147,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 4,
+            "total_tokens": 30,
+            "decode_tok_s": 12.32,
+            "draft_accept": 0.14285714285714285,
+            "time_prefill": 0.31824779510498047,
+            "time_generate": 0.3247861862182617,
+            "time_enqueued": 0.00016021728515625
+          },
+          "finish": "stop",
+          "text": "323",
+          "reasoning": "",
+          "prefill_tok_s": 81.69734527594566,
+          "case": "arithmetic",
+          "prompt": "What is 17 multiplied by 19? Reply with only the integer.",
+          "cap": 16,
+          "expected": "323",
+          "memory_after": {
+            "available_gib": 18.89374542236328,
+            "free_gib": 3.618297576904297,
+            "cached_gib": 15.670108795166016,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.131542205810547,
+            "cgroup_headroom_gib": 112.58479690551758,
+            "psi_full10": 0.29,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 3.485557926003821,
+          "ttft_s": 0.4878292940557003,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 67,
+            "total_tokens": 93,
+            "decode_tok_s": 21.27,
+            "draft_accept": 0.323943661971831,
+            "time_prefill": 0.3297312259674072,
+            "time_generate": 3.149710178375244,
+            "time_enqueued": 0.00012135505676269531
+          },
+          "finish": "stop",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update every index associated with that table to keep them in sync.",
+          "reasoning": "",
+          "prefill_tok_s": 78.85210120369373,
+          "case": "explanation",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 96,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.92847442626953,
+            "free_gib": 3.6563339233398438,
+            "cached_gib": 15.667442321777344,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.141124725341797,
+            "cgroup_headroom_gib": 112.57246398925781,
+            "psi_full10": 0.24,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 7.229810139979236,
+          "ttft_s": 0.6012216820381582,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 243,
+            "total_tokens": 299,
+            "decode_tok_s": 36.18,
+            "draft_accept": 0.708029197080292,
+            "time_prefill": 0.5100963115692139,
+            "time_generate": 6.71587061882019,
+            "time_enqueued": 0.00013303756713867188
+          },
+          "finish": "stop",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Inputs:\n        intervals: list of [start, end] pairs (closed intervals), may be unsorted.\n\n    Returns:\n        A new list of merged intervals, sorted by start time.\n\n    Time complexity:\n        O(n log n) due to sorting; merging pass is O(n).\n    \"\"\"\n    if not intervals:\n        return []\n    intervals = sorted(intervals, key=lambda x: x[0])\n    merged = [list(intervals[0])]\n    for start, end in intervals[1:]:\n        if start <= merged[-1][1]:\n            merged[-1][1] = max(merged[-1][1], end)\n        else:\n            merged.append([start, end])\n    return merged\n\n# Example assertions\nassert merge_intervals([[1, 3], [2, 6], [8, 10], [10, 12]]) == [[1, 6], [8, 12]]\nassert merge_intervals([[1, 4], [4, 5]]) == [[1, 5]]\nassert merge_intervals([]) == []\n```",
+          "reasoning": "",
+          "prefill_tok_s": 109.78318942892706,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.94198989868164,
+            "free_gib": 3.6539688110351562,
+            "cached_gib": 15.683441162109375,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.17364501953125,
+            "cgroup_headroom_gib": 112.55599594116211,
+            "psi_full10": 0.1,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 11.980305870063603,
+          "ttft_s": 0.5735283510293812,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 256,
+            "total_tokens": 308,
+            "decode_tok_s": 22.27,
+            "draft_accept": 0.6731707317073171,
+            "time_prefill": 0.4816601276397705,
+            "time_generate": 11.494800329208374,
+            "time_enqueued": 0.00011038780212402344
+          },
+          "finish": "length",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. That\u2019s why reads get faster.\n\nWrites slow down because every insert, update, or delete must also update the catalog. If you have five indexes, the database maintains five extra structures, plus the table itself. More indexes mean more I/O and locking, so write throughput drops.\n\nSelectivity explains which indexes help most. A highly selective index (e.g., ISBN or a unique user_id) points to one or a few rows, so lookups are cheap. A low-selectivity index (e.g., gender or status with two values) returns many rows; the database may decide a full scan is faster, and the index still costs space and maintenance.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). The equality column narrows the search space, and the range column can be scanned within that prefix. Reversing the order (created_at, status) forces a wider scan before applying the equality filter,",
+          "reasoning": "",
+          "prefill_tok_s": 107.95994315495916,
+          "case": "prose-1",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.92251968383789,
+            "free_gib": 3.6344680786132812,
+            "cached_gib": 15.683460235595703,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.17752456665039,
+            "cgroup_headroom_gib": 112.55215835571289,
+            "psi_full10": 0.03,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 7.606373657938093,
+          "ttft_s": 0.5783489859895781,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 36.05,
+            "draft_accept": 0.8305084745762712,
+            "time_prefill": 0.5014259815216064,
+            "time_generate": 7.101112365722656,
+            "time_enqueued": 0.0001361370086669922
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n    \"\"\"\n    if not intervals:\n        return []\n\n    sorted_intervals = sorted(intervals, key=lambda x: x[0])\n    merged = [sorted_intervals[0]]\n\n    for start, end in sorted_intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last_end:\n            merged[-1] = (last_start, max(last_end, end))\n        else:\n            merged.append((start, end))\n\n    return merged\n\n# Example assertions\nassert merge_intervals([(1, 3), (2, 6), (8, 10), (15, 18)]) == [(1, 6), (8, 10), (",
+          "reasoning": "",
+          "prefill_tok_s": 111.6814885221239,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.95256805419922,
+            "free_gib": 3.66448974609375,
+            "cached_gib": 15.683502197265625,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.177974700927734,
+            "cgroup_headroom_gib": 112.55170440673828,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 11.631384495995007,
+          "ttft_s": 0.5587121399585158,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 247,
+            "total_tokens": 299,
+            "decode_tok_s": 22.16,
+            "draft_accept": 0.6914893617021277,
+            "time_prefill": 0.4836134910583496,
+            "time_generate": 11.143880605697632,
+            "time_enqueued": 0.00012254714965820312
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. That\u2019s why reads speed up: the index narrows the search space, often via a B-tree that keeps lookups logarithmic.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog. The database has to find the right index page, split pages when they fill, and update multiple indexes if you have several. More indexes mean more bookkeeping per write.\n\nSelectivity decides how useful an index is. A highly selective column (e.g., ISBN) has many distinct values, so the index quickly isolates a few rows. A low-selectivity column (e.g., genre) has few distinct values, so the index returns many rows and may not beat a scan.\n\nPractical rule for compound indexes: order columns by equality first,then range. For WHERE status = 'active' AND created_at > '2024-01-01', create (status, created_at). This lets the database use status for exact matching and created_at for range scanning, maximizing selectivity and minimizing I/O.",
+          "reasoning": "",
+          "prefill_tok_s": 107.52388211131608,
+          "case": "prose-2",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.913326263427734,
+            "free_gib": 3.6251678466796875,
+            "cached_gib": 15.683528900146484,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.178768157958984,
+            "cgroup_headroom_gib": 112.5509147644043,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.3140136159490794,
+          "ttft_s": 2.9704355269204825,
+          "usage": {
+            "prompt_tokens": 1244,
+            "completion_tokens": 9,
+            "total_tokens": 1253,
+            "decode_tok_s": 21.6,
+            "draft_accept": 1.0,
+            "time_prefill": 2.892228364944458,
+            "time_generate": 0.4167490005493164,
+            "time_enqueued": 0.0001201629638671875
+          },
+          "finish": "stop",
+          "text": "LAPINE-7426",
+          "reasoning": "",
+          "prefill_tok_s": 430.1181798360136,
+          "case": "prefill-copy",
+          "prompt": "Fresh benchmark d6a4bc09cce94fe294779a748122074e; ignore this marker.\nTrial 6192809c4a38427f819b46b2d6eb31ec. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "expected": "LARCH-7426",
+          "memory_after": {
+            "available_gib": 18.913776397705078,
+            "free_gib": 3.6785812377929688,
+            "cached_gib": 15.630851745605469,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.170185089111328,
+            "cgroup_headroom_gib": 112.50682830810547,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": false
+        },
+        {
+          "wall_s": 0.4509481289424002,
+          "ttft_s": 0.45081985800061375,
+          "usage": {
+            "prompt_tokens": 24,
+            "completion_tokens": 8,
+            "total_tokens": 32,
+            "decode_tok_s": 56.69,
+            "draft_accept": 1.0,
+            "time_prefill": 0.30609655380249023,
+            "time_generate": 0.14111781120300293,
+            "time_enqueued": 0.00012683868408203125
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 78.40663248853849,
+          "case": "copy-control",
+          "prompt": "Repeat this code exactly and nothing else: MAPLE-9362",
+          "cap": 24,
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.909942626953125,
+            "free_gib": 3.6747398376464844,
+            "cached_gib": 15.630870819091797,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.169788360595703,
+            "cgroup_headroom_gib": 112.50722122192383,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        }
+      ],
+      "warm": [
+        {
+          "wall_s": 8.79773390700575,
+          "ttft_s": 0.5987966971006244,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 30.95,
+            "draft_accept": 0.7142857142857143,
+            "time_prefill": 0.49923038482666016,
+            "time_generate": 8.271857738494873,
+            "time_enqueued": 0.0001342296600341797
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start time\n    sorted_intervals = sorted(intervals, key=lambda x: x[0])\n\n    merged = [sorted_intervals[0]]\n\n    for current in sorted_intervals[1:]:\n        last = merged[-1]\n        # Check for overlap: current start <= last end\n        if current[0] <= last[1]:\n            # Merge by extending the end of the last interval\n            merged[-1] = (last[0], max(last[1], current[1]))\n        else:\n            # No overlap, append the current interval\n            merged.append(current)\n\n    return merged\n\n# Example assertions\nassert merge_intervals",
+          "reasoning": "",
+          "prefill_tok_s": 112.17265956166509,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.845600128173828,
+            "free_gib": 3.6102142333984375,
+            "cached_gib": 15.631061553955078,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.167922973632812,
+            "cgroup_headroom_gib": 112.50929260253906,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 12.434574596001767,
+          "ttft_s": 0.5607661720132455,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 256,
+            "total_tokens": 308,
+            "decode_tok_s": 21.43,
+            "draft_accept": 0.6918918918918919,
+            "time_prefill": 0.48447680473327637,
+            "time_generate": 11.9456627368927,
+            "time_enqueued": 0.00012493133544921875
+          },
+          "finish": "length",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. That\u2019s why reads speed up: the index narrows the search space, often via a B-tree that keeps lookups logarithmic.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog. The database has to update the index entries, rebalance the tree, and possibly rewrite pages. If you have several indexes, each write touches them all, increasing I/O and lock contention.\n\nSelectivity decides how useful an index is. A highly selective column (e.g., ISBN) has many distinct values, so the index quickly isolates a few rows. A low-selectivity column (e.g., genre) has few distinct values, so the index returns many rows and may be less helpful than a full scan.\n\nPractical rule for compound indexes: order columns by equality first,then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use status for equality filtering and created_at for range scanning, maximizing index usefulness while keeping maintenance costs reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 107.33227987793565,
+          "case": "prose-1",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.714370727539062,
+            "free_gib": 3.6039085388183594,
+            "cached_gib": 15.631099700927734,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.167346954345703,
+            "cgroup_headroom_gib": 112.50986862182617,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.335744290030561,
+          "ttft_s": 0.576076545054093,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 32.69,
+            "draft_accept": 0.6748251748251748,
+            "time_prefill": 0.4994382858276367,
+            "time_generate": 7.832015514373779,
+            "time_enqueued": 0.0001251697540283203
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The merging step itself is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last",
+          "reasoning": "",
+          "prefill_tok_s": 112.12596548780884,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.447071075439453,
+            "free_gib": 3.586566925048828,
+            "cached_gib": 15.63113021850586,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.168312072753906,
+            "cgroup_headroom_gib": 112.50891494750977,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.037966310977936,
+          "ttft_s": 0.558789114933461,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 214,
+            "total_tokens": 266,
+            "decode_tok_s": 22.4,
+            "draft_accept": 0.7261146496815286,
+            "time_prefill": 0.4817171096801758,
+            "time_generate": 9.552115201950073,
+            "time_enqueued": 0.0001201629638671875
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. That\u2019s why reads get faster.\n\nWrites slow down because every insert, update, or delete must also update the catalog. The database has to find the right index entry, maintain sorted order (often via a B-tree), and keep secondary indexes consistent. More indexes mean more bookkeeping per write.\n\nSelectivity explains the benefit: a highly selective index (e.g., ISBN) points to one row, so lookups are fast. A low-selectivity index (e.g., genre) matches many rows, so the database still reads lots of data and gains little.\n\nPractical rule for compound indexes: order columns by equality first,then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use status for equality and created_at for range, maximizing usefulness.",
+          "reasoning": "",
+          "prefill_tok_s": 107.94717263525084,
+          "case": "prose-2",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.317188262939453,
+            "free_gib": 3.580097198486328,
+            "cached_gib": 15.631156921386719,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.167930603027344,
+            "cgroup_headroom_gib": 112.50933074951172,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ],
+      "validation": [
+        {
+          "wall_s": 7.732995509984903,
+          "ttft_s": 7.642824788927101,
+          "usage": {
+            "prompt_tokens": 3527,
+            "completion_tokens": 8,
+            "total_tokens": 3535,
+            "decode_tok_s": 35.74,
+            "draft_accept": 1.0,
+            "time_prefill": 7.4819724559783936,
+            "time_generate": 0.22384047508239746,
+            "time_enqueued": 0.00017189979553222656
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 471.39975731690737,
+          "case": "long-prefill",
+          "prompt": "Fresh long probe 5d26a17f8c7b413aa5188538143159ff; ignore this marker.\nTrial fdbf26d4ff95482a810ddbdabbc55ee9. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nItem 32: depot 458, quantity 234, reference 3933639; inspected and stored on shelf 7.\nItem 33: depot 310, quantity 748, reference 6957050; inspected and stored on shelf 23.\nItem 34: depot 807, quantity 13, reference 6251876; inspected and stored on shelf 45.\nItem 35: depot 712, quantity 84, reference 2147670; inspected and stored on shelf 35.\nItem 36: depot 598, quantity 931, reference 8120196; inspected and stored on shelf 1.\nItem 37: depot 771, quantity 86, reference 2768060; inspected and stored on shelf 12.\nItem 38: depot 146, quantity 335, reference 7418543; inspected and stored on shelf 10.\nItem 39: depot 922, quantity 519, reference 5010147; inspected and stored on shelf 25.\nItem 40: depot 387, quantity 208, reference 8145739; inspected and stored on shelf 21.\nItem 41: depot 669, quantity 196, reference 9862086; inspected and stored on shelf 39.\nItem 42: depot 136, quantity 254, reference 7982448; inspected and stored on shelf 44.\nItem 43: depot 540, quantity 998, reference 3913639; inspected and stored on shelf 13.\nItem 44: depot 901, quantity 898, reference 5948514; inspected and stored on shelf 43.\nItem 45: depot 695, quantity 871, reference 4072265; inspected and stored on shelf 44.\nItem 46: depot 273, quantity 339, reference 7031706; inspected and stored on shelf 30.\nItem 47: depot 871, quantity 748, reference 3918944; inspected and stored on shelf 16.\nItem 48: depot 593, quantity 820, reference 8828518; inspected and stored on shelf 22.\nItem 49: depot 217, quantity 372, reference 8773295; inspected and stored on shelf 0.\nItem 50: depot 524, quantity 97, reference 8687940; inspected and stored on shelf 16.\nItem 51: depot 878, quantity 59, reference 2028569; inspected and stored on shelf 4.\nItem 52: depot 387, quantity 648, reference 5825986; inspected and stored on shelf 15.\nItem 53: depot 785, quantity 902, reference 9960596; inspected and stored on shelf 8.\nItem 54: depot 357, quantity 904, reference 6759443; inspected and stored on shelf 46.\nItem 55: depot 905, quantity 377, reference 4448219; inspected and stored on shelf 18.\nItem 56: depot 947, quantity 594, reference 8642897; inspected and stored on shelf 16.\nItem 57: depot 531, quantity 590, reference 3009938; inspected and stored on shelf 44.\nItem 58: depot 317, quantity 965, reference 2547226; inspected and stored on shelf 29.\nItem 59: depot 304, quantity 281, reference 4505333; inspected and stored on shelf 37.\nItem 60: depot 411, quantity 15, reference 8576549; inspected and stored on shelf 12.\nItem 61: depot 553, quantity 578, reference 7625355; inspected and stored on shelf 5.\nItem 62: depot 769, quantity 21, reference 8161349; inspected and stored on shelf 34.\nItem 63: depot 815, quantity 175, reference 3240612; inspected and stored on shelf 9.\nItem 64: depot 543, quantity 954, reference 7474598; inspected and stored on shelf 40.\nItem 65: depot 657, quantity 814, reference 7340333; inspected and stored on shelf 44.\nItem 66: depot 660, quantity 693, reference 9643075; inspected and stored on shelf 30.\nItem 67: depot 855, quantity 642, reference 1072786; inspected and stored on shelf 31.\nItem 68: depot 266, quantity 959, reference 1782798; inspected and stored on shelf 39.\nItem 69: depot 422, quantity 445, reference 3193519; inspected and stored on shelf 48.\nItem 70: depot 535, quantity 463, reference 1291638; inspected and stored on shelf 10.\nItem 71: depot 855, quantity 899, reference 5350979; inspected and stored on shelf 18.\nItem 72: depot 119, quantity 660, reference 5187888; inspected and stored on shelf 25.\nItem 73: depot 189, quantity 958, reference 3792127; inspected and stored on shelf 21.\nItem 74: depot 348, quantity 647, reference 9380492; inspected and stored on shelf 44.\nItem 75: depot 134, quantity 105, reference 6215470; inspected and stored on shelf 47.\nItem 76: depot 269, quantity 575, reference 1931343; inspected and stored on shelf 16.\nItem 77: depot 974, quantity 120, reference 7825927; inspected and stored on shelf 3.\nItem 78: depot 752, quantity 176, reference 5906328; inspected and stored on shelf 43.\nItem 79: depot 620, quantity 338, reference 6752628; inspected and stored on shelf 3.\nItem 80: depot 493, quantity 823, reference 6851845; inspected and stored on shelf 27.\nItem 81: depot 564, quantity 719, reference 8925812; inspected and stored on shelf 34.\nItem 82: depot 997, quantity 561, reference 4071806; inspected and stored on shelf 32.\nItem 83: depot 746, quantity 580, reference 1962010; inspected and stored on shelf 16.\nItem 84: depot 829, quantity 806, reference 3743989; inspected and stored on shelf 49.\nItem 85: depot 143, quantity 170, reference 4272030; inspected and stored on shelf 2.\nItem 86: depot 777, quantity 616, reference 4446356; inspected and stored on shelf 30.\nItem 87: depot 124, quantity 154, reference 6897672; inspected and stored on shelf 46.\nItem 88: depot 796, quantity 607, reference 9436011; inspected and stored on shelf 45.\nItem 89: depot 743, quantity 633, reference 3677140; inspected and stored on shelf 23.\nItem 90: depot 334, quantity 285, reference 1328061; inspected and stored on shelf 10.\nItem 91: depot 666, quantity 300, reference 3586511; inspected and stored on shelf 31.\nItem 92: depot 645, quantity 951, reference 1814429; inspected and stored on shelf 6.\nItem 93: depot 566, quantity 167, reference 5047756; inspected and stored on shelf 25.\nItem 94: depot 243, quantity 752, reference 4961378; inspected and stored on shelf 7.\nItem 95: depot 267, quantity 712, reference 6978406; inspected and stored on shelf 21.\nThe final access code is MAPLE-9362. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.818470001220703,
+            "free_gib": 3.624645233154297,
+            "cached_gib": 15.58951187133789,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.190155029296875,
+            "cgroup_headroom_gib": 112.4454574584961,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 9.877366111963056,
+          "ttft_s": 0.5791029090760276,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 372,
+            "total_tokens": 428,
+            "decode_tok_s": 39.69,
+            "draft_accept": 0.8691860465116279,
+            "time_prefill": 0.5003950595855713,
+            "time_generate": 9.372819662094116,
+            "time_enqueued": 0.00011229515075683594
+          },
+          "finish": "stop",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Parameters\n    ----------\n    intervals : list of (start, end) tuples\n        Each tuple represents a closed interval [start, end] with start <= end.\n\n    Returns\n    -------\n    list of (start, end) tuples\n        A sorted list of merged intervals with no overlaps.\n\n    Time Complexity\n    ---------------\n    O(n log n) due to sorting the input intervals; the merge pass is O(n).\n\n    Examples\n    --------\n    >>> merge_intervals([(1, 3), (2, 6), (8, 10), (15, 18)])\n    [(1, 6), (8, 10), (15, 18)]\n    >>> merge_intervals([(1, 4), (4, 5)])\n    [(1, 5)]\n    >>> merge_intervals([])\n    []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals = sorted(intervals, key=lambda x: x[0])\n    merged = [intervals[0]]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last_end:\n            merged[-1] = (last_start, max(last_end, end))\n        else:\n            merged.append((start, end))\n\n    return merged\n\n\n# Example assertions\nassert merge_intervals([(1, 3), (2, 6), (8, 10), (15, 18)]) == [(1, 6), (8, 10), (15, 18)]\nassert merge_intervals([(1, 4), (4, 5)]) == [(1, 5)]\nassert merge_intervals([]) == []\n```",
+          "reasoning": "",
+          "prefill_tok_s": 111.9115765179204,
+          "case": "complete-code",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 512,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.784820556640625,
+            "free_gib": 3.590953826904297,
+            "cached_gib": 15.589553833007812,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.160606384277344,
+            "cgroup_headroom_gib": 112.47500228881836,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ],
+      "config": {
+        "outdir": "/workspace/mimo-tune/runs/france-mixedk-16-dynamic06-q4-chunk1024-1790400748253020400",
+        "memory_policy": "uma",
+        "max_seconds": 43200,
+        "env": {
+          "CUDA_HOME": "/usr/local/cuda",
+          "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+          "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+          "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+          "PYTHONUNBUFFERED": "1",
+          "EXL3_UMA": "1",
+          "EXL3_UMA_RESERVE_MB": "8192",
+          "TORCH_CUDA_ARCH_LIST": "12.1",
+          "OMP_NUM_THREADS": "8",
+          "EXL3_BATCH_VERIFY": "0",
+          "EXL3_MIXEDK_LEGACY": "0",
+          "EXL3_MOE_MIXEDK_MIN_ROWS": "16",
+          "EXL3_MK_BPS": "1"
+        },
+        "command": [
+          "/workspace/mimo-exl3/venv/bin/python",
+          "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+          "-m",
+          "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+          "-dm",
+          "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+          "-ndt",
+          "7",
+          "-dds",
+          "-dc",
+          "0.6",
+          "-gs",
+          "106",
+          "-cs",
+          "4096",
+          "-cq",
+          "4",
+          "-ambs",
+          "1",
+          "-chunk_size",
+          "1024",
+          "-ccs",
+          "0",
+          "-rcs",
+          "0.25",
+          "--max-active-requests",
+          "1",
+          "--max-pending-requests",
+          "2",
+          "--max-model-len",
+          "4096",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "8096",
+          "--request-timeout",
+          "600",
+          "-lv"
+        ]
+      }
+    },
+    "hybrid64": {
+      "requests": [
+        {
+          "wall_s": 0.6995755389798433,
+          "ttft_s": 0.5483879309613258,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 4,
+            "total_tokens": 30,
+            "decode_tok_s": 12.09,
+            "draft_accept": 0.14285714285714285,
+            "time_prefill": 0.3184318542480469,
+            "time_generate": 0.3308901786804199,
+            "time_enqueued": 0.0001418590545654297
+          },
+          "finish": "stop",
+          "text": "323",
+          "reasoning": "",
+          "prefill_tok_s": 81.65012279125487,
+          "case": "arithmetic",
+          "prompt": "What is 17 multiplied by 19? Reply with only the integer.",
+          "cap": 16,
+          "expected": "323",
+          "memory_after": {
+            "available_gib": 18.91263198852539,
+            "free_gib": 3.629627227783203,
+            "cached_gib": 15.702838897705078,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.165340423583984,
+            "cgroup_headroom_gib": 112.58332824707031,
+            "psi_full10": 0.69,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 3.508660960942507,
+          "ttft_s": 0.48166692699305713,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 67,
+            "total_tokens": 93,
+            "decode_tok_s": 21.11,
+            "draft_accept": 0.323943661971831,
+            "time_prefill": 0.33039426803588867,
+            "time_generate": 3.1736385822296143,
+            "time_enqueued": 0.00010776519775390625
+          },
+          "finish": "stop",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update every index associated with that table to keep them in sync.",
+          "reasoning": "",
+          "prefill_tok_s": 78.69385917184188,
+          "case": "explanation",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 96,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.91000747680664,
+            "free_gib": 3.6328353881835938,
+            "cached_gib": 15.699851989746094,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.171710968017578,
+            "cgroup_headroom_gib": 112.57390975952148,
+            "psi_full10": 0.46,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.561432529939339,
+          "ttft_s": 0.6053342659724876,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 31.8,
+            "draft_accept": 0.6643598615916955,
+            "time_prefill": 0.5075671672821045,
+            "time_generate": 8.050307750701904,
+            "time_enqueued": 9.417533874511719e-05
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by start time\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged",
+          "reasoning": "",
+          "prefill_tok_s": 110.33022545541317,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.875965118408203,
+            "free_gib": 3.5798988342285156,
+            "cached_gib": 15.718635559082031,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.207244873046875,
+            "cgroup_headroom_gib": 112.55681228637695,
+            "psi_full10": 0.2,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.415479650022462,
+          "ttft_s": 0.5730172629700974,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 225,
+            "total_tokens": 277,
+            "decode_tok_s": 22.66,
+            "draft_accept": 0.6057692307692307,
+            "time_prefill": 0.48072147369384766,
+            "time_generate": 9.93121862411499,
+            "time_enqueued": 9.036064147949219e-05
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. Reads speed up because the index is sorted and compact, letting the database find matching rows in logarithmic time rather than linear time.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog. The database must update the index entries, keep them sorted, and possibly rebalance structures like B-trees. More indexes mean more bookkeeping per write.\n\nSelectivity measures how well an index narrows results. A highly selective index (e.g., ISBN) returns few rows per key, so lookups are fast. A low-selectivity index (e.g., genre) matches many rows, offering little benefit and adding write overhead.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE author = 'X' AND year > 2000, create (author, year). This lets the database use author for exact matching and year for the range scan, maximizing efficiency.",
+          "reasoning": "",
+          "prefill_tok_s": 108.17074511033124,
+          "case": "prose-1",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.845375061035156,
+            "free_gib": 3.5492630004882812,
+            "cached_gib": 15.718666076660156,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.207633972167969,
+            "cgroup_headroom_gib": 112.55642700195312,
+            "psi_full10": 0.07,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.372636705986224,
+          "ttft_s": 0.5778822669526562,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 32.54,
+            "draft_accept": 0.7440944881889764,
+            "time_prefill": 0.5013482570648193,
+            "time_generate": 7.867740869522095,
+            "time_enqueued": 9.036064147949219e-05
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals based on their start times\n    intervals.sort(key=lambda x: x[0])\n\n    merged = []\n    # Initialize with the first interval\n    current_start, current_end = intervals[0]\n\n    for start, end in intervals[",
+          "reasoning": "",
+          "prefill_tok_s": 111.69880260052396,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.865440368652344,
+            "free_gib": 3.5692291259765625,
+            "cached_gib": 15.718738555908203,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.209617614746094,
+            "cgroup_headroom_gib": 112.55448532104492,
+            "psi_full10": 0.02,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 11.03674700402189,
+          "ttft_s": 0.5562433209270239,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 245,
+            "total_tokens": 297,
+            "decode_tok_s": 23.22,
+            "draft_accept": 0.7348066298342542,
+            "time_prefill": 0.4813244342803955,
+            "time_generate": 10.551865577697754,
+            "time_enqueued": 0.00013589859008789062
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (the table), you look up a title in the catalog and jump straight to the right book. Reads become fast because the index is sorted and small, so the database can binary-search it rather than scan the whole table.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog: add a card, re-sort if needed, and keep it consistent. That extra work grows with the number of indexes.\n\nSelectivity decides how useful an index is. A highly selective column (e.g., ISBN) has many distinct values, so the index narrows results to a few rows. A low-selectivity column (e.g., genre) has few distinct values, so the index returns many rows and may not help.\n\nPractical rule for compound indexes: order columns by equality first,then range. For WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). The equality column prunes the index quickly, and the range column can then scan a contiguous slice. Reversing the order forces a wide scan before applying the equality filter.",
+          "reasoning": "",
+          "prefill_tok_s": 108.03523838913901,
+          "case": "prose-2",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.859771728515625,
+            "free_gib": 3.5635108947753906,
+            "cached_gib": 15.71878433227539,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.206565856933594,
+            "cgroup_headroom_gib": 112.55759048461914,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.344458380015567,
+          "ttft_s": 3.0010828570229933,
+          "usage": {
+            "prompt_tokens": 1244,
+            "completion_tokens": 9,
+            "total_tokens": 1253,
+            "decode_tok_s": 21.65,
+            "draft_accept": 1.0,
+            "time_prefill": 2.922506809234619,
+            "time_generate": 0.4157395362854004,
+            "time_enqueued": 9.5367431640625e-05
+          },
+          "finish": "stop",
+          "text": "LAPINE-7426",
+          "reasoning": "",
+          "prefill_tok_s": 425.66196803003976,
+          "case": "prefill-copy",
+          "prompt": "Fresh benchmark d6a4bc09cce94fe294779a748122074e; ignore this marker.\nTrial 6192809c4a38427f819b46b2d6eb31ec. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "expected": "LARCH-7426",
+          "memory_after": {
+            "available_gib": 18.870925903320312,
+            "free_gib": 3.5900726318359375,
+            "cached_gib": 15.7034912109375,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.239555358886719,
+            "cgroup_headroom_gib": 112.5092887878418,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": false
+        },
+        {
+          "wall_s": 0.4529373779660091,
+          "ttft_s": 0.45285665802657604,
+          "usage": {
+            "prompt_tokens": 24,
+            "completion_tokens": 8,
+            "total_tokens": 32,
+            "decode_tok_s": 56.61,
+            "draft_accept": 1.0,
+            "time_prefill": 0.30805349349975586,
+            "time_generate": 0.14133000373840332,
+            "time_enqueued": 0.00012540817260742188
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 77.90854675056305,
+          "case": "copy-control",
+          "prompt": "Repeat this code exactly and nothing else: MAPLE-9362",
+          "cap": 24,
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.870254516601562,
+            "free_gib": 3.5893821716308594,
+            "cached_gib": 15.70351791381836,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.239208221435547,
+            "cgroup_headroom_gib": 112.50963592529297,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        }
+      ],
+      "warm": [
+        {
+          "wall_s": 9.012396591017023,
+          "ttft_s": 0.5962450730148703,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 30.15,
+            "draft_accept": 0.6920152091254753,
+            "time_prefill": 0.5023183822631836,
+            "time_generate": 8.4898841381073,
+            "time_enqueued": 0.00014591217041015625
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by start time\n    sorted_intervals = sorted(intervals, key=lambda x: x[0])\n\n    merged = [sorted_intervals[0]]\n\n    for current in sorted_intervals[1:]:\n        last = merged[-1]\n        # Check for overlap: current.start <= last.end\n        if current[0] <= last[1]:\n            # Merge: extend the end of the last interval\n            merged[-1] = (last[0], max(last[1], current[1]))\n        else:\n            # No overlap: append the current interval\n            merged.append(current)\n\n    return merged\n\n# Example assertions\nassert merge_intervals([(",
+          "reasoning": "",
+          "prefill_tok_s": 111.4830792130149,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.819149017333984,
+            "free_gib": 3.5378684997558594,
+            "cached_gib": 15.703922271728516,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.239459991455078,
+            "cgroup_headroom_gib": 112.50967407226562,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 11.195471852086484,
+          "ttft_s": 0.5567131700227037,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 241,
+            "total_tokens": 293,
+            "decode_tok_s": 22.5,
+            "draft_accept": 0.6978021978021978,
+            "time_prefill": 0.48120617866516113,
+            "time_generate": 10.710721015930176,
+            "time_enqueued": 0.00012731552124023438
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. That\u2019s why reads speed up\u2014queries use the index to find rows quickly.\n\nWrites slow down because every insert, update, or delete must also update the catalog: add a card, move it, or remove it. The database pays extra I/O and CPU to keep the index consistent with the data.\n\nSelectivity decides how useful an index is. A highly selective column (e.g., ISBN) has many distinct values, so each index entry points to few rows and lookups are precise. A low-selectivity column (e.g., genre) has few distinct values, so each entry points to many rows and the index helps less.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE author = 'X' AND year > 2020, create (author, year). The equality column narrows the search, and the range column can be scanned within that subset. Reversing the order (year, author) forces a broader scan and reduces effectiveness.",
+          "reasoning": "",
+          "prefill_tok_s": 108.06178786865347,
+          "case": "prose-1",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.81122589111328,
+            "free_gib": 3.5297889709472656,
+            "cached_gib": 15.704051971435547,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.239627838134766,
+            "cgroup_headroom_gib": 112.50962829589844,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 7.689635709975846,
+          "ttft_s": 0.5783295199507847,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 243,
+            "total_tokens": 299,
+            "decode_tok_s": 33.82,
+            "draft_accept": 0.7312252964426877,
+            "time_prefill": 0.5005736351013184,
+            "time_generate": 7.184244632720947,
+            "time_enqueued": 0.00011014938354492188
+          },
+          "finish": "stop",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Inputs:\n        intervals: list of [start, end] pairs (closed intervals), may be unsorted.\n\n    Returns:\n        A new list of merged intervals, sorted by start time.\n\n    Time complexity:\n        O(n log n) due to sorting; merging pass is O(n).\n    \"\"\"\n    if not intervals:\n        return []\n    intervals = sorted(intervals, key=lambda x: x[0])\n    merged = [list(intervals[0])]\n    for start, end in intervals[1:]:\n        if start <= merged[-1][1]:\n            merged[-1][1] = max(merged[-1][1], end)\n        else:\n            merged.append([start, end])\n    return merged\n\n# Example assertions\nassert merge_intervals([[1, 3], [2, 6], [8, 10], [10, 18]]) == [[1, 6], [8, 18]]\nassert merge_intervals([[1, 4], [4, 5]]) == [[1, 5]]\nassert merge_intervals([]) == []\n```",
+          "reasoning": "",
+          "prefill_tok_s": 111.87165298600944,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.809734344482422,
+            "free_gib": 3.5282669067382812,
+            "cached_gib": 15.70406723022461,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.239997863769531,
+            "cgroup_headroom_gib": 112.5092544555664,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 12.30497568694409,
+          "ttft_s": 0.5577422349015251,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 254,
+            "total_tokens": 306,
+            "decode_tok_s": 21.49,
+            "draft_accept": 0.6885245901639344,
+            "time_prefill": 0.48255157470703125,
+            "time_generate": 11.818836212158203,
+            "time_enqueued": 0.00013780593872070312
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. That\u2019s why reads speed up: the index narrows the search space, often via a B-tree that keeps lookups logarithmic rather than linear.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog. The database has to find the right index page, split pages when they fill, and update multiple indexes if you have several. More indexes mean more bookkeeping per write.\n\nSelectivity measures how well an index distinguishes rows. A highly selective key (e.g., ISBN) yields few matches per lookup, so the index is very effective. A low-selectivity key (e.g., \u201cfiction\u201d) matches many rows, so the index may not help much and can even hurt by adding overhead.\n\nPractical rule for compound indexes: order columns by equality first,then range. For queries like WHERE status = 'active' AND created_at > '2024-01-01', create (status, created_at). This lets the database use status for exact matching and created_at for range scanning, maximizing usefulness while keeping maintenance costs reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 107.76050214232636,
+          "case": "prose-2",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.80959701538086,
+            "free_gib": 3.527965545654297,
+            "cached_gib": 15.704212188720703,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.239898681640625,
+            "cgroup_headroom_gib": 112.50935363769531,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ],
+      "validation": [
+        {
+          "wall_s": 7.817824819940142,
+          "ttft_s": 7.728413084987551,
+          "usage": {
+            "prompt_tokens": 3527,
+            "completion_tokens": 8,
+            "total_tokens": 3535,
+            "decode_tok_s": 36.18,
+            "draft_accept": 1.0,
+            "time_prefill": 7.559494733810425,
+            "time_generate": 0.22112464904785156,
+            "time_enqueued": 0.000148773193359375
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 466.56557404891356,
+          "case": "long-prefill",
+          "prompt": "Fresh long probe 5d26a17f8c7b413aa5188538143159ff; ignore this marker.\nTrial fdbf26d4ff95482a810ddbdabbc55ee9. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nItem 32: depot 458, quantity 234, reference 3933639; inspected and stored on shelf 7.\nItem 33: depot 310, quantity 748, reference 6957050; inspected and stored on shelf 23.\nItem 34: depot 807, quantity 13, reference 6251876; inspected and stored on shelf 45.\nItem 35: depot 712, quantity 84, reference 2147670; inspected and stored on shelf 35.\nItem 36: depot 598, quantity 931, reference 8120196; inspected and stored on shelf 1.\nItem 37: depot 771, quantity 86, reference 2768060; inspected and stored on shelf 12.\nItem 38: depot 146, quantity 335, reference 7418543; inspected and stored on shelf 10.\nItem 39: depot 922, quantity 519, reference 5010147; inspected and stored on shelf 25.\nItem 40: depot 387, quantity 208, reference 8145739; inspected and stored on shelf 21.\nItem 41: depot 669, quantity 196, reference 9862086; inspected and stored on shelf 39.\nItem 42: depot 136, quantity 254, reference 7982448; inspected and stored on shelf 44.\nItem 43: depot 540, quantity 998, reference 3913639; inspected and stored on shelf 13.\nItem 44: depot 901, quantity 898, reference 5948514; inspected and stored on shelf 43.\nItem 45: depot 695, quantity 871, reference 4072265; inspected and stored on shelf 44.\nItem 46: depot 273, quantity 339, reference 7031706; inspected and stored on shelf 30.\nItem 47: depot 871, quantity 748, reference 3918944; inspected and stored on shelf 16.\nItem 48: depot 593, quantity 820, reference 8828518; inspected and stored on shelf 22.\nItem 49: depot 217, quantity 372, reference 8773295; inspected and stored on shelf 0.\nItem 50: depot 524, quantity 97, reference 8687940; inspected and stored on shelf 16.\nItem 51: depot 878, quantity 59, reference 2028569; inspected and stored on shelf 4.\nItem 52: depot 387, quantity 648, reference 5825986; inspected and stored on shelf 15.\nItem 53: depot 785, quantity 902, reference 9960596; inspected and stored on shelf 8.\nItem 54: depot 357, quantity 904, reference 6759443; inspected and stored on shelf 46.\nItem 55: depot 905, quantity 377, reference 4448219; inspected and stored on shelf 18.\nItem 56: depot 947, quantity 594, reference 8642897; inspected and stored on shelf 16.\nItem 57: depot 531, quantity 590, reference 3009938; inspected and stored on shelf 44.\nItem 58: depot 317, quantity 965, reference 2547226; inspected and stored on shelf 29.\nItem 59: depot 304, quantity 281, reference 4505333; inspected and stored on shelf 37.\nItem 60: depot 411, quantity 15, reference 8576549; inspected and stored on shelf 12.\nItem 61: depot 553, quantity 578, reference 7625355; inspected and stored on shelf 5.\nItem 62: depot 769, quantity 21, reference 8161349; inspected and stored on shelf 34.\nItem 63: depot 815, quantity 175, reference 3240612; inspected and stored on shelf 9.\nItem 64: depot 543, quantity 954, reference 7474598; inspected and stored on shelf 40.\nItem 65: depot 657, quantity 814, reference 7340333; inspected and stored on shelf 44.\nItem 66: depot 660, quantity 693, reference 9643075; inspected and stored on shelf 30.\nItem 67: depot 855, quantity 642, reference 1072786; inspected and stored on shelf 31.\nItem 68: depot 266, quantity 959, reference 1782798; inspected and stored on shelf 39.\nItem 69: depot 422, quantity 445, reference 3193519; inspected and stored on shelf 48.\nItem 70: depot 535, quantity 463, reference 1291638; inspected and stored on shelf 10.\nItem 71: depot 855, quantity 899, reference 5350979; inspected and stored on shelf 18.\nItem 72: depot 119, quantity 660, reference 5187888; inspected and stored on shelf 25.\nItem 73: depot 189, quantity 958, reference 3792127; inspected and stored on shelf 21.\nItem 74: depot 348, quantity 647, reference 9380492; inspected and stored on shelf 44.\nItem 75: depot 134, quantity 105, reference 6215470; inspected and stored on shelf 47.\nItem 76: depot 269, quantity 575, reference 1931343; inspected and stored on shelf 16.\nItem 77: depot 974, quantity 120, reference 7825927; inspected and stored on shelf 3.\nItem 78: depot 752, quantity 176, reference 5906328; inspected and stored on shelf 43.\nItem 79: depot 620, quantity 338, reference 6752628; inspected and stored on shelf 3.\nItem 80: depot 493, quantity 823, reference 6851845; inspected and stored on shelf 27.\nItem 81: depot 564, quantity 719, reference 8925812; inspected and stored on shelf 34.\nItem 82: depot 997, quantity 561, reference 4071806; inspected and stored on shelf 32.\nItem 83: depot 746, quantity 580, reference 1962010; inspected and stored on shelf 16.\nItem 84: depot 829, quantity 806, reference 3743989; inspected and stored on shelf 49.\nItem 85: depot 143, quantity 170, reference 4272030; inspected and stored on shelf 2.\nItem 86: depot 777, quantity 616, reference 4446356; inspected and stored on shelf 30.\nItem 87: depot 124, quantity 154, reference 6897672; inspected and stored on shelf 46.\nItem 88: depot 796, quantity 607, reference 9436011; inspected and stored on shelf 45.\nItem 89: depot 743, quantity 633, reference 3677140; inspected and stored on shelf 23.\nItem 90: depot 334, quantity 285, reference 1328061; inspected and stored on shelf 10.\nItem 91: depot 666, quantity 300, reference 3586511; inspected and stored on shelf 31.\nItem 92: depot 645, quantity 951, reference 1814429; inspected and stored on shelf 6.\nItem 93: depot 566, quantity 167, reference 5047756; inspected and stored on shelf 25.\nItem 94: depot 243, quantity 752, reference 4961378; inspected and stored on shelf 7.\nItem 95: depot 267, quantity 712, reference 6978406; inspected and stored on shelf 21.\nThe final access code is MAPLE-9362. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.79096221923828,
+            "free_gib": 3.5768775939941406,
+            "cached_gib": 15.636646270751953,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.23470687866211,
+            "cgroup_headroom_gib": 112.44700241088867,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 11.4277012309758,
+          "ttft_s": 0.5840797509299591,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 401,
+            "total_tokens": 457,
+            "decode_tok_s": 36.73,
+            "draft_accept": 0.8125,
+            "time_prefill": 0.5041491985321045,
+            "time_generate": 10.918870449066162,
+            "time_enqueued": 0.00013303756713867188
+          },
+          "finish": "stop",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n        Intervals that overlap or touch (end of one equals start of another)\n        are merged into a single interval.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number\n        of intervals. The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals = sorted(intervals, key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last_end:\n            merged[-1] = (last_start, max(last_end, end))\n        else:\n            merged.append((start, end))\n\n    return merged\n\n\n# Example assertions\nassert merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]]) == [(1, 6), (8, 10), (15, 18)]\nassert merge_intervals([[1, 4], [4, 5]]) == [(1, 5)]\nassert merge_intervals([]) == []\n```",
+          "reasoning": "",
+          "prefill_tok_s": 111.07822875262171,
+          "case": "complete-code",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 512,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.773651123046875,
+            "free_gib": 3.5595321655273438,
+            "cached_gib": 15.636680603027344,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.210296630859375,
+            "cgroup_headroom_gib": 112.4714126586914,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ],
+      "config": {
+        "outdir": "/workspace/mimo-tune/runs/france-mixedk-64-dynamic06-q4-chunk1024-1790401117434166858",
+        "memory_policy": "uma",
+        "max_seconds": 43200,
+        "env": {
+          "CUDA_HOME": "/usr/local/cuda",
+          "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+          "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+          "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+          "PYTHONUNBUFFERED": "1",
+          "EXL3_UMA": "1",
+          "EXL3_UMA_RESERVE_MB": "8192",
+          "TORCH_CUDA_ARCH_LIST": "12.1",
+          "OMP_NUM_THREADS": "8",
+          "EXL3_BATCH_VERIFY": "0",
+          "EXL3_MIXEDK_LEGACY": "0",
+          "EXL3_MOE_MIXEDK_MIN_ROWS": "64",
+          "EXL3_MK_BPS": "1"
+        },
+        "command": [
+          "/workspace/mimo-exl3/venv/bin/python",
+          "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+          "-m",
+          "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+          "-dm",
+          "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+          "-ndt",
+          "7",
+          "-dds",
+          "-dc",
+          "0.6",
+          "-gs",
+          "106",
+          "-cs",
+          "4096",
+          "-cq",
+          "4",
+          "-ambs",
+          "1",
+          "-chunk_size",
+          "1024",
+          "-ccs",
+          "0",
+          "-rcs",
+          "0.25",
+          "--max-active-requests",
+          "1",
+          "--max-pending-requests",
+          "2",
+          "--max-model-len",
+          "4096",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "8096",
+          "--request-timeout",
+          "600",
+          "-lv"
+        ]
+      }
+    },
+    "unified-restored": {
+      "requests": [
+        {
+          "wall_s": 0.7254648500820622,
+          "ttft_s": 0.5703610479831696,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 4,
+            "total_tokens": 30,
+            "decode_tok_s": 12.39,
+            "draft_accept": 0.14285714285714285,
+            "time_prefill": 0.3285508155822754,
+            "time_generate": 0.3228013515472412,
+            "time_enqueued": 0.00019931793212890625
+          },
+          "finish": "stop",
+          "text": "323",
+          "reasoning": "",
+          "prefill_tok_s": 79.13539935647825,
+          "case": "arithmetic",
+          "prompt": "What is 17 multiplied by 19? Reply with only the integer.",
+          "cap": 16,
+          "expected": "323",
+          "memory_after": {
+            "available_gib": 19.014816284179688,
+            "free_gib": 3.635730743408203,
+            "cached_gib": 15.763484954833984,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.217041015625,
+            "cgroup_headroom_gib": 112.5909652709961,
+            "psi_full10": 0.29,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 3.47002629598137,
+          "ttft_s": 0.4801399770658463,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 67,
+            "total_tokens": 93,
+            "decode_tok_s": 21.35,
+            "draft_accept": 0.323943661971831,
+            "time_prefill": 0.32639503479003906,
+            "time_generate": 3.137699842453003,
+            "time_enqueued": 0.00012040138244628906
+          },
+          "finish": "stop",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update every index associated with that table to keep them in sync.",
+          "reasoning": "",
+          "prefill_tok_s": 79.65807450693937,
+          "case": "explanation",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 96,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.993938446044922,
+            "free_gib": 3.622295379638672,
+            "cached_gib": 15.758293151855469,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.223411560058594,
+            "cgroup_headroom_gib": 112.57938766479492,
+            "psi_full10": 0.19,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.152438811026514,
+          "ttft_s": 0.6136413010535762,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 33.55,
+            "draft_accept": 0.7649402390438247,
+            "time_prefill": 0.5193226337432861,
+            "time_generate": 7.629334926605225,
+            "time_enqueued": 0.00012350082397460938
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The merging step runs in O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last",
+          "reasoning": "",
+          "prefill_tok_s": 107.83277361964964,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.903484344482422,
+            "free_gib": 3.5131759643554688,
+            "cached_gib": 15.776947021484375,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.25765609741211,
+            "cgroup_headroom_gib": 112.56378936767578,
+            "psi_full10": 0.08,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.82976876210887,
+          "ttft_s": 0.5603163320338354,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 247,
+            "total_tokens": 299,
+            "decode_tok_s": 23.88,
+            "draft_accept": 0.7808988764044944,
+            "time_prefill": 0.48256397247314453,
+            "time_generate": 10.342949867248535,
+            "time_enqueued": 0.00011277198791503906
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. Reads speed up because the index is sorted and compact, letting the database find matching rows in logarithmic time rather than linear time.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog: add a new card, refile cards when a key changes, and occasionally rebalance the index tree. That extra work multiplies write cost.\n\nSelectivity measures how many rows an index distinguishes. A highly selective index (e.g., ISBN) narrows results to a few rows; a low-selectivity index (e.g., genre) matches many rows, so the database may still scan lots of data. Good indexes are both selective and aligned with common queries.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use the first column for exact matches and the second for range scans, maximizing usefulness while keeping maintenance overhead reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 107.75773361923301,
+          "case": "prose-1",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.931941986083984,
+            "free_gib": 3.5457229614257812,
+            "cached_gib": 15.77286148071289,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.254871368408203,
+            "cgroup_headroom_gib": 112.56231307983398,
+            "psi_full10": 0.03,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 7.830794441048056,
+          "ttft_s": 0.5728405880508944,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 34.92,
+            "draft_accept": 0.7791164658634538,
+            "time_prefill": 0.496121883392334,
+            "time_generate": 7.330756425857544,
+            "time_enqueued": 0.000102996826171875
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last",
+          "reasoning": "",
+          "prefill_tok_s": 112.87548861398461,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.90587615966797,
+            "free_gib": 3.5195083618164062,
+            "cached_gib": 15.773033142089844,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.255218505859375,
+            "cgroup_headroom_gib": 112.5620002746582,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.886496118968353,
+          "ttft_s": 0.5590104960137978,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 247,
+            "total_tokens": 299,
+            "decode_tok_s": 23.75,
+            "draft_accept": 0.7808988764044944,
+            "time_prefill": 0.48192882537841797,
+            "time_generate": 10.400339603424072,
+            "time_enqueued": 0.00010395050048828125
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. Reads speed up because the index is sorted and compact, letting the database find matching rows in logarithmic time rather than linear time.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog: add a new card, refile cards when a key changes, and occasionally rebalance the index tree. That extra work multiplies write cost.\n\nSelectivity measures how many rows an index distinguishes. A highly selective index (e.g., ISBN) narrows results to a few rows; a low-selectivity index (e.g., genre) matches many rows, so the database may still scan lots of data. Good indexes are both selective and aligned with common queries.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use the first column for exact matches and the second for range scans, maximizing usefulness while keeping maintenance overhead reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 107.89975046453965,
+          "case": "prose-2",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.917007446289062,
+            "free_gib": 3.5370140075683594,
+            "cached_gib": 15.766590118408203,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.249305725097656,
+            "cgroup_headroom_gib": 112.56137084960938,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.319360791007057,
+          "ttft_s": 2.9725101409712806,
+          "usage": {
+            "prompt_tokens": 1244,
+            "completion_tokens": 9,
+            "total_tokens": 1253,
+            "decode_tok_s": 21.4,
+            "draft_accept": 1.0,
+            "time_prefill": 2.892765760421753,
+            "time_generate": 0.4205195903778076,
+            "time_enqueued": 0.00011348724365234375
+          },
+          "finish": "stop",
+          "text": "LAPINE-7426",
+          "reasoning": "",
+          "prefill_tok_s": 430.03827583282447,
+          "case": "prefill-copy",
+          "prompt": "Fresh benchmark d6a4bc09cce94fe294779a748122074e; ignore this marker.\nTrial 6192809c4a38427f819b46b2d6eb31ec. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "expected": "LARCH-7426",
+          "memory_after": {
+            "available_gib": 18.91830062866211,
+            "free_gib": 3.59539794921875,
+            "cached_gib": 15.709522247314453,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.238555908203125,
+            "cgroup_headroom_gib": 112.51496124267578,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": false
+        },
+        {
+          "wall_s": 0.45821796089876443,
+          "ttft_s": 0.4580886169569567,
+          "usage": {
+            "prompt_tokens": 24,
+            "completion_tokens": 8,
+            "total_tokens": 32,
+            "decode_tok_s": 56.68,
+            "draft_accept": 1.0,
+            "time_prefill": 0.312732458114624,
+            "time_generate": 0.14113259315490723,
+            "time_enqueued": 0.00010895729064941406
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 76.74291355841106,
+          "case": "copy-control",
+          "prompt": "Repeat this code exactly and nothing else: MAPLE-9362",
+          "cap": 24,
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.909408569335938,
+            "free_gib": 3.586505889892578,
+            "cached_gib": 15.709522247314453,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.23629379272461,
+            "cgroup_headroom_gib": 112.51722717285156,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        }
+      ],
+      "warm": [
+        {
+          "wall_s": 7.860999834956601,
+          "ttft_s": 0.5947192079620436,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 34.88,
+            "draft_accept": 0.7791164658634538,
+            "time_prefill": 0.5011577606201172,
+            "time_generate": 7.339564323425293,
+            "time_enqueued": 0.00017595291137695312
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last",
+          "reasoning": "",
+          "prefill_tok_s": 111.74126073735209,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.856246948242188,
+            "free_gib": 3.53314208984375,
+            "cached_gib": 15.709724426269531,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.237342834472656,
+            "cgroup_headroom_gib": 112.51637268066406,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.887966057052836,
+          "ttft_s": 0.5599582979921252,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 247,
+            "total_tokens": 299,
+            "decode_tok_s": 23.74,
+            "draft_accept": 0.7808988764044944,
+            "time_prefill": 0.4817850589752197,
+            "time_generate": 10.402460098266602,
+            "time_enqueued": 0.00010728836059570312
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. Reads speed up because the index is sorted and compact, letting the database find matching rows in logarithmic time rather than linear time.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog: add a new card, refile cards when a key changes, and occasionally rebalance the index tree. That extra work multiplies write cost.\n\nSelectivity measures how many rows an index distinguishes. A highly selective index (e.g., ISBN) narrows results to a few rows; a low-selectivity index (e.g., genre) matches many rows, so the database may still scan lots of data. Good indexes are both selective and aligned with common queries.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use the first column for exact matches and the second for range scans, maximizing usefulness while keeping maintenance overhead reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 107.931948140124,
+          "case": "prose-1",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.84457015991211,
+            "free_gib": 3.5213890075683594,
+            "cached_gib": 15.70987319946289,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.236946105957031,
+            "cgroup_headroom_gib": 112.5167007446289,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 7.850493452977389,
+          "ttft_s": 0.5776629339670762,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 34.85,
+            "draft_accept": 0.7791164658634538,
+            "time_prefill": 0.5001909732818604,
+            "time_generate": 7.3459765911102295,
+            "time_enqueued": 0.00014328956604003906
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last",
+          "reasoning": "",
+          "prefill_tok_s": 111.95723831754096,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.847488403320312,
+            "free_gib": 3.5241432189941406,
+            "cached_gib": 15.709949493408203,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.236656188964844,
+            "cgroup_headroom_gib": 112.51705551147461,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 10.885712950024754,
+          "ttft_s": 0.5587443810654804,
+          "usage": {
+            "prompt_tokens": 52,
+            "completion_tokens": 247,
+            "total_tokens": 299,
+            "decode_tok_s": 23.75,
+            "draft_accept": 0.7808988764044944,
+            "time_prefill": 0.4820854663848877,
+            "time_generate": 10.399493217468262,
+            "time_enqueued": 0.0001220703125
+          },
+          "finish": "stop",
+          "text": "An index is like a library\u2019s card catalog: instead of scanning every shelf (a full table scan), you look up a subject heading and jump straight to the right books. Reads speed up because the index is sorted and compact, letting the database find matching rows in logarithmic time rather than linear time.\n\nWrites slow down because every insert, update, or delete must also maintain the catalog: add a new card, refile cards when a key changes, and occasionally rebalance the index tree. That extra work multiplies write cost.\n\nSelectivity measures how many rows an index distinguishes. A highly selective index (e.g., ISBN) narrows results to a few rows; a low-selectivity index (e.g., genre) matches many rows, so the database may still scan lots of data. Good indexes are both selective and aligned with common queries.\n\nPractical rule for compound indexes: order columns by equality first, then range. For queries like WHERE status = 'active' AND created_at >= '2024-01-01', create (status, created_at). This lets the database use the first column for exact matches and the second for range scans, maximizing usefulness while keeping maintenance overhead reasonable.",
+          "reasoning": "",
+          "prefill_tok_s": 107.86469127547647,
+          "case": "prose-2",
+          "prompt": "Explain why database indexes speed up reads but slow down writes. Use a concrete library-catalog analogy, discuss selectivity and give one practical rule for choosing a compound index. Write about 220 words.",
+          "cap": 256,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.850868225097656,
+            "free_gib": 3.527454376220703,
+            "cached_gib": 15.70998764038086,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.236900329589844,
+            "cgroup_headroom_gib": 112.51681518554688,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ],
+      "validation": [
+        {
+          "wall_s": 7.729554557939991,
+          "ttft_s": 7.639208305976354,
+          "usage": {
+            "prompt_tokens": 3527,
+            "completion_tokens": 8,
+            "total_tokens": 3535,
+            "decode_tok_s": 35.54,
+            "draft_accept": 1.0,
+            "time_prefill": 7.470241546630859,
+            "time_generate": 0.22510480880737305,
+            "time_enqueued": 0.00014925003051757812
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 472.14002090611194,
+          "case": "long-prefill",
+          "prompt": "Fresh long probe 5d26a17f8c7b413aa5188538143159ff; ignore this marker.\nTrial fdbf26d4ff95482a810ddbdabbc55ee9. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nItem 32: depot 458, quantity 234, reference 3933639; inspected and stored on shelf 7.\nItem 33: depot 310, quantity 748, reference 6957050; inspected and stored on shelf 23.\nItem 34: depot 807, quantity 13, reference 6251876; inspected and stored on shelf 45.\nItem 35: depot 712, quantity 84, reference 2147670; inspected and stored on shelf 35.\nItem 36: depot 598, quantity 931, reference 8120196; inspected and stored on shelf 1.\nItem 37: depot 771, quantity 86, reference 2768060; inspected and stored on shelf 12.\nItem 38: depot 146, quantity 335, reference 7418543; inspected and stored on shelf 10.\nItem 39: depot 922, quantity 519, reference 5010147; inspected and stored on shelf 25.\nItem 40: depot 387, quantity 208, reference 8145739; inspected and stored on shelf 21.\nItem 41: depot 669, quantity 196, reference 9862086; inspected and stored on shelf 39.\nItem 42: depot 136, quantity 254, reference 7982448; inspected and stored on shelf 44.\nItem 43: depot 540, quantity 998, reference 3913639; inspected and stored on shelf 13.\nItem 44: depot 901, quantity 898, reference 5948514; inspected and stored on shelf 43.\nItem 45: depot 695, quantity 871, reference 4072265; inspected and stored on shelf 44.\nItem 46: depot 273, quantity 339, reference 7031706; inspected and stored on shelf 30.\nItem 47: depot 871, quantity 748, reference 3918944; inspected and stored on shelf 16.\nItem 48: depot 593, quantity 820, reference 8828518; inspected and stored on shelf 22.\nItem 49: depot 217, quantity 372, reference 8773295; inspected and stored on shelf 0.\nItem 50: depot 524, quantity 97, reference 8687940; inspected and stored on shelf 16.\nItem 51: depot 878, quantity 59, reference 2028569; inspected and stored on shelf 4.\nItem 52: depot 387, quantity 648, reference 5825986; inspected and stored on shelf 15.\nItem 53: depot 785, quantity 902, reference 9960596; inspected and stored on shelf 8.\nItem 54: depot 357, quantity 904, reference 6759443; inspected and stored on shelf 46.\nItem 55: depot 905, quantity 377, reference 4448219; inspected and stored on shelf 18.\nItem 56: depot 947, quantity 594, reference 8642897; inspected and stored on shelf 16.\nItem 57: depot 531, quantity 590, reference 3009938; inspected and stored on shelf 44.\nItem 58: depot 317, quantity 965, reference 2547226; inspected and stored on shelf 29.\nItem 59: depot 304, quantity 281, reference 4505333; inspected and stored on shelf 37.\nItem 60: depot 411, quantity 15, reference 8576549; inspected and stored on shelf 12.\nItem 61: depot 553, quantity 578, reference 7625355; inspected and stored on shelf 5.\nItem 62: depot 769, quantity 21, reference 8161349; inspected and stored on shelf 34.\nItem 63: depot 815, quantity 175, reference 3240612; inspected and stored on shelf 9.\nItem 64: depot 543, quantity 954, reference 7474598; inspected and stored on shelf 40.\nItem 65: depot 657, quantity 814, reference 7340333; inspected and stored on shelf 44.\nItem 66: depot 660, quantity 693, reference 9643075; inspected and stored on shelf 30.\nItem 67: depot 855, quantity 642, reference 1072786; inspected and stored on shelf 31.\nItem 68: depot 266, quantity 959, reference 1782798; inspected and stored on shelf 39.\nItem 69: depot 422, quantity 445, reference 3193519; inspected and stored on shelf 48.\nItem 70: depot 535, quantity 463, reference 1291638; inspected and stored on shelf 10.\nItem 71: depot 855, quantity 899, reference 5350979; inspected and stored on shelf 18.\nItem 72: depot 119, quantity 660, reference 5187888; inspected and stored on shelf 25.\nItem 73: depot 189, quantity 958, reference 3792127; inspected and stored on shelf 21.\nItem 74: depot 348, quantity 647, reference 9380492; inspected and stored on shelf 44.\nItem 75: depot 134, quantity 105, reference 6215470; inspected and stored on shelf 47.\nItem 76: depot 269, quantity 575, reference 1931343; inspected and stored on shelf 16.\nItem 77: depot 974, quantity 120, reference 7825927; inspected and stored on shelf 3.\nItem 78: depot 752, quantity 176, reference 5906328; inspected and stored on shelf 43.\nItem 79: depot 620, quantity 338, reference 6752628; inspected and stored on shelf 3.\nItem 80: depot 493, quantity 823, reference 6851845; inspected and stored on shelf 27.\nItem 81: depot 564, quantity 719, reference 8925812; inspected and stored on shelf 34.\nItem 82: depot 997, quantity 561, reference 4071806; inspected and stored on shelf 32.\nItem 83: depot 746, quantity 580, reference 1962010; inspected and stored on shelf 16.\nItem 84: depot 829, quantity 806, reference 3743989; inspected and stored on shelf 49.\nItem 85: depot 143, quantity 170, reference 4272030; inspected and stored on shelf 2.\nItem 86: depot 777, quantity 616, reference 4446356; inspected and stored on shelf 30.\nItem 87: depot 124, quantity 154, reference 6897672; inspected and stored on shelf 46.\nItem 88: depot 796, quantity 607, reference 9436011; inspected and stored on shelf 45.\nItem 89: depot 743, quantity 633, reference 3677140; inspected and stored on shelf 23.\nItem 90: depot 334, quantity 285, reference 1328061; inspected and stored on shelf 10.\nItem 91: depot 666, quantity 300, reference 3586511; inspected and stored on shelf 31.\nItem 92: depot 645, quantity 951, reference 1814429; inspected and stored on shelf 6.\nItem 93: depot 566, quantity 167, reference 5047756; inspected and stored on shelf 25.\nItem 94: depot 243, quantity 752, reference 4961378; inspected and stored on shelf 7.\nItem 95: depot 267, quantity 712, reference 6978406; inspected and stored on shelf 21.\nThe final access code is MAPLE-9362. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.853012084960938,
+            "free_gib": 3.6044273376464844,
+            "cached_gib": 15.635459899902344,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.222854614257812,
+            "cgroup_headroom_gib": 112.45623016357422,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 8.535465454915538,
+          "ttft_s": 0.5810317839495838,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 291,
+            "total_tokens": 347,
+            "decode_tok_s": 36.24,
+            "draft_accept": 0.8057553956834532,
+            "time_prefill": 0.5021946430206299,
+            "time_generate": 8.028903007507324,
+            "time_enqueued": 0.00011467933654785156
+          },
+          "finish": "stop",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end).\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals.sort(key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start, last_end = merged[-1]\n        if start <= last_end:\n            merged[-1] = (last_start, max(last_end, end))\n        else:\n            merged.append((start, end))\n\n    return merged\n```",
+          "reasoning": "",
+          "prefill_tok_s": 111.51054830686346,
+          "case": "complete-code",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 512,
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.7879638671875,
+            "free_gib": 3.5393409729003906,
+            "cached_gib": 15.635498046875,
+            "swap_used_gib": 0.13708114624023438,
+            "cgroup_current_gib": 12.197128295898438,
+            "cgroup_headroom_gib": 112.48195266723633,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ],
+      "config": {
+        "outdir": "/workspace/mimo-tune/runs/france-dflash7-dynamic06-q4-chunk1024-1790401489833231830",
+        "memory_policy": "uma",
+        "max_seconds": 43200,
+        "env": {
+          "CUDA_HOME": "/usr/local/cuda",
+          "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+          "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+          "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+          "PYTHONUNBUFFERED": "1",
+          "EXL3_UMA": "1",
+          "EXL3_UMA_RESERVE_MB": "8192",
+          "TORCH_CUDA_ARCH_LIST": "12.1",
+          "OMP_NUM_THREADS": "8",
+          "EXL3_BATCH_VERIFY": "0"
+        },
+        "command": [
+          "/workspace/mimo-exl3/venv/bin/python",
+          "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+          "-m",
+          "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+          "-dm",
+          "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+          "-ndt",
+          "7",
+          "-dds",
+          "-dc",
+          "0.6",
+          "-gs",
+          "106",
+          "-cs",
+          "4096",
+          "-cq",
+          "4",
+          "-ambs",
+          "1",
+          "-chunk_size",
+          "1024",
+          "-ccs",
+          "0",
+          "-rcs",
+          "0.25",
+          "--max-active-requests",
+          "1",
+          "--max-pending-requests",
+          "2",
+          "--max-model-len",
+          "4096",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "8096",
+          "--request-timeout",
+          "600",
+          "-lv"
+        ]
+      }
+    }
+  },
+  "comparison": {
+    "unified-control": {
+      "code_median": 34.894999999999996,
+      "prose_median": 23.77,
+      "prefill_long": 474.85452634438826,
+      "comparison": [
+        {
+          "phase": "requests",
+          "case": "arithmetic",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "explanation",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "code-1",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "prose-1",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "code-2",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "prose-2",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "prefill-copy",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "copy-control",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "code-1",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "prose-1",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "code-2",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "prose-2",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "validation",
+          "case": "long-prefill",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "validation",
+          "case": "complete-code",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        }
+      ],
+      "min_available_gib": 18.00891876220703,
+      "max_host_oom": 0,
+      "max_cgroup_oom": 0
+    },
+    "hybrid16": {
+      "code_median": 31.82,
+      "prose_median": 21.915,
+      "prefill_long": 471.39975731690737,
+      "comparison": [
+        {
+          "phase": "requests",
+          "case": "arithmetic",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "explanation",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "code-1",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "requests",
+          "case": "prose-1",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "requests",
+          "case": "code-2",
+          "text_equal": false,
+          "tokens_equal": true,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "requests",
+          "case": "prose-2",
+          "text_equal": false,
+          "tokens_equal": true,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "requests",
+          "case": "prefill-copy",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "copy-control",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "code-1",
+          "text_equal": false,
+          "tokens_equal": true,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "warm",
+          "case": "prose-1",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "warm",
+          "case": "code-2",
+          "text_equal": false,
+          "tokens_equal": true,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "warm",
+          "case": "prose-2",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "validation",
+          "case": "long-prefill",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "validation",
+          "case": "complete-code",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        }
+      ],
+      "min_available_gib": 18.306236267089844,
+      "max_host_oom": 0,
+      "max_cgroup_oom": 0
+    },
+    "hybrid64": {
+      "code_median": 31.985,
+      "prose_median": 21.994999999999997,
+      "prefill_long": 466.56557404891356,
+      "comparison": [
+        {
+          "phase": "requests",
+          "case": "arithmetic",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "explanation",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "code-1",
+          "text_equal": false,
+          "tokens_equal": true,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "requests",
+          "case": "prose-1",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "requests",
+          "case": "code-2",
+          "text_equal": false,
+          "tokens_equal": true,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "requests",
+          "case": "prose-2",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "requests",
+          "case": "prefill-copy",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "copy-control",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "code-1",
+          "text_equal": false,
+          "tokens_equal": true,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "warm",
+          "case": "prose-1",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "warm",
+          "case": "code-2",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "warm",
+          "case": "prose-2",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        },
+        {
+          "phase": "validation",
+          "case": "long-prefill",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "validation",
+          "case": "complete-code",
+          "text_equal": false,
+          "tokens_equal": false,
+          "acceptance_equal": false
+        }
+      ],
+      "min_available_gib": 18.35153579711914,
+      "max_host_oom": 0,
+      "max_cgroup_oom": 0
+    },
+    "unified-restored": {
+      "code_median": 34.865,
+      "prose_median": 23.744999999999997,
+      "prefill_long": 472.14002090611194,
+      "comparison": [
+        {
+          "phase": "requests",
+          "case": "arithmetic",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "explanation",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "code-1",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "prose-1",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "code-2",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "prose-2",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "prefill-copy",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "requests",
+          "case": "copy-control",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "code-1",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "prose-1",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "code-2",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "warm",
+          "case": "prose-2",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "validation",
+          "case": "long-prefill",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        },
+        {
+          "phase": "validation",
+          "case": "complete-code",
+          "text_equal": true,
+          "tokens_equal": true,
+          "acceptance_equal": true
+        }
+      ],
+      "min_available_gib": 18.27151870727539,
+      "max_host_oom": 0,
+      "max_cgroup_oom": 0
+    }
+  },
+  "request_count": 56,
+  "decision": "Reject hybrid MIN_ROWS=16/64; restore original unified default. Different outputs and acceptance confound direct kernel-speed attribution. No numerical correctness qualification.",
+  "safety": "Whole-run legacy stayed 0; threshold64 bounds legacy total assignments below64, underTEMP_ROWS_FUSED128. Full1024 measuring forwards retained; group geometry unchanged. Guard and UMA reserve unchanged."
+}

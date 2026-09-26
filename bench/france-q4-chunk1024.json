@@ -1,0 +1,490 @@
+{
+  "quality_status": "NOT QUALIFIED: exact-copy failures remain unresolved",
+  "receipt": {
+    "instance": 52673351,
+    "pack": "MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+    "run": "/workspace/mimo-tune/runs/france-q4-chunk1024-1790391197103258487",
+    "health": {
+      "status": "healthy",
+      "healthy": true,
+      "requests": 0,
+      "max_active_requests": 1
+    },
+    "smoke": {
+      "health_before": {
+        "status": "healthy",
+        "healthy": true,
+        "requests": 0,
+        "max_active_requests": 1
+      },
+      "models": {
+        "object": "list",
+        "data": [
+          {
+            "id": "MiMo-V2.6-Flash-RL-EXL3",
+            "object": "model",
+            "owned_by": "vcruz305-exllamav3",
+            "max_model_len": 4096,
+            "cache_size": 4096,
+            "max_active_requests": 1,
+            "chat_template_sha256": "853650bee57bf95020373e4c928bd5a4b41b9915adf964a77711d2b49a291887"
+          }
+        ]
+      },
+      "memory_before": {
+        "available_gib": 21.745502471923828,
+        "free_gib": 3.29693603515625,
+        "cached_gib": 18.788921356201172,
+        "swap_used_gib": 0.13690185546875,
+        "cgroup_current_gib": 18.717254638671875,
+        "cgroup_headroom_gib": 112.32280349731445,
+        "psi_full10": 0.05,
+        "oom_kill": 0,
+        "oom": 0
+      },
+      "requests": [
+        {
+          "wall_s": 1.9269981909310445,
+          "ttft_s": 1.748424393008463,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 4,
+            "total_tokens": 30,
+            "decode_tok_s": 6.82,
+            "draft_accept": null,
+            "time_prefill": 1.3129079341888428,
+            "time_generate": 0.5862636566162109,
+            "time_enqueued": 0.00016689300537109375
+          },
+          "finish": "stop",
+          "text": "323",
+          "reasoning": "",
+          "prefill_tok_s": 19.803368783861945,
+          "case": "sanity",
+          "correct": true
+        },
+        {
+          "wall_s": 3.8524603421101347,
+          "ttft_s": 0.37431227904744446,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 64,
+            "total_tokens": 90,
+            "decode_tok_s": 18.11,
+            "draft_accept": null,
+            "time_prefill": 0.31612229347229004,
+            "time_generate": 3.5331270694732666,
+            "time_enqueued": 9.179115295410156e-05
+          },
+          "finish": "stop",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update all relevant index structures to keep them synchronized.",
+          "reasoning": "",
+          "prefill_tok_s": 82.24665117545419,
+          "case": "explanation",
+          "correct": null
+        }
+      ],
+      "health_after": {
+        "status": "healthy",
+        "healthy": true,
+        "requests": 0,
+        "max_active_requests": 1
+      },
+      "memory_after": {
+        "available_gib": 21.837696075439453,
+        "free_gib": 3.387737274169922,
+        "cached_gib": 18.79052734375,
+        "swap_used_gib": 0.13690185546875,
+        "cgroup_current_gib": 18.64226531982422,
+        "cgroup_headroom_gib": 112.39677047729492,
+        "psi_full10": 0.03,
+        "oom_kill": 0,
+        "oom": 0
+      },
+      "host_oom_counter": [
+        "oom_kill 0"
+      ],
+      "pass": true
+    },
+    "baseline": [
+      {
+        "wall_s": 15.803533885045908,
+        "ttft_s": 1.65243061108049,
+        "usage": {
+          "prompt_tokens": 79,
+          "completion_tokens": 256,
+          "total_tokens": 335,
+          "decode_tok_s": 18.02,
+          "draft_accept": null,
+          "time_prefill": 1.5757689476013184,
+          "time_generate": 14.206421136856079,
+          "time_enqueued": 0.0001385211944580078
+        },
+        "finish": "length",
+        "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merges a list of overlapping closed intervals [start, end].\n\n    Args:\n        intervals: A list of intervals, where each interval is a list or tuple\n                   of two numbers [start, end], with start <= end.\n\n    Returns:\n        A new list of merged intervals, sorted by their start value.\n\n    Time Complexity:\n        O(n log n), where n is the number of intervals, due to the initial\n        sorting step. The subsequent merging loop runs in O(n) time.\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start value\n    sorted_intervals = sorted(intervals, key=lambda x: x[0])\n\n    merged = [sorted_intervals[0]]\n\n    for current in sorted_intervals[1:]:\n        last_merged = merged[-1]\n        # Check for overlap: current interval starts before or at the end of the last merged one\n        if current[0] <= last_merged[1]:\n            # Merge by extending the end of the last merged interval\n            last_merged[1] = max(last_merged[1], current[1])\n        else:\n            # No overlap, add the current interval to the list\n            merged",
+        "reasoning": "",
+        "prefill_tok_s": 50.13425357839175,
+        "case": "decode-code",
+        "memory_after": {
+          "available_gib": 21.72549819946289,
+          "free_gib": 3.2646484375,
+          "cached_gib": 18.801406860351562,
+          "swap_used_gib": 0.13690185546875,
+          "cgroup_current_gib": 18.670536041259766,
+          "cgroup_headroom_gib": 112.37760543823242,
+          "psi_full10": 0.0,
+          "oom_kill": 0,
+          "oom": 0
+        }
+      },
+      {
+        "wall_s": 3.391763372113928,
+        "ttft_s": 2.9390666590770707,
+        "usage": {
+          "prompt_tokens": 1207,
+          "completion_tokens": 9,
+          "total_tokens": 1216,
+          "decode_tok_s": 17.68,
+          "draft_accept": null,
+          "time_prefill": 2.878208637237549,
+          "time_generate": 0.5091824531555176,
+          "time_enqueued": 0.00014591217041015625
+        },
+        "finish": "stop",
+        "text": "LAPINE-7426",
+        "reasoning": "",
+        "prefill_tok_s": 419.35806333986136,
+        "case": "prefill-records",
+        "memory_after": {
+          "available_gib": 21.75534439086914,
+          "free_gib": 3.381359100341797,
+          "cached_gib": 18.716060638427734,
+          "swap_used_gib": 0.13690185546875,
+          "cgroup_current_gib": 18.62926483154297,
+          "cgroup_headroom_gib": 112.34248733520508,
+          "psi_full10": 0.18,
+          "oom_kill": 0,
+          "oom": 0
+        },
+        "correct": false
+      }
+    ],
+    "memory_now": {
+      "available_gib": 21.75490951538086,
+      "free_gib": 3.380695343017578,
+      "cached_gib": 18.716331481933594,
+      "swap_used_gib": 0.13690185546875,
+      "cgroup_current_gib": 18.63077163696289,
+      "cgroup_headroom_gib": 112.34123229980469,
+      "psi_full10": 0.18,
+      "oom_kill": 0,
+      "oom": 0
+    },
+    "memory_stats": {
+      "sample_count": 794,
+      "min_available_gib": 21.076919555664062,
+      "min_free_gib": 2.5524139404296875,
+      "max_psi_full10": 4.5,
+      "oom_kill_max": 0
+    },
+    "host_oom": [
+      "oom_kill 0"
+    ],
+    "config": {
+      "outdir": "/workspace/mimo-tune/runs/france-q4-chunk1024-1790391197103258487",
+      "memory_policy": "uma",
+      "max_seconds": 43200,
+      "env": {
+        "CUDA_HOME": "/usr/local/cuda",
+        "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+        "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+        "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+        "PYTHONUNBUFFERED": "1",
+        "EXL3_UMA": "1",
+        "EXL3_UMA_RESERVE_MB": "8192",
+        "TORCH_CUDA_ARCH_LIST": "12.1",
+        "OMP_NUM_THREADS": "8"
+      },
+      "command": [
+        "/workspace/mimo-exl3/venv/bin/python",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+        "-m",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+        "-gs",
+        "106",
+        "-cs",
+        "4096",
+        "-cq",
+        "4",
+        "-ambs",
+        "1",
+        "-chunk_size",
+        "1024",
+        "-ccs",
+        "0",
+        "-rcs",
+        "0.25",
+        "--max-active-requests",
+        "1",
+        "--max-pending-requests",
+        "2",
+        "--max-model-len",
+        "4096",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8096",
+        "--request-timeout",
+        "600",
+        "-lv"
+      ]
+    },
+    "pid": {
+      "guard_pid": 3148,
+      "server_pid": 3149,
+      "command": [
+        "/workspace/mimo-exl3/venv/bin/python",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+        "-m",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+        "-gs",
+        "106",
+        "-cs",
+        "4096",
+        "-cq",
+        "4",
+        "-ambs",
+        "1",
+        "-chunk_size",
+        "1024",
+        "-ccs",
+        "0",
+        "-rcs",
+        "0.25",
+        "--max-active-requests",
+        "1",
+        "--max-pending-requests",
+        "2",
+        "--max-model-len",
+        "4096",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8096",
+        "--request-timeout",
+        "600",
+        "-lv"
+      ]
+    }
+  },
+  "repeat_requests": [
+    {
+      "wall_s": 3.19380322098732,
+      "ttft_s": 2.7462570120114833,
+      "usage": {
+        "prompt_tokens": 1209,
+        "completion_tokens": 9,
+        "total_tokens": 1218,
+        "decode_tok_s": 17.85,
+        "draft_accept": null,
+        "time_prefill": 2.6680092811584473,
+        "time_generate": 0.5042233467102051,
+        "time_enqueued": 0.0002079010009765625
+      },
+      "finish": "stop",
+      "text": "LAPTOP-7426",
+      "reasoning": "",
+      "prefill_tok_s": 453.1468494273953,
+      "case": "prefill-records-32",
+      "prompt": "Trial 2323dd139b8949bfb3707e60054e8622. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+      "expected": "LARCH-7426",
+      "correct": false,
+      "memory_after": {
+        "available_gib": 21.071002960205078,
+        "free_gib": 1.3976287841796875,
+        "cached_gib": 20.64917755126953,
+        "swap_used_gib": 0.13688278198242188,
+        "cgroup_current_gib": 18.603450775146484,
+        "cgroup_headroom_gib": 112.31826400756836,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      }
+    },
+    {
+      "wall_s": 3.194090581033379,
+      "ttft_s": 2.7466768190497532,
+      "usage": {
+        "prompt_tokens": 1209,
+        "completion_tokens": 9,
+        "total_tokens": 1218,
+        "decode_tok_s": 17.89,
+        "draft_accept": null,
+        "time_prefill": 2.6867990493774414,
+        "time_generate": 0.5029504299163818,
+        "time_enqueued": 0.00012040138244628906
+      },
+      "finish": "stop",
+      "text": "LAPTOP-7426",
+      "reasoning": "",
+      "prefill_tok_s": 449.9778278096896,
+      "case": "prefill-records-32",
+      "prompt": "Trial 8d48512f22214cdd8f2a4190b9d922bd. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+      "expected": "LARCH-7426",
+      "correct": false,
+      "memory_after": {
+        "available_gib": 21.043903350830078,
+        "free_gib": 1.4225730895996094,
+        "cached_gib": 20.597362518310547,
+        "swap_used_gib": 0.13688278198242188,
+        "cgroup_current_gib": 18.582931518554688,
+        "cgroup_headroom_gib": 112.28695678710938,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      }
+    },
+    {
+      "wall_s": 7.525044353911653,
+      "ttft_s": 7.131489349994808,
+      "usage": {
+        "prompt_tokens": 3488,
+        "completion_tokens": 8,
+        "total_tokens": 3496,
+        "decode_tok_s": 17.79,
+        "draft_accept": null,
+        "time_prefill": 7.06553316116333,
+        "time_generate": 0.4496004581451416,
+        "time_enqueued": 0.00011229515075683594
+      },
+      "finish": "stop",
+      "text": "MAPLE-9362",
+      "reasoning": "",
+      "prefill_tok_s": 493.66409023062397,
+      "case": "prefill-records-96",
+      "prompt": "Trial fdbf26d4ff95482a810ddbdabbc55ee9. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nItem 32: depot 458, quantity 234, reference 3933639; inspected and stored on shelf 7.\nItem 33: depot 310, quantity 748, reference 6957050; inspected and stored on shelf 23.\nItem 34: depot 807, quantity 13, reference 6251876; inspected and stored on shelf 45.\nItem 35: depot 712, quantity 84, reference 2147670; inspected and stored on shelf 35.\nItem 36: depot 598, quantity 931, reference 8120196; inspected and stored on shelf 1.\nItem 37: depot 771, quantity 86, reference 2768060; inspected and stored on shelf 12.\nItem 38: depot 146, quantity 335, reference 7418543; inspected and stored on shelf 10.\nItem 39: depot 922, quantity 519, reference 5010147; inspected and stored on shelf 25.\nItem 40: depot 387, quantity 208, reference 8145739; inspected and stored on shelf 21.\nItem 41: depot 669, quantity 196, reference 9862086; inspected and stored on shelf 39.\nItem 42: depot 136, quantity 254, reference 7982448; inspected and stored on shelf 44.\nItem 43: depot 540, quantity 998, reference 3913639; inspected and stored on shelf 13.\nItem 44: depot 901, quantity 898, reference 5948514; inspected and stored on shelf 43.\nItem 45: depot 695, quantity 871, reference 4072265; inspected and stored on shelf 44.\nItem 46: depot 273, quantity 339, reference 7031706; inspected and stored on shelf 30.\nItem 47: depot 871, quantity 748, reference 3918944; inspected and stored on shelf 16.\nItem 48: depot 593, quantity 820, reference 8828518; inspected and stored on shelf 22.\nItem 49: depot 217, quantity 372, reference 8773295; inspected and stored on shelf 0.\nItem 50: depot 524, quantity 97, reference 8687940; inspected and stored on shelf 16.\nItem 51: depot 878, quantity 59, reference 2028569; inspected and stored on shelf 4.\nItem 52: depot 387, quantity 648, reference 5825986; inspected and stored on shelf 15.\nItem 53: depot 785, quantity 902, reference 9960596; inspected and stored on shelf 8.\nItem 54: depot 357, quantity 904, reference 6759443; inspected and stored on shelf 46.\nItem 55: depot 905, quantity 377, reference 4448219; inspected and stored on shelf 18.\nItem 56: depot 947, quantity 594, reference 8642897; inspected and stored on shelf 16.\nItem 57: depot 531, quantity 590, reference 3009938; inspected and stored on shelf 44.\nItem 58: depot 317, quantity 965, reference 2547226; inspected and stored on shelf 29.\nItem 59: depot 304, quantity 281, reference 4505333; inspected and stored on shelf 37.\nItem 60: depot 411, quantity 15, reference 8576549; inspected and stored on shelf 12.\nItem 61: depot 553, quantity 578, reference 7625355; inspected and stored on shelf 5.\nItem 62: depot 769, quantity 21, reference 8161349; inspected and stored on shelf 34.\nItem 63: depot 815, quantity 175, reference 3240612; inspected and stored on shelf 9.\nItem 64: depot 543, quantity 954, reference 7474598; inspected and stored on shelf 40.\nItem 65: depot 657, quantity 814, reference 7340333; inspected and stored on shelf 44.\nItem 66: depot 660, quantity 693, reference 9643075; inspected and stored on shelf 30.\nItem 67: depot 855, quantity 642, reference 1072786; inspected and stored on shelf 31.\nItem 68: depot 266, quantity 959, reference 1782798; inspected and stored on shelf 39.\nItem 69: depot 422, quantity 445, reference 3193519; inspected and stored on shelf 48.\nItem 70: depot 535, quantity 463, reference 1291638; inspected and stored on shelf 10.\nItem 71: depot 855, quantity 899, reference 5350979; inspected and stored on shelf 18.\nItem 72: depot 119, quantity 660, reference 5187888; inspected and stored on shelf 25.\nItem 73: depot 189, quantity 958, reference 3792127; inspected and stored on shelf 21.\nItem 74: depot 348, quantity 647, reference 9380492; inspected and stored on shelf 44.\nItem 75: depot 134, quantity 105, reference 6215470; inspected and stored on shelf 47.\nItem 76: depot 269, quantity 575, reference 1931343; inspected and stored on shelf 16.\nItem 77: depot 974, quantity 120, reference 7825927; inspected and stored on shelf 3.\nItem 78: depot 752, quantity 176, reference 5906328; inspected and stored on shelf 43.\nItem 79: depot 620, quantity 338, reference 6752628; inspected and stored on shelf 3.\nItem 80: depot 493, quantity 823, reference 6851845; inspected and stored on shelf 27.\nItem 81: depot 564, quantity 719, reference 8925812; inspected and stored on shelf 34.\nItem 82: depot 997, quantity 561, reference 4071806; inspected and stored on shelf 32.\nItem 83: depot 746, quantity 580, reference 1962010; inspected and stored on shelf 16.\nItem 84: depot 829, quantity 806, reference 3743989; inspected and stored on shelf 49.\nItem 85: depot 143, quantity 170, reference 4272030; inspected and stored on shelf 2.\nItem 86: depot 777, quantity 616, reference 4446356; inspected and stored on shelf 30.\nItem 87: depot 124, quantity 154, reference 6897672; inspected and stored on shelf 46.\nItem 88: depot 796, quantity 607, reference 9436011; inspected and stored on shelf 45.\nItem 89: depot 743, quantity 633, reference 3677140; inspected and stored on shelf 23.\nItem 90: depot 334, quantity 285, reference 1328061; inspected and stored on shelf 10.\nItem 91: depot 666, quantity 300, reference 3586511; inspected and stored on shelf 31.\nItem 92: depot 645, quantity 951, reference 1814429; inspected and stored on shelf 6.\nItem 93: depot 566, quantity 167, reference 5047756; inspected and stored on shelf 25.\nItem 94: depot 243, quantity 752, reference 4961378; inspected and stored on shelf 7.\nItem 95: depot 267, quantity 712, reference 6978406; inspected and stored on shelf 21.\nThe final access code is MAPLE-9362. What is the final access code? Reply with the code only.",
+      "expected": "MAPLE-9362",
+      "correct": true,
+      "memory_after": {
+        "available_gib": 20.90819549560547,
+        "free_gib": 1.4118919372558594,
+        "cached_gib": 20.472999572753906,
+        "swap_used_gib": 0.13688278198242188,
+        "cgroup_current_gib": 18.519027709960938,
+        "cgroup_headroom_gib": 112.2264633178711,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      }
+    }
+  ],
+  "final_summary": {
+    "health": {
+      "status": "healthy",
+      "healthy": true,
+      "requests": 0,
+      "max_active_requests": 1
+    },
+    "pids": {
+      "guard_pid": 3148,
+      "server_pid": 3149,
+      "command": [
+        "/workspace/mimo-exl3/venv/bin/python",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+        "-m",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+        "-gs",
+        "106",
+        "-cs",
+        "4096",
+        "-cq",
+        "4",
+        "-ambs",
+        "1",
+        "-chunk_size",
+        "1024",
+        "-ccs",
+        "0",
+        "-rcs",
+        "0.25",
+        "--max-active-requests",
+        "1",
+        "--max-pending-requests",
+        "2",
+        "--max-model-len",
+        "4096",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8096",
+        "--request-timeout",
+        "600",
+        "-lv"
+      ]
+    },
+    "live_argv": [
+      "/workspace/mimo-exl3/venv/bin/python",
+      "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+      "-m",
+      "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+      "-gs",
+      "106",
+      "-cs",
+      "4096",
+      "-cq",
+      "4",
+      "-ambs",
+      "1",
+      "-chunk_size",
+      "1024",
+      "-ccs",
+      "0",
+      "-rcs",
+      "0.25",
+      "--max-active-requests",
+      "1",
+      "--max-pending-requests",
+      "2",
+      "--max-model-len",
+      "4096",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8096",
+      "--request-timeout",
+      "600",
+      "-lv",
+      ""
+    ],
+    "requests_saved": 3,
+    "repeat_prefill_median": 451.5623386185424,
+    "memory": {
+      "available_gib": 20.904544830322266,
+      "free_gib": 1.4082412719726562,
+      "cached_gib": 20.472999572753906,
+      "swap_used_gib": 0.13688278198242188,
+      "cgroup_current_gib": 18.52294158935547,
+      "cgroup_headroom_gib": 112.2225570678711,
+      "psi_full10": 0.0,
+      "oom_kill": 0,
+      "oom": 0
+    },
+    "minimum_available_gib": 20.86944580078125,
+    "minimum_free_gib": 1.1373443603515625,
+    "maximum_oom_kill": 0,
+    "quality_status": "NOT QUALIFIED: previous exact-copy failure remains unresolved; control prompts are not an accuracy evaluation."
+  },
+  "comparison": {
+    "old_prefill_tok_s": 264.65850245167974,
+    "new_first_prefill_tok_s": 419.35806333986136,
+    "first_sample_prefill_gain_percent": 58.452518795018136,
+    "new_repeat_prefill_tok_s": [
+      453.1468494273953,
+      449.9778278096896
+    ],
+    "new_long_prompt_tokens": 3488,
+    "new_long_prefill_tok_s": 493.66409023062397,
+    "caveat": "Both KV dtype and chunk size changed; fresh early markers prevent cross-request prefix reuse. Small sequential timing sample, no isolated causal attribution or quality qualification.",
+    "quality_status": "NOT QUALIFIED: previous exact-copy failure remains unresolved; control prompts are not an accuracy evaluation."
+  }
+}

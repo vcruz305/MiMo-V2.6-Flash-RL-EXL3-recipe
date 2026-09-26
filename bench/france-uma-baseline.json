@@ -1,0 +1,334 @@
+{
+  "instance": 52673351,
+  "pack": "MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+  "run": "/workspace/mimo-tune/runs/france-uma-1790390334018799484",
+  "health": {
+    "status": "healthy",
+    "healthy": true,
+    "requests": 0,
+    "max_active_requests": 1
+  },
+  "smoke": {
+    "health_before": {
+      "status": "healthy",
+      "healthy": true,
+      "requests": 0,
+      "max_active_requests": 1
+    },
+    "models": {
+      "object": "list",
+      "data": [
+        {
+          "id": "MiMo-V2.6-Flash-RL-EXL3",
+          "object": "model",
+          "owned_by": "vcruz305-exllamav3",
+          "max_model_len": 4096,
+          "cache_size": 4096,
+          "max_active_requests": 1,
+          "chat_template_sha256": "853650bee57bf95020373e4c928bd5a4b41b9915adf964a77711d2b49a291887"
+        }
+      ]
+    },
+    "memory_before": {
+      "available_gib": 21.915725708007812,
+      "free_gib": 3.5478973388671875,
+      "cached_gib": 18.89291000366211,
+      "swap_used_gib": 0.13681793212890625,
+      "cgroup_current_gib": 12.05682373046875,
+      "cgroup_headroom_gib": 112.6762466430664,
+      "psi_full10": 0.22,
+      "oom_kill": 0,
+      "oom": 0
+    },
+    "requests": [
+      {
+        "wall_s": 1.7950155610451475,
+        "ttft_s": 1.612673347000964,
+        "usage": {
+          "prompt_tokens": 26,
+          "completion_tokens": 4,
+          "total_tokens": 30,
+          "decode_tok_s": 8.25,
+          "draft_accept": null,
+          "time_prefill": 1.2654788494110107,
+          "time_generate": 0.48473477363586426,
+          "time_enqueued": 0.00027179718017578125
+        },
+        "finish": "stop",
+        "text": "323",
+        "reasoning": "",
+        "prefill_tok_s": 20.54558241894057,
+        "case": "sanity",
+        "correct": true
+      },
+      {
+        "wall_s": 3.9948361170245335,
+        "ttft_s": 0.3712023830739781,
+        "usage": {
+          "prompt_tokens": 26,
+          "completion_tokens": 66,
+          "total_tokens": 92,
+          "decode_tok_s": 17.94,
+          "draft_accept": null,
+          "time_prefill": 0.31291842460632324,
+          "time_generate": 3.6796607971191406,
+          "time_enqueued": 8.821487426757812e-05
+        },
+        "finish": "stop",
+        "text": "Indexes speed up reads by providing a sorted data structure (like a B-tree) that allows the database to locate specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update every index associated with that table to keep them synchronized.",
+        "reasoning": "",
+        "prefill_tok_s": 83.08874759519229,
+        "case": "explanation",
+        "correct": null
+      }
+    ],
+    "health_after": {
+      "status": "healthy",
+      "healthy": true,
+      "requests": 0,
+      "max_active_requests": 1
+    },
+    "memory_after": {
+      "available_gib": 21.932113647460938,
+      "free_gib": 3.546794891357422,
+      "cached_gib": 18.910385131835938,
+      "swap_used_gib": 0.13681793212890625,
+      "cgroup_current_gib": 12.008235931396484,
+      "cgroup_headroom_gib": 112.73065567016602,
+      "psi_full10": 0.12,
+      "oom_kill": 0,
+      "oom": 0
+    },
+    "host_oom_counter": [
+      "oom_kill 0"
+    ],
+    "pass": true
+  },
+  "baseline": [
+    {
+      "wall_s": 15.410607225028798,
+      "ttft_s": 1.1232444880297408,
+      "usage": {
+        "prompt_tokens": 79,
+        "completion_tokens": 256,
+        "total_tokens": 335,
+        "decode_tok_s": 17.85,
+        "draft_accept": null,
+        "time_prefill": 1.0393290519714355,
+        "time_generate": 14.343943119049072,
+        "time_enqueued": 0.00014162063598632812
+      },
+      "finish": "length",
+      "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end),\n        where no two intervals overlap.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of\n        intervals. The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    intervals = sorted(intervals, key=lambda x: x[0])\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[1:]:\n        last_start,",
+      "reasoning": "",
+      "prefill_tok_s": 76.01057610210168,
+      "case": "decode-code",
+      "memory_after": {
+        "available_gib": 21.98065948486328,
+        "free_gib": 3.5650711059570312,
+        "cached_gib": 18.94045639038086,
+        "swap_used_gib": 0.13681793212890625,
+        "cgroup_current_gib": 12.027671813964844,
+        "cgroup_headroom_gib": 112.73356628417969,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      }
+    },
+    {
+      "wall_s": 5.079040221055038,
+      "ttft_s": 4.622562016011216,
+      "usage": {
+        "prompt_tokens": 1207,
+        "completion_tokens": 9,
+        "total_tokens": 1216,
+        "decode_tok_s": 17.55,
+        "draft_accept": null,
+        "time_prefill": 4.560594081878662,
+        "time_generate": 0.512805700302124,
+        "time_enqueued": 0.00011086463928222656
+      },
+      "finish": "stop",
+      "text": "LAPINE-7426",
+      "reasoning": "",
+      "prefill_tok_s": 264.65850245167974,
+      "case": "prefill-records",
+      "memory_after": {
+        "available_gib": 21.963279724121094,
+        "free_gib": 3.5435943603515625,
+        "cached_gib": 18.94062042236328,
+        "swap_used_gib": 0.13681793212890625,
+        "cgroup_current_gib": 12.069343566894531,
+        "cgroup_headroom_gib": 112.69204330444336,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      },
+      "correct": false
+    }
+  ],
+  "memory_now": {
+    "available_gib": 21.962871551513672,
+    "free_gib": 3.5431442260742188,
+    "cached_gib": 18.94076919555664,
+    "swap_used_gib": 0.13681793212890625,
+    "cgroup_current_gib": 12.07187271118164,
+    "cgroup_headroom_gib": 112.68970108032227,
+    "psi_full10": 0.0,
+    "oom_kill": 0,
+    "oom": 0
+  },
+  "memory_stats": {
+    "sample_count": 1165,
+    "min_available_gib": 21.851306915283203,
+    "min_free_gib": 0.6588287353515625,
+    "max_psi_full10": 4.19,
+    "oom_kill_max": 0
+  },
+  "host_oom": [
+    "oom_kill 0"
+  ],
+  "config": {
+    "outdir": "/workspace/mimo-tune/runs/france-uma-1790390334018799484",
+    "memory_policy": "uma",
+    "max_seconds": 43200,
+    "env": {
+      "CUDA_HOME": "/usr/local/cuda",
+      "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+      "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+      "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+      "PYTHONUNBUFFERED": "1",
+      "EXL3_UMA": "1",
+      "EXL3_UMA_RESERVE_MB": "8192",
+      "TORCH_CUDA_ARCH_LIST": "12.1",
+      "OMP_NUM_THREADS": "8"
+    },
+    "command": [
+      "/workspace/mimo-exl3/venv/bin/python",
+      "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+      "-m",
+      "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+      "-gs",
+      "106",
+      "-cs",
+      "4096",
+      "-ambs",
+      "1",
+      "-chunk_size",
+      "256",
+      "-ccs",
+      "0",
+      "-rcs",
+      "0.25",
+      "--max-active-requests",
+      "1",
+      "--max-pending-requests",
+      "2",
+      "--max-model-len",
+      "4096",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8096",
+      "--request-timeout",
+      "600",
+      "-lv"
+    ]
+  },
+  "pid": {
+    "guard_pid": 2405,
+    "server_pid": 2406,
+    "command": [
+      "/workspace/mimo-exl3/venv/bin/python",
+      "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+      "-m",
+      "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+      "-gs",
+      "106",
+      "-cs",
+      "4096",
+      "-ambs",
+      "1",
+      "-chunk_size",
+      "256",
+      "-ccs",
+      "0",
+      "-rcs",
+      "0.25",
+      "--max-active-requests",
+      "1",
+      "--max-pending-requests",
+      "2",
+      "--max-model-len",
+      "4096",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "8096",
+      "--request-timeout",
+      "600",
+      "-lv"
+    ]
+  },
+  "recall_followup": [
+    {
+      "wall_s": 0.7661865600384772,
+      "ttft_s": 0.3721111110644415,
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 8,
+        "total_tokens": 32,
+        "decode_tok_s": 17.72,
+        "draft_accept": null,
+        "time_prefill": 0.2952399253845215,
+        "time_generate": 0.45145535469055176,
+        "time_enqueued": 0.0001430511474609375
+      },
+      "finish": "stop",
+      "text": "LARGE-7426",
+      "reasoning": "",
+      "prefill_tok_s": 81.2898186745655,
+      "case": "copy-short"
+    },
+    {
+      "wall_s": 0.7446538539370522,
+      "ttft_s": 0.35196267103310674,
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 8,
+        "total_tokens": 32,
+        "decode_tok_s": 17.82,
+        "draft_accept": null,
+        "time_prefill": 0.29259824752807617,
+        "time_generate": 0.4489781856536865,
+        "time_enqueued": 0.0001289844512939453
+      },
+      "finish": "stop",
+      "text": "MAPLE-9362",
+      "reasoning": "",
+      "prefill_tok_s": 82.0237311834791,
+      "case": "copy-control"
+    },
+    {
+      "wall_s": 4.936987680033781,
+      "ttft_s": 4.477723536081612,
+      "usage": {
+        "prompt_tokens": 1209,
+        "completion_tokens": 9,
+        "total_tokens": 1218,
+        "decode_tok_s": 17.41,
+        "draft_accept": null,
+        "time_prefill": 4.4155120849609375,
+        "time_generate": 0.5168089866638184,
+        "time_enqueued": 9.799003601074219e-05
+      },
+      "finish": "stop",
+      "text": "LAPINE-7426",
+      "reasoning": "",
+      "prefill_tok_s": 273.807426349892,
+      "case": "fresh-records"
+    }
+  ],
+  "quality_status": "NOT QUALIFIED: exact literal-copy/recall failure; cause not established",
+  "performance_status": "No-draft single-stream baseline only; code completion was length-capped"
+}

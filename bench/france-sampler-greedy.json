@@ -1,0 +1,1988 @@
+{
+  "runtime_revision": "4c4502dbbf07c8a30c82d5ccba3e54d08eb693ba",
+  "comparison": {
+    "comparison": [
+      {
+        "case": "arithmetic",
+        "same": true,
+        "serial_tps": 13.31,
+        "batch_greedy_tps": 13.34,
+        "acceptance": 0.25
+      },
+      {
+        "case": "explanation",
+        "same": true,
+        "serial_tps": 24.71,
+        "batch_greedy_tps": 24.5,
+        "acceptance": 0.5113636363636364
+      },
+      {
+        "case": "code-1",
+        "same": true,
+        "serial_tps": 30.41,
+        "batch_greedy_tps": 30.31,
+        "acceptance": 0.6642857142857143
+      },
+      {
+        "case": "code-2",
+        "same": true,
+        "serial_tps": 30.32,
+        "batch_greedy_tps": 30.29,
+        "acceptance": 0.6642857142857143
+      },
+      {
+        "case": "prefill-copy",
+        "same": true,
+        "serial_tps": 18.19,
+        "batch_greedy_tps": 18.2,
+        "acceptance": 0.3125
+      },
+      {
+        "case": "copy-control",
+        "same": true,
+        "serial_tps": 33.45,
+        "batch_greedy_tps": 33.47,
+        "acceptance": 0.75
+      },
+      {
+        "case": "repetition_penalty",
+        "same": true,
+        "serial_tps": 16.66,
+        "batch_greedy_tps": 16.6,
+        "acceptance": 0.25833333333333336
+      },
+      {
+        "case": "presence_penalty",
+        "same": true,
+        "serial_tps": 23.74,
+        "batch_greedy_tps": 23.62,
+        "acceptance": 0.4772727272727273
+      },
+      {
+        "case": "frequency_penalty",
+        "same": true,
+        "serial_tps": 23.64,
+        "batch_greedy_tps": 23.68,
+        "acceptance": 0.4772727272727273
+      },
+      {
+        "case": "single-token",
+        "same": true,
+        "serial_tps": 8.73,
+        "batch_greedy_tps": 8.66,
+        "acceptance": 0.0
+      },
+      {
+        "case": "stochastic-42",
+        "same": true,
+        "serial_tps": 16.79,
+        "batch_greedy_tps": 16.74,
+        "acceptance": 0.23484848484848486
+      },
+      {
+        "case": "stochastic-43",
+        "same": true,
+        "serial_tps": 17.83,
+        "batch_greedy_tps": 17.77,
+        "acceptance": 0.2661290322580645
+      },
+      {
+        "case": "stochastic-44",
+        "same": true,
+        "serial_tps": 16.81,
+        "batch_greedy_tps": 16.75,
+        "acceptance": 0.23484848484848486
+      }
+    ],
+    "count": 13,
+    "serial_code_median": 30.365000000000002,
+    "greedy_batch_code_median": 30.299999999999997,
+    "minimum_available_gib": 17.967578887939453,
+    "host_oom": 0,
+    "cgroup_oom": 0,
+    "greedy_run": "/workspace/mimo-tune/runs/france-dflash4-greedy-bv1-q4-chunk1024-1790396194024570065",
+    "serial_run": "/workspace/mimo-tune/runs/france-dflash4-greedy-bv0-q4-chunk1024-1790395911405660895",
+    "cold_prefill_serial": 423.8946877508062,
+    "cold_prefill_greedy": 426.2935498525643,
+    "caveats": [
+      "Small-sample speed check; not statistically qualified.",
+      "Stochastic serial parity tested at three seeds with fixed ceiling4/fusion-on; not a distributional or model-quality qualification.",
+      "Known LARCH exact-copy error remains."
+    ],
+    "median_speed_delta_percent": -0.21406224271366403
+  },
+  "final_run": "/workspace/mimo-tune/runs/france-dflash4-greedy-bv0-q4-chunk1024-1790396639941138743",
+  "quality_status": "NOT QUALIFIED: exact-copy failure remains.",
+  "patch_manifest": {
+    "revision": "4c4502dbbf07c8a30c82d5ccba3e54d08eb693ba",
+    "prerequisites": [
+      "dflash-native-block-pages.patch",
+      "sampler-requirements.patch"
+    ],
+    "patch_sha256": "b9a3fbbb058275c658b2c0f28635654d2e9a78d867397ce2b931a207d915c79c",
+    "files": {
+      "exllamav3/generator/generator.py": {
+        "before": "9bf8ea13195f54868bfcc7ee9755181565d7d88b338e9626f305d1645f903f5d",
+        "after": "3ce3efde084eabe4b9e2dcb937d2b37635b383d294958a599f91dd507896a6ef"
+      },
+      "exllamav3/generator/sampler/custom.py": {
+        "before": "62f5274cd702993879a81b92e0fe9fa2551edffefd02da021693280102def91d",
+        "after": "99e2a717df1a04159d97df1f0dc77b835825f4e08015e8e81485086029014fe4"
+      },
+      "exllamav3/generator/sampler/sampler.py": {
+        "before": "51e2fe6b88a2edbc6cca0635cff016019a04b4cf166308963d5132826ec51217",
+        "after": "cd208baceaad3a209eefa229ffddfb5cf9918d83782e59255c03e963dc1b664d"
+      }
+    },
+    "tests": {
+      "greedy_gate": 12,
+      "requirements": 11,
+      "pages": 187
+    },
+    "scope": "Fail-closed batch capability, enabled only for a single exact Argmax or fused greedy step; CPU tests are not GPU proof."
+  },
+  "cpu_verification": {
+    "tests": {
+      "greedy_gate": 12,
+      "requirements": 11,
+      "pages": 187
+    },
+    "total": 210,
+    "applied_bytes_match": true,
+    "gpu_executed": false
+  },
+  "arms": {
+    "serial-control": {
+      "summary": {
+        "run": "/workspace/mimo-tune/runs/france-dflash4-greedy-bv0-q4-chunk1024-1790395911405660895",
+        "control": "/workspace/mimo-tune/runs/france-dflash4-q4-chunk1024-1790393986048840072",
+        "request_count": 13,
+        "health": {
+          "status": "healthy",
+          "healthy": true,
+          "requests": 0,
+          "max_active_requests": 1
+        },
+        "memory": {
+          "available_gib": 18.07225799560547,
+          "free_gib": 3.386760711669922,
+          "cached_gib": 15.711345672607422,
+          "swap_used_gib": 0.13741683959960938,
+          "cgroup_current_gib": 12.828876495361328,
+          "cgroup_headroom_gib": 112.51480865478516,
+          "psi_full10": 0.0,
+          "oom_kill": 0,
+          "oom": 0
+        },
+        "min_available_gib": 18.014739990234375,
+        "max_oom_kill": 0,
+        "max_cgroup_oom": 0,
+        "equivalence_checked": true,
+        "config": {
+          "outdir": "/workspace/mimo-tune/runs/france-dflash4-greedy-bv0-q4-chunk1024-1790395911405660895",
+          "memory_policy": "uma",
+          "max_seconds": 43200,
+          "env": {
+            "CUDA_HOME": "/usr/local/cuda",
+            "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+            "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+            "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+            "PYTHONUNBUFFERED": "1",
+            "EXL3_UMA": "1",
+            "EXL3_UMA_RESERVE_MB": "8192",
+            "TORCH_CUDA_ARCH_LIST": "12.1",
+            "OMP_NUM_THREADS": "8",
+            "EXL3_BATCH_VERIFY": "0"
+          },
+          "command": [
+            "/workspace/mimo-exl3/venv/bin/python",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+            "-m",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+            "-dm",
+            "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+            "-ndt",
+            "4",
+            "-gs",
+            "106",
+            "-cs",
+            "4096",
+            "-cq",
+            "4",
+            "-ambs",
+            "1",
+            "-chunk_size",
+            "1024",
+            "-ccs",
+            "0",
+            "-rcs",
+            "0.25",
+            "--max-active-requests",
+            "1",
+            "--max-pending-requests",
+            "2",
+            "--max-model-len",
+            "4096",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            "8096",
+            "--request-timeout",
+            "600",
+            "-lv"
+          ]
+        },
+        "pids": {
+          "guard_pid": 6428,
+          "server_pid": 6429,
+          "command": [
+            "/workspace/mimo-exl3/venv/bin/python",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+            "-m",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+            "-dm",
+            "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+            "-ndt",
+            "4",
+            "-gs",
+            "106",
+            "-cs",
+            "4096",
+            "-cq",
+            "4",
+            "-ambs",
+            "1",
+            "-chunk_size",
+            "1024",
+            "-ccs",
+            "0",
+            "-rcs",
+            "0.25",
+            "--max-active-requests",
+            "1",
+            "--max-pending-requests",
+            "2",
+            "--max-model-len",
+            "4096",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            "8096",
+            "--request-timeout",
+            "600",
+            "-lv"
+          ]
+        }
+      },
+      "requests": [
+        {
+          "wall_s": 0.685556499985978,
+          "ttft_s": 0.5532708169193938,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 4,
+            "total_tokens": 30,
+            "decode_tok_s": 13.31,
+            "draft_accept": 0.25,
+            "time_prefill": 0.32584404945373535,
+            "time_generate": 0.30062294006347656,
+            "time_enqueued": 0.0002448558807373047
+          },
+          "finish": "stop",
+          "text": "323",
+          "reasoning": "",
+          "prefill_tok_s": 79.79277216689385,
+          "case": "arithmetic",
+          "prompt": "What is 17 multiplied by 19? Reply with only the integer.",
+          "cap": 16,
+          "overrides": {},
+          "expected": "323",
+          "memory_after": {
+            "available_gib": 19.009586334228516,
+            "free_gib": 3.6622772216796875,
+            "cached_gib": 15.751106262207031,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.801773071289062,
+            "cgroup_headroom_gib": 112.58206176757812,
+            "psi_full10": 0.26,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 3.0535097339889035,
+          "ttft_s": 0.46615478803869337,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 67,
+            "total_tokens": 93,
+            "decode_tok_s": 24.71,
+            "draft_accept": 0.5113636363636364,
+            "time_prefill": 0.3375871181488037,
+            "time_generate": 2.7116503715515137,
+            "time_enqueued": 9.72747802734375e-05
+          },
+          "finish": "stop",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update every index associated with that table to keep them in sync.",
+          "reasoning": "",
+          "prefill_tok_s": 77.01715676407878,
+          "case": "explanation",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 96,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.953121185302734,
+            "free_gib": 3.6057357788085938,
+            "cached_gib": 15.75149917602539,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.812751770019531,
+            "cgroup_headroom_gib": 112.57107925415039,
+            "psi_full10": 0.18,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.939634524052963,
+          "ttft_s": 0.634474135003984,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 30.41,
+            "draft_accept": 0.6642857142857143,
+            "time_prefill": 0.5169978141784668,
+            "time_generate": 8.418332815170288,
+            "time_enqueued": 0.00012874603271484375
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end),\n        where no two intervals overlap.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start time\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[",
+          "reasoning": "",
+          "prefill_tok_s": 108.31767265590197,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.928550720214844,
+            "free_gib": 3.5772056579589844,
+            "cached_gib": 15.755390167236328,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.821224212646484,
+            "cgroup_headroom_gib": 112.5665168762207,
+            "psi_full10": 0.08,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.9490956539521,
+          "ttft_s": 0.6205094780307263,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 30.32,
+            "draft_accept": 0.6642857142857143,
+            "time_prefill": 0.5006003379821777,
+            "time_generate": 8.444170951843262,
+            "time_enqueued": 0.00018143653869628906
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end),\n        where no two intervals overlap.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start time\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[",
+          "reasoning": "",
+          "prefill_tok_s": 111.86568556011183,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.938568115234375,
+            "free_gib": 3.587207794189453,
+            "cached_gib": 15.755413055419922,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.821979522705078,
+            "cgroup_headroom_gib": 112.56575775146484,
+            "psi_full10": 0.02,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.3527966759866104,
+          "ttft_s": 2.9786537340842187,
+          "usage": {
+            "prompt_tokens": 1209,
+            "completion_tokens": 9,
+            "total_tokens": 1218,
+            "decode_tok_s": 18.19,
+            "draft_accept": 0.3125,
+            "time_prefill": 2.852123498916626,
+            "time_generate": 0.4948732852935791,
+            "time_enqueued": 0.0001361370086669922
+          },
+          "finish": "stop",
+          "text": "LAPINE-7426",
+          "reasoning": "",
+          "prefill_tok_s": 423.8946877508062,
+          "case": "prefill-copy",
+          "prompt": "Trial 6192809c4a38427f819b46b2d6eb31ec. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "overrides": {},
+          "expected": "LARCH-7426",
+          "memory_after": {
+            "available_gib": 18.932086944580078,
+            "free_gib": 3.6266822814941406,
+            "cached_gib": 15.711101531982422,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.826068878173828,
+            "cgroup_headroom_gib": 112.5173454284668,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": false
+        },
+        {
+          "wall_s": 0.5471234360011294,
+          "ttft_s": 0.4265535569284111,
+          "usage": {
+            "prompt_tokens": 24,
+            "completion_tokens": 8,
+            "total_tokens": 32,
+            "decode_tok_s": 33.45,
+            "draft_accept": 0.75,
+            "time_prefill": 0.3048408031463623,
+            "time_generate": 0.23914051055908203,
+            "time_enqueued": 0.00011229515075683594
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 78.72961805732074,
+          "case": "copy-control",
+          "prompt": "Repeat this code exactly and nothing else: MAPLE-9362",
+          "cap": 24,
+          "overrides": {},
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.87502670288086,
+            "free_gib": 3.6008338928222656,
+            "cached_gib": 15.711116790771484,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.826774597167969,
+            "cgroup_headroom_gib": 112.51663208007812,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 3.989596929983236,
+          "ttft_s": 0.4517409490654245,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 61,
+            "total_tokens": 87,
+            "decode_tok_s": 16.66,
+            "draft_accept": 0.25833333333333336,
+            "time_prefill": 0.32388997077941895,
+            "time_generate": 3.6615774631500244,
+            "time_enqueued": 0.00010275840759277344
+          },
+          "finish": "stop",
+          "text": "Indexes provide a sorted lookup structure (like a B-tree) that allows the database to find rows without scanning every record, drastically reducing read time. However, whenever data is inserted or updated, the database must also update these index structures to maintain their order and integrity, adding extra overhead to write operations.",
+          "reasoning": "",
+          "prefill_tok_s": 80.27417439765976,
+          "case": "repetition_penalty",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 64,
+          "overrides": {
+            "repetition_penalty": 1.1
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.760971069335938,
+            "free_gib": 3.5961265563964844,
+            "cached_gib": 15.711177825927734,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.827354431152344,
+            "cgroup_headroom_gib": 112.51605224609375,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.026009875931777,
+          "ttft_s": 0.4539764919318259,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 64,
+            "total_tokens": 90,
+            "decode_tok_s": 23.74,
+            "draft_accept": 0.4772727272727273,
+            "time_prefill": 0.3258035182952881,
+            "time_generate": 2.6961214542388916,
+            "time_enqueued": 0.00013875961303710938
+          },
+          "finish": "length",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update all relevant index structures to keep them synchronized with the",
+          "reasoning": "",
+          "prefill_tok_s": 79.80269868183318,
+          "case": "presence_penalty",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 64,
+          "overrides": {
+            "presence_penalty": 0.3
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.51755142211914,
+            "free_gib": 3.555767059326172,
+            "cached_gib": 15.71120834350586,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.827564239501953,
+            "cgroup_headroom_gib": 112.51591491699219,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.0357133200159296,
+          "ttft_s": 0.4526789130177349,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 64,
+            "total_tokens": 90,
+            "decode_tok_s": 23.64,
+            "draft_accept": 0.4772727272727273,
+            "time_prefill": 0.32400083541870117,
+            "time_generate": 2.7075653076171875,
+            "time_enqueued": 0.0001285076141357422
+          },
+          "finish": "length",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update all relevant index structures to keep them synchronized with the",
+          "reasoning": "",
+          "prefill_tok_s": 80.24670666790291,
+          "case": "frequency_penalty",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 64,
+          "overrides": {
+            "frequency_penalty": 0.3
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.028934478759766,
+            "free_gib": 3.3434906005859375,
+            "cached_gib": 15.711204528808594,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.827274322509766,
+            "cgroup_headroom_gib": 112.51621627807617,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 0.3597090389812365,
+          "ttft_s": 0.35964169504586607,
+          "usage": {
+            "prompt_tokens": 17,
+            "completion_tokens": 1,
+            "total_tokens": 18,
+            "decode_tok_s": 8.73,
+            "draft_accept": 0.0,
+            "time_prefill": 0.2412123680114746,
+            "time_generate": 0.11449575424194336,
+            "time_enqueued": 0.0001304149627685547
+          },
+          "finish": "length",
+          "text": "1",
+          "reasoning": "",
+          "prefill_tok_s": 70.47731482488203,
+          "case": "single-token",
+          "prompt": "Count the positive integers starting at one.",
+          "cap": 1,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.028289794921875,
+            "free_gib": 3.3428306579589844,
+            "cached_gib": 15.711219787597656,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.827316284179688,
+            "cgroup_headroom_gib": 112.51617431640625,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 4.070531579083763,
+          "ttft_s": 0.37339342606719583,
+          "usage": {
+            "prompt_tokens": 18,
+            "completion_tokens": 64,
+            "total_tokens": 82,
+            "decode_tok_s": 16.79,
+            "draft_accept": 0.23484848484848486,
+            "time_prefill": 0.2555816173553467,
+            "time_generate": 3.8109190464019775,
+            "time_enqueued": 0.00013780593872070312
+          },
+          "finish": "length",
+          "text": "The street glistens like a river of black glass, reflecting the neon signs and the blurred headlights of passing cars. The steady rhythm of rain is punctuated by the soft *plop* of umbrellas opening and the hiss of tires cutting through standing water. A lone figure hurries along the sidewalk, their",
+          "reasoning": "",
+          "prefill_tok_s": 70.42760033470555,
+          "case": "stochastic-42",
+          "prompt": "Describe a rainy city street in three sentences.",
+          "cap": 64,
+          "overrides": {
+            "temperature": 0.8,
+            "top_k": 40,
+            "top_p": 0.95,
+            "min_p": 0.05,
+            "seed": 42
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.03146743774414,
+            "free_gib": 3.3459739685058594,
+            "cached_gib": 15.711257934570312,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.826969146728516,
+            "cgroup_headroom_gib": 112.51662826538086,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.8487418950535357,
+          "ttft_s": 0.37021459196694195,
+          "usage": {
+            "prompt_tokens": 18,
+            "completion_tokens": 64,
+            "total_tokens": 82,
+            "decode_tok_s": 17.83,
+            "draft_accept": 0.2661290322580645,
+            "time_prefill": 0.25466465950012207,
+            "time_generate": 3.5900661945343018,
+            "time_enqueued": 0.00014710426330566406
+          },
+          "finish": "length",
+          "text": "The downpour transformed the asphalt into a slick, reflective mirror, doubling the glow of neon signs and blurring the headlights of passing cars. Pedestrians hurried beneath a canopy of colorful umbrellas, their hurried footsteps splashing through the gathering puddles. Above the rhythmic drumming of the rain on the pavement,",
+          "reasoning": "",
+          "prefill_tok_s": 70.68118534912526,
+          "case": "stochastic-43",
+          "prompt": "Describe a rainy city street in three sentences.",
+          "cap": 64,
+          "overrides": {
+            "temperature": 0.8,
+            "top_k": 40,
+            "top_p": 0.95,
+            "min_p": 0.05,
+            "seed": 43
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.056499481201172,
+            "free_gib": 3.370983123779297,
+            "cached_gib": 15.711265563964844,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.827178955078125,
+            "cgroup_headroom_gib": 112.51640319824219,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 4.065575250075199,
+          "ttft_s": 0.37146812200080603,
+          "usage": {
+            "prompt_tokens": 18,
+            "completion_tokens": 64,
+            "total_tokens": 82,
+            "decode_tok_s": 16.81,
+            "draft_accept": 0.23484848484848486,
+            "time_prefill": 0.2537665367126465,
+            "time_generate": 3.807908058166504,
+            "time_enqueued": 0.00013756752014160156
+          },
+          "finish": "length",
+          "text": "The wet asphalt gleamed like a dark mirror, reflecting the blurry halos of streetlights and neon signs. Pedestrians hurried along, their umbrellas bobbing like colorful mushrooms as they splashed through puddles. The rhythmic drumming of rain on awnings and windows filled the air, creating a cozy,",
+          "reasoning": "",
+          "prefill_tok_s": 70.93133804470985,
+          "case": "stochastic-44",
+          "prompt": "Describe a rainy city street in three sentences.",
+          "cap": 64,
+          "overrides": {
+            "temperature": 0.8,
+            "top_k": 40,
+            "top_p": 0.95,
+            "min_p": 0.05,
+            "seed": 44
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.07270050048828,
+            "free_gib": 3.3871841430664062,
+            "cached_gib": 15.71126937866211,
+            "swap_used_gib": 0.13741683959960938,
+            "cgroup_current_gib": 12.827392578125,
+            "cgroup_headroom_gib": 112.51616287231445,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ]
+    },
+    "greedy-only": {
+      "summary": {
+        "run": "/workspace/mimo-tune/runs/france-dflash4-greedy-bv1-q4-chunk1024-1790396194024570065",
+        "control": "/workspace/mimo-tune/runs/france-dflash4-q4-chunk1024-1790393986048840072",
+        "request_count": 13,
+        "health": {
+          "status": "healthy",
+          "healthy": true,
+          "requests": 0,
+          "max_active_requests": 1
+        },
+        "memory": {
+          "available_gib": 18.885841369628906,
+          "free_gib": 3.52496337890625,
+          "cached_gib": 15.76511001586914,
+          "swap_used_gib": 0.13740921020507812,
+          "cgroup_current_gib": 12.905872344970703,
+          "cgroup_headroom_gib": 112.4895248413086,
+          "psi_full10": 0.0,
+          "oom_kill": 0,
+          "oom": 0
+        },
+        "min_available_gib": 18.5025634765625,
+        "max_oom_kill": 0,
+        "max_cgroup_oom": 0,
+        "equivalence_checked": true,
+        "config": {
+          "outdir": "/workspace/mimo-tune/runs/france-dflash4-greedy-bv1-q4-chunk1024-1790396194024570065",
+          "memory_policy": "uma",
+          "max_seconds": 43200,
+          "env": {
+            "CUDA_HOME": "/usr/local/cuda",
+            "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+            "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+            "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+            "PYTHONUNBUFFERED": "1",
+            "EXL3_UMA": "1",
+            "EXL3_UMA_RESERVE_MB": "8192",
+            "TORCH_CUDA_ARCH_LIST": "12.1",
+            "OMP_NUM_THREADS": "8",
+            "EXL3_BATCH_VERIFY": "1"
+          },
+          "command": [
+            "/workspace/mimo-exl3/venv/bin/python",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+            "-m",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+            "-dm",
+            "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+            "-ndt",
+            "4",
+            "-gs",
+            "106",
+            "-cs",
+            "4096",
+            "-cq",
+            "4",
+            "-ambs",
+            "1",
+            "-chunk_size",
+            "1024",
+            "-ccs",
+            "0",
+            "-rcs",
+            "0.25",
+            "--max-active-requests",
+            "1",
+            "--max-pending-requests",
+            "2",
+            "--max-model-len",
+            "4096",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            "8096",
+            "--request-timeout",
+            "600",
+            "-lv"
+          ]
+        },
+        "pids": {
+          "guard_pid": 6925,
+          "server_pid": 6926,
+          "command": [
+            "/workspace/mimo-exl3/venv/bin/python",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+            "-m",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+            "-dm",
+            "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+            "-ndt",
+            "4",
+            "-gs",
+            "106",
+            "-cs",
+            "4096",
+            "-cq",
+            "4",
+            "-ambs",
+            "1",
+            "-chunk_size",
+            "1024",
+            "-ccs",
+            "0",
+            "-rcs",
+            "0.25",
+            "--max-active-requests",
+            "1",
+            "--max-pending-requests",
+            "2",
+            "--max-model-len",
+            "4096",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            "8096",
+            "--request-timeout",
+            "600",
+            "-lv"
+          ]
+        }
+      },
+      "requests": [
+        {
+          "wall_s": 0.6939059409778565,
+          "ttft_s": 0.5633544629672542,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 4,
+            "total_tokens": 30,
+            "decode_tok_s": 13.34,
+            "draft_accept": 0.25,
+            "time_prefill": 0.34084033966064453,
+            "time_generate": 0.29995012283325195,
+            "time_enqueued": 0.0002281665802001953
+          },
+          "finish": "stop",
+          "text": "323",
+          "reasoning": "",
+          "prefill_tok_s": 76.28205049286927,
+          "case": "arithmetic",
+          "prompt": "What is 17 multiplied by 19? Reply with only the integer.",
+          "cap": 16,
+          "overrides": {},
+          "expected": "323",
+          "memory_after": {
+            "available_gib": 18.998756408691406,
+            "free_gib": 3.5912322998046875,
+            "cached_gib": 15.810382843017578,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.88742446899414,
+            "cgroup_headroom_gib": 112.5537109375,
+            "psi_full10": 0.34,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 3.0629603969864547,
+          "ttft_s": 0.46948214899748564,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 67,
+            "total_tokens": 93,
+            "decode_tok_s": 24.5,
+            "draft_accept": 0.5113636363636364,
+            "time_prefill": 0.32459044456481934,
+            "time_generate": 2.73457932472229,
+            "time_enqueued": 0.00010514259338378906
+          },
+          "finish": "stop",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update every index associated with that table to keep them in sync.",
+          "reasoning": "",
+          "prefill_tok_s": 80.1009408482692,
+          "case": "explanation",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 96,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.959415435791016,
+            "free_gib": 3.5516128540039062,
+            "cached_gib": 15.810768127441406,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.897857666015625,
+            "cgroup_headroom_gib": 112.54317092895508,
+            "psi_full10": 0.28,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.971300926059484,
+          "ttft_s": 0.6403113820124418,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 30.31,
+            "draft_accept": 0.6642857142857143,
+            "time_prefill": 0.5213944911956787,
+            "time_generate": 8.446094036102295,
+            "time_enqueued": 0.00011992454528808594
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end),\n        where no two intervals overlap.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start time\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[",
+          "reasoning": "",
+          "prefill_tok_s": 107.40428014799119,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.924156188964844,
+            "free_gib": 3.512359619140625,
+            "cached_gib": 15.814647674560547,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.906360626220703,
+            "cgroup_headroom_gib": 112.53863525390625,
+            "psi_full10": 0.1,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.956778453080915,
+          "ttft_s": 0.6203348491108045,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 30.29,
+            "draft_accept": 0.6642857142857143,
+            "time_prefill": 0.5010068416595459,
+            "time_generate": 8.451175689697266,
+            "time_enqueued": 0.00011754035949707031
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end),\n        where no two intervals overlap.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start time\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[",
+          "reasoning": "",
+          "prefill_tok_s": 111.77492070668015,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.679325103759766,
+            "free_gib": 3.4862327575683594,
+            "cached_gib": 15.814685821533203,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.907058715820312,
+            "cgroup_headroom_gib": 112.53793716430664,
+            "psi_full10": 0.04,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.3363754159072414,
+          "ttft_s": 2.961709704948589,
+          "usage": {
+            "prompt_tokens": 1209,
+            "completion_tokens": 9,
+            "total_tokens": 1218,
+            "decode_tok_s": 18.2,
+            "draft_accept": 0.3125,
+            "time_prefill": 2.836073875427246,
+            "time_generate": 0.4944162368774414,
+            "time_enqueued": 0.00011682510375976562
+          },
+          "finish": "stop",
+          "text": "LAPINE-7426",
+          "reasoning": "",
+          "prefill_tok_s": 426.2935498525643,
+          "case": "prefill-copy",
+          "prompt": "Trial 6192809c4a38427f819b46b2d6eb31ec. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "overrides": {},
+          "expected": "LARCH-7426",
+          "memory_after": {
+            "available_gib": 18.696857452392578,
+            "free_gib": 3.555095672607422,
+            "cached_gib": 15.764732360839844,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.903732299804688,
+            "cgroup_headroom_gib": 112.49129104614258,
+            "psi_full10": 0.03,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": false
+        },
+        {
+          "wall_s": 0.5497070699930191,
+          "ttft_s": 0.42957677703816444,
+          "usage": {
+            "prompt_tokens": 24,
+            "completion_tokens": 8,
+            "total_tokens": 32,
+            "decode_tok_s": 33.47,
+            "draft_accept": 0.75,
+            "time_prefill": 0.30669164657592773,
+            "time_generate": 0.23905396461486816,
+            "time_enqueued": 0.00010657310485839844
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 78.25449524937848,
+          "case": "copy-control",
+          "prompt": "Repeat this code exactly and nothing else: MAPLE-9362",
+          "cap": 24,
+          "overrides": {},
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.695106506347656,
+            "free_gib": 3.5533447265625,
+            "cached_gib": 15.764732360839844,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.90420150756836,
+            "cgroup_headroom_gib": 112.49081802368164,
+            "psi_full10": 0.03,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 4.006652474985458,
+          "ttft_s": 0.456810510950163,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 61,
+            "total_tokens": 87,
+            "decode_tok_s": 16.6,
+            "draft_accept": 0.25833333333333336,
+            "time_prefill": 0.3269484043121338,
+            "time_generate": 3.67563533782959,
+            "time_enqueued": 0.00010800361633300781
+          },
+          "finish": "stop",
+          "text": "Indexes provide a sorted lookup structure (like a B-tree) that allows the database to find rows without scanning every record, drastically reducing read time. However, whenever data is inserted or updated, the database must also update these index structures to maintain their order and integrity, adding extra overhead to write operations.",
+          "reasoning": "",
+          "prefill_tok_s": 79.52325093832881,
+          "case": "repetition_penalty",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 64,
+          "overrides": {
+            "repetition_penalty": 1.1
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.683807373046875,
+            "free_gib": 3.541980743408203,
+            "cached_gib": 15.764789581298828,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.904895782470703,
+            "cgroup_headroom_gib": 112.49023818969727,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.03862555406522,
+          "ttft_s": 0.45520965405739844,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 64,
+            "total_tokens": 90,
+            "decode_tok_s": 23.62,
+            "draft_accept": 0.4772727272727273,
+            "time_prefill": 0.3260211944580078,
+            "time_generate": 2.7093567848205566,
+            "time_enqueued": 0.00011873245239257812
+          },
+          "finish": "length",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update all relevant index structures to keep them synchronized with the",
+          "reasoning": "",
+          "prefill_tok_s": 79.74941642436333,
+          "case": "presence_penalty",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 64,
+          "overrides": {
+            "presence_penalty": 0.3
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.661483764648438,
+            "free_gib": 3.519603729248047,
+            "cached_gib": 15.764835357666016,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.904487609863281,
+            "cgroup_headroom_gib": 112.49063491821289,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.034161527059041,
+          "ttft_s": 0.45615696196909994,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 64,
+            "total_tokens": 90,
+            "decode_tok_s": 23.68,
+            "draft_accept": 0.4772727272727273,
+            "time_prefill": 0.32764530181884766,
+            "time_generate": 2.702608823776245,
+            "time_enqueued": 0.00011134147644042969
+          },
+          "finish": "length",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update all relevant index structures to keep them synchronized with the",
+          "reasoning": "",
+          "prefill_tok_s": 79.35410596662601,
+          "case": "frequency_penalty",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 64,
+          "overrides": {
+            "frequency_penalty": 0.3
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.66086196899414,
+            "free_gib": 3.5189743041992188,
+            "cached_gib": 15.764842987060547,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.904441833496094,
+            "cgroup_headroom_gib": 112.49066925048828,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 0.3607456940226257,
+          "ttft_s": 0.360679934034124,
+          "usage": {
+            "prompt_tokens": 17,
+            "completion_tokens": 1,
+            "total_tokens": 18,
+            "decode_tok_s": 8.66,
+            "draft_accept": 0.0,
+            "time_prefill": 0.2410106658935547,
+            "time_generate": 0.11542773246765137,
+            "time_enqueued": 0.00013017654418945312
+          },
+          "finish": "length",
+          "text": "1",
+          "reasoning": "",
+          "prefill_tok_s": 70.53629737493965,
+          "case": "single-token",
+          "prompt": "Count the positive integers starting at one.",
+          "cap": 1,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.660865783691406,
+            "free_gib": 3.5189743041992188,
+            "cached_gib": 15.764846801757812,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.9046630859375,
+            "cgroup_headroom_gib": 112.49044799804688,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 4.081235536024906,
+          "ttft_s": 0.3715451490134001,
+          "usage": {
+            "prompt_tokens": 18,
+            "completion_tokens": 64,
+            "total_tokens": 82,
+            "decode_tok_s": 16.74,
+            "draft_accept": 0.23484848484848486,
+            "time_prefill": 0.25496554374694824,
+            "time_generate": 3.822700023651123,
+            "time_enqueued": 0.00011277198791503906
+          },
+          "finish": "length",
+          "text": "The street glistens like a river of black glass, reflecting the neon signs and the blurred headlights of passing cars. The steady rhythm of rain is punctuated by the soft *plop* of umbrellas opening and the hiss of tires cutting through standing water. A lone figure hurries along the sidewalk, their",
+          "reasoning": "",
+          "prefill_tok_s": 70.59777464622785,
+          "case": "stochastic-42",
+          "prompt": "Describe a rainy city street in three sentences.",
+          "cap": 64,
+          "overrides": {
+            "temperature": 0.8,
+            "top_k": 40,
+            "top_p": 0.95,
+            "min_p": 0.05,
+            "seed": 42
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.658985137939453,
+            "free_gib": 3.5170745849609375,
+            "cached_gib": 15.764869689941406,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.90460205078125,
+            "cgroup_headroom_gib": 112.49048614501953,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.8623659260338172,
+          "ttft_s": 0.37476124695967883,
+          "usage": {
+            "prompt_tokens": 18,
+            "completion_tokens": 64,
+            "total_tokens": 82,
+            "decode_tok_s": 17.77,
+            "draft_accept": 0.2661290322580645,
+            "time_prefill": 0.25571203231811523,
+            "time_generate": 3.602416515350342,
+            "time_enqueued": 0.00011110305786132812
+          },
+          "finish": "length",
+          "text": "The downpour transformed the asphalt into a slick, reflective mirror, doubling the glow of neon signs and blurring the headlights of passing cars. Pedestrians hurried beneath a canopy of colorful umbrellas, their hurried footsteps splashing through the gathering puddles. Above the rhythmic drumming of the rain on the pavement,",
+          "reasoning": "",
+          "prefill_tok_s": 70.39168175554342,
+          "case": "stochastic-43",
+          "prompt": "Describe a rainy city street in three sentences.",
+          "cap": 64,
+          "overrides": {
+            "temperature": 0.8,
+            "top_k": 40,
+            "top_p": 0.95,
+            "min_p": 0.05,
+            "seed": 43
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.888851165771484,
+            "free_gib": 3.5281105041503906,
+            "cached_gib": 15.764923095703125,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.904438018798828,
+            "cgroup_headroom_gib": 112.49069213867188,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 4.079808120965026,
+          "ttft_s": 0.3726518809562549,
+          "usage": {
+            "prompt_tokens": 18,
+            "completion_tokens": 64,
+            "total_tokens": 82,
+            "decode_tok_s": 16.75,
+            "draft_accept": 0.23484848484848486,
+            "time_prefill": 0.25542783737182617,
+            "time_generate": 3.821279287338257,
+            "time_enqueued": 0.0001010894775390625
+          },
+          "finish": "length",
+          "text": "The wet asphalt gleamed like a dark mirror, reflecting the blurry halos of streetlights and neon signs. Pedestrians hurried along, their umbrellas bobbing like colorful mushrooms as they splashed through puddles. The rhythmic drumming of rain on awnings and windows filled the air, creating a cozy,",
+          "reasoning": "",
+          "prefill_tok_s": 70.47000117609502,
+          "case": "stochastic-44",
+          "prompt": "Describe a rainy city street in three sentences.",
+          "cap": 64,
+          "overrides": {
+            "temperature": 0.8,
+            "top_k": 40,
+            "top_p": 0.95,
+            "min_p": 0.05,
+            "seed": 44
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.887897491455078,
+            "free_gib": 3.5271377563476562,
+            "cached_gib": 15.764938354492188,
+            "swap_used_gib": 0.13740921020507812,
+            "cgroup_current_gib": 12.904415130615234,
+            "cgroup_headroom_gib": 112.4907112121582,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ]
+    },
+    "final-serial": {
+      "summary": {
+        "run": "/workspace/mimo-tune/runs/france-dflash4-greedy-bv0-q4-chunk1024-1790396639941138743",
+        "control": "/workspace/mimo-tune/runs/france-dflash4-q4-chunk1024-1790393986048840072",
+        "request_count": 13,
+        "health": {
+          "status": "healthy",
+          "healthy": true,
+          "requests": 0,
+          "max_active_requests": 1
+        },
+        "memory": {
+          "available_gib": 18.831707000732422,
+          "free_gib": 3.6375274658203125,
+          "cached_gib": 15.589984893798828,
+          "swap_used_gib": 0.13739395141601562,
+          "cgroup_current_gib": 12.153621673583984,
+          "cgroup_headroom_gib": 112.52149963378906,
+          "psi_full10": 0.0,
+          "oom_kill": 0,
+          "oom": 0
+        },
+        "min_available_gib": 18.219772338867188,
+        "max_oom_kill": 0,
+        "max_cgroup_oom": 0,
+        "equivalence_checked": true,
+        "config": {
+          "outdir": "/workspace/mimo-tune/runs/france-dflash4-greedy-bv0-q4-chunk1024-1790396639941138743",
+          "memory_policy": "uma",
+          "max_seconds": 43200,
+          "env": {
+            "CUDA_HOME": "/usr/local/cuda",
+            "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+            "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+            "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+            "PYTHONUNBUFFERED": "1",
+            "EXL3_UMA": "1",
+            "EXL3_UMA_RESERVE_MB": "8192",
+            "TORCH_CUDA_ARCH_LIST": "12.1",
+            "OMP_NUM_THREADS": "8",
+            "EXL3_BATCH_VERIFY": "0"
+          },
+          "command": [
+            "/workspace/mimo-exl3/venv/bin/python",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+            "-m",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+            "-dm",
+            "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+            "-ndt",
+            "4",
+            "-gs",
+            "106",
+            "-cs",
+            "4096",
+            "-cq",
+            "4",
+            "-ambs",
+            "1",
+            "-chunk_size",
+            "1024",
+            "-ccs",
+            "0",
+            "-rcs",
+            "0.25",
+            "--max-active-requests",
+            "1",
+            "--max-pending-requests",
+            "2",
+            "--max-model-len",
+            "4096",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            "8096",
+            "--request-timeout",
+            "600",
+            "-lv"
+          ]
+        },
+        "pids": {
+          "guard_pid": 7457,
+          "server_pid": 7458,
+          "command": [
+            "/workspace/mimo-exl3/venv/bin/python",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+            "-m",
+            "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+            "-dm",
+            "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+            "-ndt",
+            "4",
+            "-gs",
+            "106",
+            "-cs",
+            "4096",
+            "-cq",
+            "4",
+            "-ambs",
+            "1",
+            "-chunk_size",
+            "1024",
+            "-ccs",
+            "0",
+            "-rcs",
+            "0.25",
+            "--max-active-requests",
+            "1",
+            "--max-pending-requests",
+            "2",
+            "--max-model-len",
+            "4096",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            "8096",
+            "--request-timeout",
+            "600",
+            "-lv"
+          ]
+        }
+      },
+      "requests": [
+        {
+          "wall_s": 0.7024566740728915,
+          "ttft_s": 0.5688191900262609,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 4,
+            "total_tokens": 30,
+            "decode_tok_s": 13.31,
+            "draft_accept": 0.25,
+            "time_prefill": 0.3336961269378662,
+            "time_generate": 0.30049800872802734,
+            "time_enqueued": 0.0002307891845703125
+          },
+          "finish": "stop",
+          "text": "323",
+          "reasoning": "",
+          "prefill_tok_s": 77.91519859276391,
+          "case": "arithmetic",
+          "prompt": "What is 17 multiplied by 19? Reply with only the integer.",
+          "cap": 16,
+          "overrides": {},
+          "expected": "323",
+          "memory_after": {
+            "available_gib": 18.627033233642578,
+            "free_gib": 3.5728111267089844,
+            "cached_gib": 15.838615417480469,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.832603454589844,
+            "cgroup_headroom_gib": 112.57978057861328,
+            "psi_full10": 0.18,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 3.0419811150059104,
+          "ttft_s": 0.45287674700375646,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 67,
+            "total_tokens": 93,
+            "decode_tok_s": 24.69,
+            "draft_accept": 0.5113636363636364,
+            "time_prefill": 0.3244152069091797,
+            "time_generate": 2.713411808013916,
+            "time_enqueued": 0.00011706352233886719
+          },
+          "finish": "stop",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update every index associated with that table to keep them in sync.",
+          "reasoning": "",
+          "prefill_tok_s": 80.14420855209393,
+          "case": "explanation",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 96,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.881824493408203,
+            "free_gib": 3.441143035888672,
+            "cached_gib": 15.83901596069336,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.843734741210938,
+            "cgroup_headroom_gib": 112.56866455078125,
+            "psi_full10": 0.12,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 9.054662736016326,
+          "ttft_s": 0.6337099079973996,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 30.0,
+            "draft_accept": 0.6642857142857143,
+            "time_prefill": 0.5165715217590332,
+            "time_generate": 8.534364461898804,
+            "time_enqueued": 0.000133514404296875
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end),\n        where no two intervals overlap.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start time\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[",
+          "reasoning": "",
+          "prefill_tok_s": 108.40706008977882,
+          "case": "code-1",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.95965576171875,
+            "free_gib": 3.765941619873047,
+            "cached_gib": 15.589595794677734,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.100425720214844,
+            "cgroup_headroom_gib": 112.57425308227539,
+            "psi_full10": 0.05,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 8.95776757306885,
+          "ttft_s": 0.6426793570863083,
+          "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 256,
+            "total_tokens": 312,
+            "decode_tok_s": 30.37,
+            "draft_accept": 0.6642857142857143,
+            "time_prefill": 0.5233728885650635,
+            "time_generate": 8.429850816726685,
+            "time_enqueued": 0.00011754035949707031
+          },
+          "finish": "length",
+          "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end),\n        where no two intervals overlap.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start time\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[",
+          "reasoning": "",
+          "prefill_tok_s": 106.99828214934048,
+          "case": "code-2",
+          "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+          "cap": 256,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.886249542236328,
+            "free_gib": 3.6924819946289062,
+            "cached_gib": 15.589630126953125,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.101139068603516,
+            "cgroup_headroom_gib": 112.57353973388672,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.3679129269439727,
+          "ttft_s": 2.9939160199137405,
+          "usage": {
+            "prompt_tokens": 1209,
+            "completion_tokens": 9,
+            "total_tokens": 1218,
+            "decode_tok_s": 18.21,
+            "draft_accept": 0.3125,
+            "time_prefill": 2.8676931858062744,
+            "time_generate": 0.49430418014526367,
+            "time_enqueued": 0.00012087821960449219
+          },
+          "finish": "stop",
+          "text": "LAPINE-7426",
+          "reasoning": "",
+          "prefill_tok_s": 421.5932185437335,
+          "case": "prefill-copy",
+          "prompt": "Trial 6192809c4a38427f819b46b2d6eb31ec. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+          "cap": 24,
+          "overrides": {},
+          "expected": "LARCH-7426",
+          "memory_after": {
+            "available_gib": 18.821762084960938,
+            "free_gib": 3.6279220581054688,
+            "cached_gib": 15.589679718017578,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.152095794677734,
+            "cgroup_headroom_gib": 112.52262115478516,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": false
+        },
+        {
+          "wall_s": 0.5519820329500362,
+          "ttft_s": 0.4311731479829177,
+          "usage": {
+            "prompt_tokens": 24,
+            "completion_tokens": 8,
+            "total_tokens": 32,
+            "decode_tok_s": 33.32,
+            "draft_accept": 0.75,
+            "time_prefill": 0.30736637115478516,
+            "time_generate": 0.2401292324066162,
+            "time_enqueued": 0.00010776519775390625
+          },
+          "finish": "stop",
+          "text": "MAPLE-9362",
+          "reasoning": "",
+          "prefill_tok_s": 78.08271252912687,
+          "case": "copy-control",
+          "prompt": "Repeat this code exactly and nothing else: MAPLE-9362",
+          "cap": 24,
+          "overrides": {},
+          "expected": "MAPLE-9362",
+          "memory_after": {
+            "available_gib": 18.822322845458984,
+            "free_gib": 3.628467559814453,
+            "cached_gib": 15.58969497680664,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.152313232421875,
+            "cgroup_headroom_gib": 112.52240753173828,
+            "psi_full10": 0.01,
+            "oom_kill": 0,
+            "oom": 0
+          },
+          "correct": true
+        },
+        {
+          "wall_s": 4.0115053040208295,
+          "ttft_s": 0.45558966300450265,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 61,
+            "total_tokens": 87,
+            "decode_tok_s": 16.57,
+            "draft_accept": 0.25833333333333336,
+            "time_prefill": 0.3270223140716553,
+            "time_generate": 3.680328130722046,
+            "time_enqueued": 0.00019598007202148438
+          },
+          "finish": "stop",
+          "text": "Indexes provide a sorted lookup structure (like a B-tree) that allows the database to find rows without scanning every record, drastically reducing read time. However, whenever data is inserted or updated, the database must also update these index structures to maintain their order and integrity, adding extra overhead to write operations.",
+          "reasoning": "",
+          "prefill_tok_s": 79.50527802302514,
+          "case": "repetition_penalty",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 64,
+          "overrides": {
+            "repetition_penalty": 1.1
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.823596954345703,
+            "free_gib": 3.6297264099121094,
+            "cached_gib": 15.589717864990234,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.152412414550781,
+            "cgroup_headroom_gib": 112.52230072021484,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.0399242310086265,
+          "ttft_s": 0.45685389800928533,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 64,
+            "total_tokens": 90,
+            "decode_tok_s": 23.63,
+            "draft_accept": 0.4772727272727273,
+            "time_prefill": 0.32625794410705566,
+            "time_generate": 2.7083654403686523,
+            "time_enqueued": 0.00013446807861328125
+          },
+          "finish": "length",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update all relevant index structures to keep them synchronized with the",
+          "reasoning": "",
+          "prefill_tok_s": 79.69154612054004,
+          "case": "presence_penalty",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 64,
+          "overrides": {
+            "presence_penalty": 0.3
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.82427215576172,
+            "free_gib": 3.6303329467773438,
+            "cached_gib": 15.589775085449219,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.151409149169922,
+            "cgroup_headroom_gib": 112.52341079711914,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.0338623229181394,
+          "ttft_s": 0.45667658699676394,
+          "usage": {
+            "prompt_tokens": 26,
+            "completion_tokens": 64,
+            "total_tokens": 90,
+            "decode_tok_s": 23.68,
+            "draft_accept": 0.4772727272727273,
+            "time_prefill": 0.32787656784057617,
+            "time_generate": 2.702216386795044,
+            "time_enqueued": 0.0001513957977294922
+          },
+          "finish": "length",
+          "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update all relevant index structures to keep them synchronized with the",
+          "reasoning": "",
+          "prefill_tok_s": 79.29813396315046,
+          "case": "frequency_penalty",
+          "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+          "cap": 64,
+          "overrides": {
+            "frequency_penalty": 0.3
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.828693389892578,
+            "free_gib": 3.634735107421875,
+            "cached_gib": 15.589790344238281,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.151607513427734,
+            "cgroup_headroom_gib": 112.52320861816406,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 0.36084823007695377,
+          "ttft_s": 0.360741782002151,
+          "usage": {
+            "prompt_tokens": 17,
+            "completion_tokens": 1,
+            "total_tokens": 18,
+            "decode_tok_s": 8.73,
+            "draft_accept": 0.0,
+            "time_prefill": 0.24219417572021484,
+            "time_generate": 0.11455202102661133,
+            "time_enqueued": 0.00010609626770019531
+          },
+          "finish": "length",
+          "text": "1",
+          "reasoning": "",
+          "prefill_tok_s": 70.1916136069208,
+          "case": "single-token",
+          "prompt": "Count the positive integers starting at one.",
+          "cap": 1,
+          "overrides": {},
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.820083618164062,
+            "free_gib": 3.6260986328125,
+            "cached_gib": 15.589797973632812,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.152301788330078,
+            "cgroup_headroom_gib": 112.52251434326172,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 4.07475232006982,
+          "ttft_s": 0.37094954506028444,
+          "usage": {
+            "prompt_tokens": 18,
+            "completion_tokens": 64,
+            "total_tokens": 82,
+            "decode_tok_s": 16.76,
+            "draft_accept": 0.23484848484848486,
+            "time_prefill": 0.25341296195983887,
+            "time_generate": 3.81756854057312,
+            "time_enqueued": 0.00011658668518066406
+          },
+          "finish": "length",
+          "text": "The street glistens like a river of black glass, reflecting the neon signs and the blurred headlights of passing cars. The steady rhythm of rain is punctuated by the soft *plop* of umbrellas opening and the hiss of tires cutting through standing water. A lone figure hurries along the sidewalk, their",
+          "reasoning": "",
+          "prefill_tok_s": 71.03030508302356,
+          "case": "stochastic-42",
+          "prompt": "Describe a rainy city street in three sentences.",
+          "cap": 64,
+          "overrides": {
+            "temperature": 0.8,
+            "top_k": 40,
+            "top_p": 0.95,
+            "min_p": 0.05,
+            "seed": 42
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.816390991210938,
+            "free_gib": 3.6227989196777344,
+            "cached_gib": 15.58980941772461,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.151779174804688,
+            "cgroup_headroom_gib": 112.5230598449707,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 3.8632973429048434,
+          "ttft_s": 0.37377588392701,
+          "usage": {
+            "prompt_tokens": 18,
+            "completion_tokens": 64,
+            "total_tokens": 82,
+            "decode_tok_s": 17.76,
+            "draft_accept": 0.2661290322580645,
+            "time_prefill": 0.25511765480041504,
+            "time_generate": 3.6042656898498535,
+            "time_enqueued": 0.00011920928955078125
+          },
+          "finish": "length",
+          "text": "The downpour transformed the asphalt into a slick, reflective mirror, doubling the glow of neon signs and blurring the headlights of passing cars. Pedestrians hurried beneath a canopy of colorful umbrellas, their hurried footsteps splashing through the gathering puddles. Above the rhythmic drumming of the rain on the pavement,",
+          "reasoning": "",
+          "prefill_tok_s": 70.5556815112692,
+          "case": "stochastic-43",
+          "prompt": "Describe a rainy city street in three sentences.",
+          "cap": 64,
+          "overrides": {
+            "temperature": 0.8,
+            "top_k": 40,
+            "top_p": 0.95,
+            "min_p": 0.05,
+            "seed": 43
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.816730499267578,
+            "free_gib": 3.622722625732422,
+            "cached_gib": 15.58980941772461,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.152015686035156,
+            "cgroup_headroom_gib": 112.52283096313477,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        },
+        {
+          "wall_s": 4.079111869912595,
+          "ttft_s": 0.3730900959344581,
+          "usage": {
+            "prompt_tokens": 18,
+            "completion_tokens": 64,
+            "total_tokens": 82,
+            "decode_tok_s": 16.75,
+            "draft_accept": 0.23484848484848486,
+            "time_prefill": 0.25455355644226074,
+            "time_generate": 3.8206796646118164,
+            "time_enqueued": 0.00011420249938964844
+          },
+          "finish": "length",
+          "text": "The wet asphalt gleamed like a dark mirror, reflecting the blurry halos of streetlights and neon signs. Pedestrians hurried along, their umbrellas bobbing like colorful mushrooms as they splashed through puddles. The rhythmic drumming of rain on awnings and windows filled the air, creating a cozy,",
+          "reasoning": "",
+          "prefill_tok_s": 70.71203502938629,
+          "case": "stochastic-44",
+          "prompt": "Describe a rainy city street in three sentences.",
+          "cap": 64,
+          "overrides": {
+            "temperature": 0.8,
+            "top_k": 40,
+            "top_p": 0.95,
+            "min_p": 0.05,
+            "seed": 44
+          },
+          "expected": null,
+          "memory_after": {
+            "available_gib": 18.83263397216797,
+            "free_gib": 3.6386146545410156,
+            "cached_gib": 15.589824676513672,
+            "swap_used_gib": 0.13739395141601562,
+            "cgroup_current_gib": 12.151908874511719,
+            "cgroup_headroom_gib": 112.52293014526367,
+            "psi_full10": 0.0,
+            "oom_kill": 0,
+            "oom": 0
+          }
+        }
+      ]
+    }
+  },
+  "boundary_summary": {
+    "boundary_cases": 9,
+    "prompt_lengths": [
+      250,
+      253,
+      255,
+      256,
+      257,
+      509,
+      511,
+      512,
+      513
+    ],
+    "post_boundary_sanity": {
+      "wall_s": 0.5419726419495419,
+      "ttft_s": 0.42299487197306007,
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 4,
+        "total_tokens": 30,
+        "decode_tok_s": 16.79,
+        "draft_accept": 0.25,
+        "time_prefill": 0.30020594596862793,
+        "time_generate": 0.23817205429077148,
+        "time_enqueued": 0.00011277198791503906
+      },
+      "finish": "stop",
+      "text": "323",
+      "reasoning": "",
+      "prefill_tok_s": 86.60721197946242
+    },
+    "health": {
+      "status": "healthy",
+      "healthy": true,
+      "requests": 0,
+      "max_active_requests": 1
+    },
+    "memory": {
+      "available_gib": 18.794776916503906,
+      "free_gib": 3.509471893310547,
+      "cached_gib": 15.689437866210938,
+      "swap_used_gib": 0.13740921020507812,
+      "cgroup_current_gib": 12.934730529785156,
+      "cgroup_headroom_gib": 112.38478469848633,
+      "psi_full10": 0.0,
+      "oom_kill": 0,
+      "oom": 0
+    },
+    "scope": "Real HTTP/native GPU boundary smoke only; not exhaustive GPU memory correctness or model-quality proof."
+  }
+}
