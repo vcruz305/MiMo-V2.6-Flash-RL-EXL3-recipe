@@ -1,0 +1,486 @@
+{
+  "summary": {
+    "run": "/workspace/mimo-tune/runs/france-dflash7-q4-chunk1024-1790392838764264826",
+    "health": {
+      "status": "healthy",
+      "healthy": true,
+      "requests": 0,
+      "max_active_requests": 1
+    },
+    "config": {
+      "outdir": "/workspace/mimo-tune/runs/france-dflash7-q4-chunk1024-1790392838764264826",
+      "memory_policy": "uma",
+      "max_seconds": 43200,
+      "env": {
+        "CUDA_HOME": "/usr/local/cuda",
+        "PATH": "/workspace/mimo-exl3/venv/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin",
+        "EXL3_ROOT": "/workspace/mimo-exl3/exllamav3",
+        "PYTHONPATH": "/workspace/mimo-exl3/exllamav3",
+        "PYTHONUNBUFFERED": "1",
+        "EXL3_UMA": "1",
+        "EXL3_UMA_RESERVE_MB": "8192",
+        "TORCH_CUDA_ARCH_LIST": "12.1",
+        "OMP_NUM_THREADS": "8"
+      },
+      "command": [
+        "/workspace/mimo-exl3/venv/bin/python",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+        "-m",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+        "-dm",
+        "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+        "-ndt",
+        "7",
+        "-gs",
+        "106",
+        "-cs",
+        "4096",
+        "-cq",
+        "4",
+        "-ambs",
+        "1",
+        "-chunk_size",
+        "1024",
+        "-ccs",
+        "0",
+        "-rcs",
+        "0.25",
+        "--max-active-requests",
+        "1",
+        "--max-pending-requests",
+        "2",
+        "--max-model-len",
+        "4096",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8096",
+        "--request-timeout",
+        "600",
+        "-lv"
+      ]
+    },
+    "pid": {
+      "guard_pid": 4034,
+      "server_pid": 4035,
+      "command": [
+        "/workspace/mimo-exl3/venv/bin/python",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3-recipe/server/serve_native.py",
+        "-m",
+        "/workspace/MiMo-V2.6-Flash-RL-EXL3/2.50bpw",
+        "-dm",
+        "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+        "-ndt",
+        "7",
+        "-gs",
+        "106",
+        "-cs",
+        "4096",
+        "-cq",
+        "4",
+        "-ambs",
+        "1",
+        "-chunk_size",
+        "1024",
+        "-ccs",
+        "0",
+        "-rcs",
+        "0.25",
+        "--max-active-requests",
+        "1",
+        "--max-pending-requests",
+        "2",
+        "--max-model-len",
+        "4096",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8096",
+        "--request-timeout",
+        "600",
+        "-lv"
+      ]
+    },
+    "request_count": 6,
+    "memory": {
+      "available_gib": 18.91472625732422,
+      "free_gib": 2.6944961547851562,
+      "cached_gib": 16.603076934814453,
+      "swap_used_gib": 0.13682937622070312,
+      "cgroup_current_gib": 14.274703979492188,
+      "cgroup_headroom_gib": 112.42756652832031,
+      "psi_full10": 0.0,
+      "oom_kill": 0,
+      "oom": 0
+    },
+    "minimum_available_gib": 18.18616485595703,
+    "minimum_free_gib": 1.5438919067382812,
+    "maximum_oom_kill": 0,
+    "host_oom": [
+      "oom_kill 0"
+    ],
+    "control_run": "/workspace/mimo-tune/runs/france-q4-chunk1024-1790391197103258487/affinity-aba-1790392345356807703",
+    "control_code_tok_s": [
+      17.98,
+      17.95,
+      18.0,
+      17.97
+    ],
+    "quality_status": "NOT QUALIFIED; baseline exact-copy problem remains; no GPU token-equivalence or task-accuracy claim.",
+    "sampler_patch_deployed": false,
+    "page_reservation_patch_deployed": false
+  },
+  "requests": [
+    {
+      "wall_s": 1.5298330450896174,
+      "ttft_s": 1.375309429015033,
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 4,
+        "total_tokens": 30,
+        "decode_tok_s": 3.49,
+        "draft_accept": 0.14285714285714285,
+        "time_prefill": 0.3529245853424072,
+        "time_generate": 1.1450486183166504,
+        "time_enqueued": 0.00022673606872558594
+      },
+      "finish": "stop",
+      "text": "323",
+      "reasoning": "",
+      "prefill_tok_s": 73.67012976660386,
+      "case": "arithmetic",
+      "prompt": "What is 17 multiplied by 19? Reply with only the integer.",
+      "expected": "323",
+      "memory_after": {
+        "available_gib": 18.946136474609375,
+        "free_gib": 2.7154579162597656,
+        "cached_gib": 16.61251449584961,
+        "swap_used_gib": 0.13682937622070312,
+        "cgroup_current_gib": 14.22188949584961,
+        "cgroup_headroom_gib": 112.49241256713867,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      },
+      "correct": true
+    },
+    {
+      "wall_s": 3.510146636981517,
+      "ttft_s": 0.48283331794664264,
+      "usage": {
+        "prompt_tokens": 26,
+        "completion_tokens": 67,
+        "total_tokens": 93,
+        "decode_tok_s": 21.1,
+        "draft_accept": 0.3129251700680272,
+        "time_prefill": 0.3316223621368408,
+        "time_generate": 3.1750872135162354,
+        "time_enqueued": 0.00011301040649414062
+      },
+      "finish": "stop",
+      "text": "Indexes speed up reads by providing a sorted lookup structure (like a B-tree) that allows the database to find specific rows without scanning the entire table. However, they slow down writes because every time a row is inserted, updated, or deleted, the database must also update every index associated with that table to keep them in sync.",
+      "reasoning": "",
+      "prefill_tok_s": 78.40243291334903,
+      "case": "explanation",
+      "prompt": "Explain in two sentences why database indexes speed up reads but can slow down writes.",
+      "expected": null,
+      "memory_after": {
+        "available_gib": 18.94121551513672,
+        "free_gib": 2.7201309204101562,
+        "cached_gib": 16.603939056396484,
+        "swap_used_gib": 0.13682937622070312,
+        "cgroup_current_gib": 14.220218658447266,
+        "cgroup_headroom_gib": 112.48327255249023,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      }
+    },
+    {
+      "wall_s": 9.369647930958308,
+      "ttft_s": 0.6604055799543858,
+      "usage": {
+        "prompt_tokens": 56,
+        "completion_tokens": 256,
+        "total_tokens": 312,
+        "decode_tok_s": 28.93,
+        "draft_accept": 0.4666666666666667,
+        "time_prefill": 0.5163557529449463,
+        "time_generate": 8.848379135131836,
+        "time_enqueued": 0.00011110305786132812
+      },
+      "finish": "length",
+      "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end),\n        where no two intervals overlap.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start time\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[",
+      "reasoning": "",
+      "prefill_tok_s": 108.45235998749627,
+      "case": "code-1",
+      "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+      "expected": null,
+      "memory_after": {
+        "available_gib": 18.910888671875,
+        "free_gib": 2.685558319091797,
+        "cached_gib": 16.608169555664062,
+        "swap_used_gib": 0.13682937622070312,
+        "cgroup_current_gib": 14.227306365966797,
+        "cgroup_headroom_gib": 112.48003005981445,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      }
+    },
+    {
+      "wall_s": 9.351702177082188,
+      "ttft_s": 0.6433739030035213,
+      "usage": {
+        "prompt_tokens": 56,
+        "completion_tokens": 256,
+        "total_tokens": 312,
+        "decode_tok_s": 28.93,
+        "draft_accept": 0.4666666666666667,
+        "time_prefill": 0.4992501735687256,
+        "time_generate": 8.84851884841919,
+        "time_enqueued": 0.00011658668518066406
+      },
+      "finish": "length",
+      "text": "```python\ndef merge_intervals(intervals):\n    \"\"\"\n    Merge overlapping closed intervals.\n\n    Args:\n        intervals (list of tuple/list): A list of intervals, where each interval\n            is represented as a pair [start, end] or (start, end), with start <= end.\n\n    Returns:\n        list of tuple: A sorted list of merged intervals as tuples (start, end),\n        where no two intervals overlap.\n\n    Time Complexity:\n        O(n log n) due to sorting the input intervals, where n is the number of intervals.\n        The subsequent merging pass is O(n).\n\n    Examples:\n        >>> merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]])\n        [(1, 6), (8, 10), (15, 18)]\n        >>> merge_intervals([[1, 4], [4, 5]])\n        [(1, 5)]\n        >>> merge_intervals([])\n        []\n    \"\"\"\n    if not intervals:\n        return []\n\n    # Sort intervals by their start time\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [tuple(intervals[0])]\n\n    for start, end in intervals[",
+      "reasoning": "",
+      "prefill_tok_s": 112.16821338228573,
+      "case": "code-2",
+      "prompt": "Run marker affinity-control-001. Write a Python function merge_intervals(intervals) that merges overlapping closed intervals. Include a docstring explaining inputs, sorted output and time complexity, and three example assertions. Output only Python code.",
+      "expected": null,
+      "memory_after": {
+        "available_gib": 18.908111572265625,
+        "free_gib": 2.682708740234375,
+        "cached_gib": 16.608211517333984,
+        "swap_used_gib": 0.13682937622070312,
+        "cgroup_current_gib": 14.228267669677734,
+        "cgroup_headroom_gib": 112.4791488647461,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      }
+    },
+    {
+      "wall_s": 3.324929781956598,
+      "ttft_s": 3.0243825709912926,
+      "usage": {
+        "prompt_tokens": 1209,
+        "completion_tokens": 9,
+        "total_tokens": 1218,
+        "decode_tok_s": 20.26,
+        "draft_accept": 0.2857142857142857,
+        "time_prefill": 2.8740084171295166,
+        "time_generate": 0.44433140754699707,
+        "time_enqueued": 0.00011873245239257812
+      },
+      "finish": "stop",
+      "text": "LAPINE-7426",
+      "reasoning": "",
+      "prefill_tok_s": 420.6668264414887,
+      "case": "prefill-copy",
+      "prompt": "Trial 6192809c4a38427f819b46b2d6eb31ec. Read these warehouse records and recall the final access code.\nItem 0: depot 372, quantity 921, reference 8485197; inspected and stored on shelf 41.\nItem 1: depot 791, quantity 366, reference 2939852; inspected and stored on shelf 14.\nItem 2: depot 554, quantity 536, reference 7542368; inspected and stored on shelf 39.\nItem 3: depot 504, quantity 896, reference 9986837; inspected and stored on shelf 32.\nItem 4: depot 114, quantity 405, reference 1849679; inspected and stored on shelf 40.\nItem 5: depot 392, quantity 262, reference 9710836; inspected and stored on shelf 19.\nItem 6: depot 912, quantity 942, reference 2372803; inspected and stored on shelf 9.\nItem 7: depot 391, quantity 818, reference 7949944; inspected and stored on shelf 11.\nItem 8: depot 479, quantity 269, reference 6426113; inspected and stored on shelf 18.\nItem 9: depot 423, quantity 816, reference 6649425; inspected and stored on shelf 11.\nItem 10: depot 572, quantity 3, reference 9172699; inspected and stored on shelf 8.\nItem 11: depot 331, quantity 582, reference 8962408; inspected and stored on shelf 1.\nItem 12: depot 158, quantity 191, reference 6223956; inspected and stored on shelf 49.\nItem 13: depot 634, quantity 862, reference 9608124; inspected and stored on shelf 46.\nItem 14: depot 369, quantity 65, reference 4100755; inspected and stored on shelf 12.\nItem 15: depot 832, quantity 603, reference 5745248; inspected and stored on shelf 46.\nItem 16: depot 641, quantity 426, reference 8688723; inspected and stored on shelf 25.\nItem 17: depot 797, quantity 38, reference 6532313; inspected and stored on shelf 18.\nItem 18: depot 502, quantity 697, reference 5860745; inspected and stored on shelf 6.\nItem 19: depot 183, quantity 319, reference 4897128; inspected and stored on shelf 45.\nItem 20: depot 845, quantity 525, reference 7344249; inspected and stored on shelf 16.\nItem 21: depot 780, quantity 867, reference 3784824; inspected and stored on shelf 36.\nItem 22: depot 199, quantity 731, reference 3650467; inspected and stored on shelf 27.\nItem 23: depot 258, quantity 801, reference 8669256; inspected and stored on shelf 4.\nItem 24: depot 416, quantity 413, reference 4379152; inspected and stored on shelf 32.\nItem 25: depot 183, quantity 109, reference 6723566; inspected and stored on shelf 42.\nItem 26: depot 550, quantity 11, reference 3220449; inspected and stored on shelf 23.\nItem 27: depot 628, quantity 54, reference 3774946; inspected and stored on shelf 41.\nItem 28: depot 458, quantity 838, reference 7556321; inspected and stored on shelf 6.\nItem 29: depot 373, quantity 308, reference 6494029; inspected and stored on shelf 33.\nItem 30: depot 378, quantity 301, reference 1360042; inspected and stored on shelf 34.\nItem 31: depot 837, quantity 327, reference 7980157; inspected and stored on shelf 35.\nThe final access code is LARCH-7426. What is the final access code? Reply with the code only.",
+      "expected": "LARCH-7426",
+      "memory_after": {
+        "available_gib": 18.923431396484375,
+        "free_gib": 2.703227996826172,
+        "cached_gib": 16.603008270263672,
+        "swap_used_gib": 0.13682937622070312,
+        "cgroup_current_gib": 14.273242950439453,
+        "cgroup_headroom_gib": 112.42887496948242,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      },
+      "correct": false
+    },
+    {
+      "wall_s": 0.4501485970104113,
+      "ttft_s": 0.44989567005541176,
+      "usage": {
+        "prompt_tokens": 24,
+        "completion_tokens": 8,
+        "total_tokens": 32,
+        "decode_tok_s": 57.19,
+        "draft_accept": 1.0,
+        "time_prefill": 0.30650925636291504,
+        "time_generate": 0.13987970352172852,
+        "time_enqueued": 0.00010919570922851562
+      },
+      "finish": "stop",
+      "text": "MAPLE-9362",
+      "reasoning": "",
+      "prefill_tok_s": 78.30106106676062,
+      "case": "copy-control",
+      "prompt": "Repeat this code exactly and nothing else: MAPLE-9362",
+      "expected": "MAPLE-9362",
+      "memory_after": {
+        "available_gib": 18.915802001953125,
+        "free_gib": 2.6955795288085938,
+        "cached_gib": 16.60301971435547,
+        "swap_used_gib": 0.13682937622070312,
+        "cgroup_current_gib": 14.273258209228516,
+        "cgroup_headroom_gib": 112.42885971069336,
+        "psi_full10": 0.0,
+        "oom_kill": 0,
+        "oom": 0
+      },
+      "correct": true
+    }
+  ],
+  "comparison": {
+    "control_code_median_tok_s": 17.975,
+    "draft_code_median_tok_s": 28.93,
+    "ratio": 1.6094575799721835,
+    "gain_percent": 60.94575799721835,
+    "same_prompt_bytes": true,
+    "output_cap": 256,
+    "repeated_draft_code_requests": 2,
+    "quality_status": "NOT QUALIFIED; baseline exact-copy problem remains; no GPU token-equivalence or task-accuracy claim."
+  },
+  "affinity_experiment": {
+    "outdir": "/workspace/mimo-tune/runs/france-q4-chunk1024-1790391197103258487/affinity-aba-1790392345356807703",
+    "fast_cpus": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "original_cpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "scores": {
+      "A1-all": {
+        "decode_median": 17.965,
+        "prefill_median": 464.6980821842337
+      },
+      "B-fast": {
+        "decode_median": 17.869999999999997,
+        "prefill_median": 449.7250176357519
+      },
+      "A2-all": {
+        "decode_median": 17.985,
+        "prefill_median": 452.0468013818071
+      }
+    },
+    "request_count": 12,
+    "restored": true,
+    "health": {
+      "status": "healthy",
+      "healthy": true,
+      "requests": 0,
+      "max_active_requests": 1
+    },
+    "memory": {
+      "available_gib": 21.5577392578125,
+      "free_gib": 2.18316650390625,
+      "cached_gib": 19.678756713867188,
+      "swap_used_gib": 0.13683700561523438,
+      "cgroup_current_gib": 17.602264404296875,
+      "cgroup_headroom_gib": 112.25305557250977,
+      "psi_full10": 0.0,
+      "oom_kill": 0,
+      "oom": 0
+    },
+    "host_oom": [
+      "oom_kill 0"
+    ],
+    "quality_caveat": "Known exact-copy failure; no quality qualification. Same decode prompt/cap; fresh early prefill markers."
+  },
+  "draft_provenance": {
+    "source": "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL/dflash",
+    "fixed": "/workspace/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-fixed",
+    "repo": "XiaomiMiMo/MiMo-V2.6-Flash-RL",
+    "revision": "5711b268169967567844e1e560e8a3966da959b1",
+    "source_files": 5,
+    "source_bytes": 2936151148,
+    "config": {
+      "architectures": [
+        "DFlashDraftModel"
+      ],
+      "model_type": "qwen3",
+      "auto_map": {
+        "AutoModel": "dflash.DFlashDraftModel"
+      },
+      "hidden_size": 4096,
+      "intermediate_size": 16384,
+      "num_hidden_layers": 5,
+      "num_attention_heads": 64,
+      "num_key_value_heads": 8,
+      "head_dim": 128,
+      "v_head_dim": 128,
+      "partial_rotary_factor": 0.5,
+      "block_size": 8,
+      "dflash_config": {
+        "target_layer_ids": [
+          0,
+          11,
+          23,
+          35,
+          47
+        ],
+        "mask_token_id": 151675,
+        "num_anchors": 4096,
+        "block_size": 8,
+        "loss_decay_gamma": 7.0,
+        "attention_value_scale": 0.612,
+        "attention_sink_bias": true,
+        "tap_shift": 0
+      },
+      "layer_types": [
+        "sliding_attention",
+        "sliding_attention",
+        "sliding_attention",
+        "sliding_attention",
+        "sliding_attention"
+      ],
+      "sliding_window": 1024,
+      "use_sliding_window": true,
+      "is_causal": false,
+      "num_target_layers": 48,
+      "target_hidden_size": 4096,
+      "vocab_size": 152576,
+      "max_position_embeddings": 1048576,
+      "rope_theta": 10000.0,
+      "rms_norm_eps": 1e-06,
+      "torch_dtype": "bfloat16",
+      "hidden_act": "silu",
+      "attention_bias": false,
+      "attention_dropout": 0.0,
+      "add_swa_attention_sink_bias": true,
+      "tie_word_embeddings": false,
+      "use_cache": true
+    },
+    "health": {
+      "status": "healthy",
+      "healthy": true,
+      "requests": 0,
+      "max_active_requests": 1
+    },
+    "status": "CPU staged and verified only; not attached to the live server; no acceptance or GPU equivalence claim."
+  }
+}

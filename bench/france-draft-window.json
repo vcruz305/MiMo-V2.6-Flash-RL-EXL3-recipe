@@ -1,0 +1,203 @@
+{
+  "phase": "draft-window and profiler follow-up (local/rental-only)",
+  "scope": "Single-variable arms around the adopted dynamic-balanced default (Q4 KV, chunk_size 4096, ndt 7, dc 0.6, unified mixed-K, serial verify). One load per arm, identical ordered workload.",
+  "adopted_default": {
+    "run": "france-dflash7-dynamic06-q4-chunk4096-1790410279744252619",
+    "warm_code_tps": [
+      34.9,
+      34.84
+    ],
+    "warm_prose_tps": [
+      23.74,
+      23.74
+    ],
+    "acceptance": [
+      0.779,
+      0.779,
+      0.781,
+      0.781
+    ],
+    "fresh_3527_prefill_tps": 717.5,
+    "near_full_context_3959_prefill_tps": 794.66
+  },
+  "arms": {
+    "dc0.9-ndt7": {
+      "run": "/workspace/mimo-tune/runs/france-dflash7-dc09-ndt7-1790411163719719608",
+      "change": "-dc 0.6 -> 0.9",
+      "warm_code_tps": [
+        15.03,
+        15.02
+      ],
+      "warm_prose_tps": [
+        15.09,
+        15.07
+      ],
+      "acceptance": [
+        0.286,
+        0.714,
+        0.707,
+        0.818
+      ],
+      "fresh_prefill": {
+        "long-prefill": 714.8
+      },
+      "boundary_cases": 9,
+      "memory": {
+        "min_available_gib": 17.172,
+        "max_host_oom_kill": 0,
+        "max_cgroup_oom_kill": 0,
+        "n": 14
+      },
+      "decision": "rejected: acceptance rose to 0.87-1.0 but decode fell to ~15 tok/s (2.3x slower than 34.9). Acceptance percentage is not the objective; verified tokens per unit time is."
+    },
+    "gs128": {
+      "run": "/workspace/mimo-tune/runs/france-dflash7-gs128-1790412274800723086",
+      "change": "-gs 106 -> 128",
+      "warm_code_tps": [
+        34.93,
+        34.92
+      ],
+      "warm_prose_tps": [
+        23.81,
+        23.82
+      ],
+      "acceptance": [
+        0.765,
+        0.781,
+        0.779,
+        0.781
+      ],
+      "fresh_prefill": {
+        "long-prefill": 715.4
+      },
+      "boundary_cases": 9,
+      "memory": {
+        "min_available_gib": 17.171,
+        "max_host_oom_kill": 0,
+        "max_cgroup_oom_kill": 0,
+        "n": 14
+      },
+      "warm_text_hashes": {
+        "code-1:56": "8160695e2f7b2518",
+        "prose-1:52": "de44108e5c407326",
+        "code-2:56": "8160695e2f7b2518",
+        "prose-2:52": "de44108e5c407326"
+      },
+      "decision": "no measurable change (warm code 34.92-34.93 vs 34.84-34.90; prose 23.81-23.82 vs 23.74; fresh 3527 prefill 715.4 vs 714.5-717.5; acceptance identical). Kept -gs 106."
+    },
+    "ndt12": {
+      "change": "-ndt 7 -> 12",
+      "decision": "unsupported by the DFlash draft path: draft_ids_pinned window copy raised RuntimeError (tensor a (12) vs b (7)); the pinned draft buffer is sized for 7 draft tokens. The engine reported engine_unavailable; guard and server stayed alive, host OOM 0, memory telemetry unchanged. Server log preserved in the run directory."
+    }
+  },
+  "profiler_evidence": {
+    "overlay": "Local-only bounded Torch-profiler overlay (default off, EXL3_PROF_DIR gate, <=2 jobs/process, batch 1, prompt <=3600, max_new_tokens 1..24). Deployed once, capture taken, then removed; server worker.py restored byte-identically (LF sha256 3dbcb86ce0a0872af2802df3cf69fd50cdf565d1520caea1a5d54295c45c381c).",
+    "traces": [
+      {
+        "request_id": "3cc0af94334d4ba99c1ef06fe1c66311",
+        "bytes": 42223065,
+        "complete": true,
+        "prompt_tokens": 40,
+        "max_new_tokens": 16
+      },
+      {
+        "request_id": "8ec403c5697b462ca60b68d10b057857",
+        "bytes": 108392729,
+        "complete": true,
+        "prompt_tokens": 3527,
+        "max_new_tokens": 4
+      }
+    ],
+    "memory_after_gib": [
+      16.65,
+      16.58
+    ],
+    "host_oom_kill_after": [
+      0,
+      0
+    ],
+    "prefill_heavy_top_kernels": [
+      {
+        "name": "void exl3_moe_mixedk_kernel<128, 2, 64, 3, 0>(__half const*, __half*, ",
+        "count": 66,
+        "ms": 684.6
+      },
+      {
+        "name": "void exl3_moe_mixedk_kernel<256, 2, 16, 3, 0>(__half const*, __half*, ",
+        "count": 99,
+        "ms": 630.8
+      },
+      {
+        "name": "void reconstruct_had_batch_kernel<2, 2, false>(__half*, unsigned short",
+        "count": 861,
+        "ms": 451.8
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816gemm_relu_f16_64x6",
+        "count": 378,
+        "ms": 228.9
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816gemm_relu_f16_128x",
+        "count": 50,
+        "ms": 196.6
+      },
+      {
+        "name": "_paged_attn_prefill_kernel",
+        "count": 96,
+        "ms": 166.5
+      },
+      {
+        "name": "nvjet_sm121_hss_mma_128x208x64_2_32x104x64_tmaAB_bz_NNNN",
+        "count": 226,
+        "ms": 156.1
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_tensorop_s16816gemm_f16_64x64_32x6_nn",
+        "count": 216,
+        "ms": 133.9
+      }
+    ],
+    "decode_heavy_top_kernels": [
+      {
+        "name": "void exl3_moe_mixedk_kernel<256, 2, 16, 3, 0>(__half const*, __half*, ",
+        "count": 165,
+        "ms": 559.5
+      },
+      {
+        "name": "void exl3_moe_coop_ns::exl3_moe_coop_a_kernel<2, 2, true, false>(MoeCo",
+        "count": 56,
+        "ms": 39.1
+      },
+      {
+        "name": "void cutlass::Kernel2<cutlass_80_tensorop_s16816gemm_f16_64x64_32x6_nn",
+        "count": 100,
+        "ms": 28.6
+      },
+      {
+        "name": "void exl3_gemv_int8_sq_kernel<2, 1, false, false, false>(__half const*",
+        "count": 1308,
+        "ms": 22.6
+      },
+      {
+        "name": "void exl3_moe_coop_ns::exl3_moe_coop_b_kernel<2, 2, true, false>(MoeCo",
+        "count": 56,
+        "ms": 20.8
+      },
+      {
+        "name": "void exl3_gemv_kernel<2, false, 2, 1, 0, false, false>(__half const*, ",
+        "count": 718,
+        "ms": 19.5
+      }
+    ],
+    "caveats": [
+      "profiling inflates wall time: traces identify kernels, never throughput",
+      "device kernel time is not wall latency; operator device time must not be added to it",
+      "one job per trace, on the generation worker thread only"
+    ]
+  },
+  "scope_limits": [
+    "No quality qualification; the copy failures (LARCH/LAPINE) persist in every arm measured here.",
+    "Single-rental, single ordered workload per arm."
+  ]
+}
