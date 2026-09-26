@@ -5,12 +5,17 @@
 #
 #   bash serve.sh                       # PROFILE=with-draft  (184.11 tok/s p50 decode, client-observed)
 #   PROFILE=no-draft bash serve.sh      # no drafter          ( 49.57 tok/s p50 decode, client-observed)
+#   PROFILE=q4kv-with-draft bash serve.sh   # Q4 KV, 655360 ctx (201.06 tok/s p50, EXL3 drafter)
+#   PROFILE=q4kv-no-draft bash serve.sh     # Q4 KV, 1048576 ctx ( 49.73 tok/s p50)
 #   DRY_RUN=1 bash serve.sh             # print the exact command line and exit
 #   PORT=8097 bash serve.sh             # any value can be overridden like this
 #
 # Profiles (configs/*.env; every value can still be overridden individually):
 #   with-draft  CTX=65536  CACHE_SIZE=65536  AUTOSPLIT_MAX_BATCH=16  MAX_ACTIVE_REQUESTS=16  -dm $DRAFT_DIR
 #   no-draft    same sizing, no drafter
+#   q4kv-*      the Q4-KV configurations whose measured context ceilings and speeds are in
+#               README > Best measured configuration (Q4 KV). KV_CACHE_Q=4; CHUNK_SIZE tunes the
+#               loader transient that bounds the context.
 #
 # Profiles of the other knobs: MODEL_DIR=$PACK_DIR, HOST=127.0.0.1, PORT=8096,
 # SERVED_NAME=MiMo-V2.6-Flash-RL-EXL3.
@@ -29,6 +34,8 @@ AUTOSPLIT_MAX_BATCH="${AUTOSPLIT_MAX_BATCH:-16}"
 MAX_ACTIVE_REQUESTS="${MAX_ACTIVE_REQUESTS:-16}"
 MAX_PENDING_REQUESTS="${MAX_PENDING_REQUESTS:-64}"
 DRAFT="${DRAFT:-1}"
+KV_CACHE_Q="${KV_CACHE_Q:-}"
+CHUNK_SIZE="${CHUNK_SIZE:-}"
 MODEL_DIR="${MODEL_DIR:-$PACK_DIR}"
 HOST="${HOST:-127.0.0.1}"
 PORT="${PORT:-8096}"
@@ -54,8 +61,13 @@ CMD=( "$(render_py)" "$RECIPE_DIR/server/serve_native.py"
 if [[ "$DRAFT" == "1" ]]; then
   CMD+=( -dm "$DRAFT_DIR" )
 fi
+[[ -n "$CHUNK_SIZE" ]] && CMD+=( -chunk_size "$CHUNK_SIZE" )
+# -cq N stores the paged KV cache at N bits. Empty (the default) is FP16 KV; the Q4 profiles set 4.
+[[ -n "$KV_CACHE_Q" ]] && CMD+=( -cq "$KV_CACHE_Q" )
 
 say "profile $PROFILE: ${CTX} tokens per request, ${CACHE_SIZE}-token pool, ${MAX_ACTIVE_REQUESTS} concurrent jobs, drafter: $DRAFT"
+[[ -n "$KV_CACHE_Q" ]] && say "KV cache: ${KV_CACHE_Q}-bit paged (this changes the numerics: the pack's top-1/KLD figures are FP16-KV measurements)"
+[[ -n "$CHUNK_SIZE" ]] && say "prefill chunk: $CHUNK_SIZE tokens"
 say "pack:   $MODEL_DIR"
 [[ "$DRAFT" == "1" ]] && say "drafter: $DRAFT_DIR (tap_shift 0 + mask_embedding.safetensors; verify with tools/verify_dflash.py)"
 

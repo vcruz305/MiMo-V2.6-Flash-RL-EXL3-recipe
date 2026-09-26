@@ -32,7 +32,14 @@ MODELS_DIR="${MODELS_DIR:-$RECIPE_HOME/models}"
 PACK_HOME="${PACK_HOME:-$MODELS_DIR/MiMo-V2.6-Flash-RL-EXL3}"
 PACK_DIR="${PACK_DIR:-$PACK_HOME/$PACK_SUBDIR}"
 DRAFT_SRC="${DRAFT_SRC:-$MODELS_DIR/MiMo-V2.6-Flash-RL/$DRAFT_SUBDIR}"
-DRAFT_DIR="${DRAFT_DIR:-$MODELS_DIR/MiMo-V2.6-Flash-RL-dflash-fixed}"
+DRAFT_FIXED="${DRAFT_FIXED:-$MODELS_DIR/MiMo-V2.6-Flash-RL-dflash-fixed}"
+DRAFT_EXL3="${DRAFT_EXL3:-$MODELS_DIR/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0}"
+# Default to the EXL3 4.0 bpw drafter when it has been built (tools/quantize_dflash.sh): same
+# draft acceptance as the BF16 copy, ~3% faster decode, ~2.1 GB less VRAM, which is what raises
+# the with-draft context ceiling. Falls back to the corrected BF16 drafter when it is absent.
+if [[ -z "${DRAFT_DIR:-}" ]]; then
+  if [[ -d "$DRAFT_EXL3" ]]; then DRAFT_DIR="$DRAFT_EXL3"; else DRAFT_DIR="$DRAFT_FIXED"; fi
+fi
 
 # Toolchain. Only the source build needs these; the released wheel ships a fat arch list
 # (8.0 8.6 8.9 9.0 10.0 12.0+PTX) and needs a driver, not a toolkit.

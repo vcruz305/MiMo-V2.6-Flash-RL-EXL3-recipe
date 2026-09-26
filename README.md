@@ -27,10 +27,11 @@ The Tabby folder's table is a different unpublished pack and is not this pack's 
 | Server | [`server/serve_native.py`](server/serve_native.py) — native `/v1/chat/completions`, no engine patch |
 | Pack served for the numbers | **2.20 bpw**, 86.94 GB — [2.20bpw](https://huggingface.co/vcruz305/MiMo-V2.6-Flash-RL-EXL3/tree/main/2.20bpw) |
 | Larger rung | **2.50 bpw**, 98.48 GB — **does not fit a 96 GB card** |
-| Context served | 65,536 tokens per request, 65,536-token KV pool, 16 requests generating at once |
-| Decode without dflash | **49.57 tok/s** p50 |
-| Decode with dflash | **184.11 tok/s** p50 |
-| SixCat eval, strict, 120-item default | **68.7** overall — provisional, see [SixCat eval](#sixcat-eval-default-120) |
+| Context served, default profile | 65,536 tokens per request, 65,536-token KV pool, 16 requests generating at once, FP16 KV |
+| Context served, Q4 KV (measured ceilings) | **1,048,576** without a drafter · **655,360** with the drafter — see [Best measured configuration](#best-measured-configuration-q4-kv) |
+| Decode without dflash | **49.57 tok/s** p50 (default profile) · **49.73** p50 at 1,048,576, Q4 KV |
+| Decode with dflash | **184.11 tok/s** p50 (default profile) · **201.06** p50 at 655,360, Q4 KV with the EXL3 4.0 bpw drafter |
+| SixCat eval, strict, 120-item default | **68.7** overall at FP16 KV — provisional, see [SixCat eval](#sixcat-eval-default-120) · **70.0** at Q4 KV, 120/120 scored |
 | VRAM after load | — |
 | Max usable concurrency | 8 without dflash · 8 with dflash |
 | TabbyAPI route | not measured on this 2.20 bpw pack |
@@ -61,7 +62,7 @@ when it has.
 | [`preflight.sh`](preflight.sh) | Read-only: card, disk, runtime, pack, drafter wiring, port |
 | [`server/`](server/) | The native `/v1` server (`serve_native.py`, `protocol.py`, `worker.py`) |
 | [`configs/`](configs/) | The context/batch values actually used, one file per profile |
-| [`tools/`](tools/) | [`fix_dflash.py`](tools/fix_dflash.py), [`verify_dflash.py`](tools/verify_dflash.py), [`sixcat_speed.sh`](tools/sixcat_speed.sh), [`check_repo.py`](tools/check_repo.py) |
+| [`tools/`](tools/) | [`fix_dflash.py`](tools/fix_dflash.py), [`verify_dflash.py`](tools/verify_dflash.py), [`quantize_dflash.sh`](tools/quantize_dflash.sh), [`sixcat_speed.sh`](tools/sixcat_speed.sh), [`check_repo.py`](tools/check_repo.py) |
 | [`exllamav3-tabby/`](exllamav3-tabby/README.md) | **Second route:** the same fork under TabbyAPI. Own env/setup/serve/chat and config |
 | [`DGX-Spark/`](DGX-Spark/README.md) | **Host notes:** the unified-memory (aarch64) host — measured numbers, the profile it needs to load, the rental wrapper ([`serve-uma-rental.sh`](DGX-Spark/serve-uma-rental.sh)) and the optional [profiler overlay](DGX-Spark/profiler-overlay/README.md) |
 | [`bench/`](bench/) | Raw measurement records: the SixCat runs, and the per-profile `france-*.json` records behind the DGX Spark numbers |
@@ -235,6 +236,48 @@ The eight-stream per-stream decode p50 on that profile is 34.95 tok/s without th
 SixCat's summary TTFT is the balanced-profile confirmation, not the single-stream decode TTFT;
 both are in the table above. p99 is not quoted: each confirmation has fewer than 100 requests.
 
+### Best measured configuration (Q4 KV)
+
+Same pack, same card, measured 2026-09-26. Two changes from the default profile: a **Q4 paged KV
+cache** (`-cq 4`), which is what buys the context, and the **EXL3 4.0 bpw drafter** (see
+[Quantizing the drafter](#quantizing-the-drafter-optional-measured)), which is what buys the
+decode. Prefill chunk 2,048 with a drafter, 4,096 without; 16 requests generating at once.
+
+| Measurement | Without a drafter | With the EXL3 drafter |
+|---|---:|---:|
+| Context served (loaded **and** answered a request at this size) | **1,048,576** | **655,360** |
+| Decode | **49.73 tok/s** p50 (max 49.81) | **201.06 tok/s** p50 (max 203.06, p95 202.77) |
+| Prefill | **2,339.5 tok/s** p50 | **1,905.7 tok/s** p50 |
+| VRAM after load | 95,667 MiB | 96,467 MiB |
+| Aggregate, decode profile @ C=8 | 116.3 tok/s | 135.6 tok/s (confirmation 138.4) |
+| TTFT, balanced profile | 4,720 ms p50 (p95 4,731) | 4,160 ms p50 (p95 5,010) |
+
+Records: [`bench/mimo-2.20-q4nodraft-c4096-speed.json`](bench/mimo-2.20-q4nodraft-c4096-speed.json)
+and [`bench/mimo-2.20-q4draft-exl3-4.0-cs655360-speed.json`](bench/mimo-2.20-q4draft-exl3-4.0-cs655360-speed.json).
+The same configuration at 524,288 context measured 199.86 tok/s p50
+([`bench/mimo-2.20-q4draft-exl3-4.0-speed.json`](bench/mimo-2.20-q4draft-exl3-4.0-speed.json)).
+
+**One caveat, stated plainly.** These configurations use a Q4 KV cache, so the pack's published
+fidelity numbers — top-1 and KLD in [Quants](#quants) — were *not* measured this way; they are
+FP16-KV figures. The default-120 eval was re-run at the Q4 configuration and scored **70.0** with
+120/120 items scored and no errors, against 68.7 at FP16 KV; the per-item diff between the two
+runs flips 14 of 120 items seven each way, which is what a KV-precision change does to a set this
+size. See [SixCat eval](#sixcat-eval-default-120).
+
+Context ceilings, all verified by loading **and** serving a real request at the stated size, 16
+slots:
+
+| KV cache | Without a drafter | With the EXL3 drafter |
+|---|---:|---:|
+| FP16 | 327,680 | 196,608 |
+| Q8 | 655,360 | 294,912 |
+| Q4 | 1,048,576 | 655,360 |
+
+Context is bounded by the loader's reserve rule, not by free memory: before loading, the runtime
+wants free physical memory above the largest per-module transient (`max_transient`, dominated by
+the logits stage over one prefill chunk) plus `EXL3_AUTOSPLIT_MARGIN_MB` (256 by default). That is
+why `-chunk_size` and `-cq` move the wall, and why a smaller drafter raises it.
+
 ## Measured on a unified-memory host (aarch64)
 
 The second row of [Cards tested on](#cards-tested-on) has been served and measured. On the
@@ -299,6 +342,26 @@ SixCat 0.7.0, schema `sixcat-v2`, policy `strict` (temperature 0, thinking off),
 | tools | 95.0 | 20 |
 | **overall[strict]** | **68.7** | 119 / 120 |
 
+At the [Q4-KV configuration](#best-measured-configuration-q4-kv) (655,360 context, EXL3 4.0 bpw
+drafter) the same default 120 was re-run on 2026-09-26 and scored **70.0**, with **120/120 items
+scored, 0 errors** and no truncation:
+
+| Category | Score | n |
+|---|---:|---:|
+| knowledge | 50.0 | 20 |
+| math | 95.0 | 20 |
+| truth | 75.0 | 20 |
+| instruct | 60.0 | 20 |
+| code | 45.0 | 20 |
+| tools | 95.0 | 20 |
+| **overall[strict]** | **70.0** | 120 / 120 |
+
+That run is [`bench/sixcat-eval-2.20-q4kv-exl3-dflash.json`](bench/sixcat-eval-2.20-q4kv-exl3-dflash.json)
+(18,244 completion tokens, 226.7 s wall). It is a different configuration from the 68.7 run — Q4 KV
+instead of FP16, and the item that the 68.7 run could not score (`knowledge/mmlu:4`) is scored
+here — so the 1.3-point difference is a configuration difference, not a drafter effect. Compare
+the two item by item and 14 of 120 flip, seven each way.
+
 SixCat printed `PARTIAL / PROVISIONAL` and said not to treat this as a complete score. Flags: `truncated:instruct`, `loop-failures:instruct`, `incomplete-scope`. The missing item is `knowledge/mmlu:4`: the generation hit the default 768-token budget (`finish_reason=length`) and the grader raised `TypeError`, so that item is unscored. Instruct has one length truncation and two loop failures at its default budget; those rows are scored and counted as fails. A second pass with the knowledge budget raised to 2048 still truncated that same item and did not change the overall.
 
 The summary SixCat wrote is [`bench/sixcat-eval-2.20-dflash.json`](bench/sixcat-eval-2.20-dflash.json).
@@ -341,6 +404,34 @@ PROFILE=with-draft bash serve.sh
 runs behind [Measured results](#measured-results-native-v1-2026-09-25) did not record acceptance,
 so this README does not quote an acceptance figure for the 2.20 bpw pack. If acceptance comes
 back near zero, `tools/verify_dflash.py` names which of the two edits is missing.
+
+### Quantizing the drafter (optional, measured)
+
+The drafter runs one forward per decode step, so its weights sit on the critical path: on a
+524,288-context configuration it costs roughly **8 ms of a 42 ms step**. Quantizing it to EXL3
+4.0 bpw ([`tools/quantize_dflash.sh`](tools/quantize_dflash.sh), about a minute on the card) takes
+it from 2.94 GB to **735 MB** and measured **+3.8%** decode — 193.66 → 201.06 tok/s p50 on the
+SixCat speed suite — at unchanged draft acceptance on the single-stream probe (0.25902668759811615
+on every run, both drafters).
+
+It **cannot change what the server outputs.** The target verifies every drafted token, so under
+greedy decoding the completion is identical. That was verified rather than argued: same prompt,
+same configuration, both drafters, 320 tokens — byte-identical completion,
+`sha256 91f9c8811700a250d81ce1f3ed763252`. The drafts themselves do differ (acceptance 0.2925 for
+BF16 against 0.2804 for EXL3 on that prompt), which is exactly the expected behaviour: only the
+speed can move.
+
+Freeing 2.1 GB also raises the with-drafter context ceilings, verified by loading and answering at
+the stated size: **FP16 KV 139,264 → 196,608**, **Q4 KV 524,288 → 655,360**.
+
+The converter quantizes the drafter **uncalibrated**, and that is expected here: the drafter has no
+embedding table (`fc.weight` is `[4096, 20480]`, a projection of the target's five tapped hidden
+states), so the calibration forward pass cannot run and the tool prints `Performing uncalibrated
+quantization` — the same side-model path the fork already uses for MTP heads and vision towers. No
+calibration data is involved. The converted folder keeps `tap_shift: 0` and carries
+`mask_embedding` as a tensor inside its shard, which is where the runtime looks for it; the
+standalone one-tensor shard from the fix can sit alongside it, so `tools/verify_dflash.py` passes
+on the quantized folder too.
 
 ## Template gotcha (it bites everyone)
 
