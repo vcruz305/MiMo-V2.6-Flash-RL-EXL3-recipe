@@ -41,7 +41,7 @@ HOST="${HOST:-127.0.0.1}"
 PORT="${PORT:-8096}"
 SERVED_NAME="${SERVED_NAME:-MiMo-V2.6-Flash-RL-EXL3}"
 
-check_sizing "$CACHE_SIZE" "$CTX" "$MAX_ACTIVE_REQUESTS" "$AUTOSPLIT_MAX_BATCH"
+check_sizing "$CACHE_SIZE" "$CTX" "$MAX_ACTIVE_REQUESTS" "$AUTOSPLIT_MAX_BATCH" "$DRAFT"
 port_free "$PORT"
 
 # An install that was built from source records its checkout here.
