@@ -1,0 +1,86 @@
+--- a/server/worker.py
++++ b/server/worker.py
+@@ -9,6 +9,7 @@
+ from dataclasses import dataclass, field
+ 
+ from protocol import APIError
++from bounded_profiler import BoundedProfiler
+ 
+ 
+ @dataclass
+@@ -23,6 +24,7 @@
+ class GenerationWorker:
+     def __init__(self, generator, job_factory, max_active=1, max_pending=32,
+                  inference_context=contextlib.nullcontext):
++        self.profiler = BoundedProfiler(max_active)
+         self.generator, self.job_factory = generator, job_factory
+         self.max_active = max_active
+         self.inference_context = inference_context
+@@ -39,9 +41,11 @@
+         with self.lock:
+             if self.failed or self.closed or not self.thread.is_alive():
+                 raise APIError("Inference worker unavailable", 503, "engine_unavailable")
++            self.profiler.validate(kwargs)
+             if not self.capacity.acquire(blocking=False):
+                 raise APIError("Inference queue is full", 429, "queue_full")
+             ticket = Ticket(kwargs)
++            self.profiler.accepted_job()
+             self.tickets[ticket.identifier] = ticket
+             self.inbox.put(ticket)
+             return ticket
+@@ -82,6 +86,7 @@
+                     for ident, ticket in list(active.items()):
+                         if ticket.cancelled.is_set():
+                             self.generator.cancel(ticket.job)
++                            self.profiler.finish('cancelled')
+                             del active[ident]
+                             self._retire(ticket)
+                     while waiting and len(active) < self.max_active:
+@@ -89,10 +94,18 @@
+                         if ticket.cancelled.is_set():
+                             self._retire(ticket)
+                             continue
++                        self.profiler.start(ticket)
++                        if self.profiler.directory:
++                            active[ticket.identifier] = ticket
+                         try:
+                             ticket.job = self.job_factory(identifier=ticket.identifier, **ticket.kwargs)
+                             self.generator.enqueue(ticket.job)
+                         except (ValueError, AssertionError) as exc:
++                            if self.profiler.directory:
++                                if ticket.job is not None:
++                                    self.generator.cancel(ticket.job)
++                                self.profiler.finish('request_error')
++                                active.pop(ticket.identifier, None)
+                             self._error(ticket, APIError(f"Request cannot be queued: {exc}"))
+                             continue
+                         active[ticket.identifier] = ticket
+@@ -102,6 +115,8 @@
+                         ticket = active.get(event.get("identifier"))
+                         if ticket is None:
+                             continue
++                        if event.get("eos"):
++                            self.profiler.finish('eos')
+                         # Avoid retaining GPU tensors, logits, or Job references
+                         # in slow HTTP queues.
+                         safe = {k: event[k] for k in (
+@@ -130,9 +145,18 @@
+         finally:
+             for ticket in list(active.values()):
+                 try:
+-                    self.generator.cancel(ticket.job)
++                    if ticket.job is not None:
++                        self.generator.cancel(ticket.job)
+                 except Exception:
+                     pass
++            try:
++                self.profiler.finish('worker_error' if self.failed else 'closed')
++            except Exception:
++                # Profiler/export failure must never skip HTTP errors or retirement.
++                import traceback
++                traceback.print_exc()
++                with self.lock:
++                    self.failed = self.failed or 'Profiler failed; inspect the server log'
+             with self.lock:
+                 outstanding = list(self.tickets.values())
+             for ticket in outstanding:
