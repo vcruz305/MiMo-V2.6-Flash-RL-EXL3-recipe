@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "$HOME/mimo-exl3/repo/server/serve_native.py", line 33, in <module>
+    from protocol import APIError, OutputParser, dumps, loads, normalize_request, render_prompt, token_budget, sampling_options
+  File "$HOME/mimo-exl3/repo/server/protocol.py", line 15, in <module>
+    from jsonschema import Draft202012Validator, SchemaError, ValidationError
+ModuleNotFoundError: No module named 'jsonschema'

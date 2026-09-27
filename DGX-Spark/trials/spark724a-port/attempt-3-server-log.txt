@@ -1,0 +1,81 @@
+[transformers] You are using a model of type `mimo_v2` to instantiate a model of type ``. This may be expected if you are loading a checkpoint that shares a subset of the architecture (e.g., loading a `sam2_video` checkpoint into `Sam2Model`), but is otherwise not supported and can yield errors. Please verify that the checkpoint is compatible with the model you are instantiating.
+Canonical chat template sha256=853650bee57bf95020373e4c928bd5a4b41b9915adf964a77711d2b49a291887
+ !! Overriding mask_embedding from $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0/model.safetensors with $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0/mask_embedding.safetensors
+ !! Replaced 1 tensors from $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0
+ -- Loading $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0
+EXL3_UMA device=0 mode=use request_bytes=113816633344 current=23068672 host_available=126175682560 cgroup_headroom=unlimited device_headroom=130638139392 os_reserve=8589934592 effective_reserve=8589934592 additional_headroom=117585747968 cap_bytes=113839702016 fraction=0.87125860615217521
+EXL3_UMA device=0 mode=reserve request_bytes=0 current=864026624 host_available=125035089920 cgroup_headroom=unlimited device_headroom=129797181440 os_reserve=8589934592 effective_reserve=8589934592 additional_headroom=116445155328 cap_bytes=117309181952 fraction=0.89781185778215089
+
+ -- Loading $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-EXL3/2.50bpw
+EXL3_UMA device=0 mode=use request_bytes=113816633344 current=864026624 host_available=123711434752 cgroup_headroom=unlimited device_headroom=129797181440 os_reserve=8589934592 effective_reserve=8589934592 additional_headroom=115121500160 cap_bytes=114680659968 fraction=0.87769477771725124
+/tmp/tmpybczp2nz/cuda_utils.c:7:10: fatal error: Python.h: No such file or directory
+    7 | #include <Python.h>
+      |          ^~~~~~~~~~
+compilation terminated.
+
+Traceback (most recent call last):
+  File "$HOME/mimo-exl3/repo/server/serve_native.py", line 335, in <module>
+    main()
+  File "$HOME/mimo-exl3/repo/server/serve_native.py", line 298, in main
+    model, config, cache, tokenizer, draft_model, _, draft_cache = model_init.init(args)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/model_init.py", line 360, in init
+    model.load(
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/model/model.py", line 656, in load
+    for _ in f: pass
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/model/model.py", line 581, in load_gen
+    yield from self._load_autosplit(
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/model/model_ls.py", line 199, in _load_autosplit
+    dummy_state = module.forward(dummy_state, params)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/modules/transformer.py", line 159, in forward
+    y = self.attn.forward(y, params)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/modules/attn.py", line 623, in forward
+    x = self.decode_flash_attn(x, bsz, seqlen, params)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/modules/attn.py", line 1136, in decode_flash_attn
+    o = attn_dispatch(
+        ^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/modules/attention_fn/dispatch.py", line 172, in attn_dispatch
+    o = fn(args)
+        ^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/modules/attention_fn/triton_paged.py", line 2280, in fn_triton_paged_attn_prefill_qc
+    return paged_attn_triton_prefill(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/modules/attention_fn/triton_paged.py", line 1955, in paged_attn_triton_prefill
+    launch(num_stages)
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/modules/attention_fn/triton_paged.py", line 1928, in launch
+    _paged_attn_prefill_kernel[grid](
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/runtime/jit.py", line 370, in <lambda>
+    return lambda *args, **kwargs: self.run(grid=grid, warmup=False, *args, **kwargs)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/runtime/jit.py", line 700, in run
+    device = driver.active.get_current_device()
+             ^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/runtime/driver.py", line 28, in active
+    self._active = self.default
+                   ^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/runtime/driver.py", line 22, in default
+    self._default = _create_driver()
+                    ^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/runtime/driver.py", line 10, in _create_driver
+    return active_drivers[0]()
+           ^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/backends/nvidia/driver.py", line 720, in __init__
+    self.utils = CudaUtils()  # TODO: make static
+                 ^^^^^^^^^^^
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/backends/nvidia/driver.py", line 62, in __init__
+    mod = compile_module_from_src(
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/runtime/build.py", line 93, in compile_module_from_src
+    so = _build(name, src_path, tmpdir, library_dirs or [], include_dirs or [], libraries or [], ccflags or [])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/runtime/build.py", line 48, in _build
+    subprocess.check_call(cc_cmd, stdout=subprocess.DEVNULL)
+  File "/usr/lib/python3.12/subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['/usr/bin/gcc', '/tmp/tmpybczp2nz/cuda_utils.c', '-O3', '-shared', '-fPIC', '-Wno-psabi', '-o', '/tmp/tmpybczp2nz/cuda_utils.cpython-312-aarch64-linux-gnu.so', '-l:libcuda.so.1', '-L$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/backends/nvidia/lib', '-L/lib/aarch64-linux-gnu', '-I$HOME/mimo-exl3/venv/lib/python3.12/site-packages/triton/backends/nvidia/include', '-I/tmp/tmpybczp2nz', '-I/usr/include/python3.12']' returned non-zero exit status 1.

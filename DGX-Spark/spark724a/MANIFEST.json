@@ -1,0 +1,114 @@
+{
+  "note": "Operator scripts as installed on spark-724a (records of what ran, not a portable bootstrap). sha256/bytes/lines are of the committed LF files; deployed_sha256 is the copy read back from the box. Differences are listed in README.md.",
+  "exllamav3": {
+    "repo": "vcruz305/exllamav3",
+    "commit": "249f22a153ce0fec9711ec7400ee8fd870958972",
+    "memory_py_upstream_sha256": "3672e8aa8bc00e4a3d990d845796fa16436bd47b1d75eaca2fd4ef878d275c94",
+    "memory_py_as_run_sha256": "9d8f95257c1d01c1d074e3cdf0d95d627baa4e329f2e63e3726c7261eca01d6b",
+    "memory_py_with_committed_patch_sha256": "78314795f9e967b03c99b9d5d4284fca42a08618ca64a85fc9cf3f6c6158b8b1"
+  },
+  "guard_uma": {
+    "france_sha256": "eef5706b327cf20007dd49087b6d70b97ec178fcdbde616374188a0bc916d24d",
+    "spark724a_sha256": "321cfb6d9d6e8cdfc3b4a3c08911fa54803cec538456ad4edab30dba1b2f1626"
+  },
+  "files": {
+    "spark724a/README.md": {
+      "sha256": "b5cd4447878fe77149de5ac0f65ea88a966be059e7f9dc920bad20232039b3c1",
+      "bytes": 3787,
+      "lines": 41
+    },
+    "spark724a/bench_spark724a.py": {
+      "sha256": "df6c786da710f1504b3d3220ace0c1b2ef02e72e457dd258a50f566941f5e234",
+      "bytes": 7363,
+      "lines": 132,
+      "deployed_as": "~/mimo-exl3/bench_spark724a.py",
+      "deployed_sha256": "df6c786da710f1504b3d3220ace0c1b2ef02e72e457dd258a50f566941f5e234",
+      "identical_to_deployed": true
+    },
+    "spark724a/dynamic-long-fixture.json": {
+      "sha256": "5b07d9edb895dc2108a6b9e9178ac9ec7d3e6b6a886683c4f6018cdfd055a28a",
+      "bytes": 8722,
+      "lines": 3,
+      "deployed_as": "~/mimo-exl3/dynamic-long-fixture.json",
+      "deployed_sha256": "5b07d9edb895dc2108a6b9e9178ac9ec7d3e6b6a886683c4f6018cdfd055a28a",
+      "identical_to_deployed": true
+    },
+    "spark724a/fetch_spark724a.sh": {
+      "sha256": "ea3ded8943964d06d1a61614b63354e6cd1a8ceaa0a93be43c7bf7d91d33e486",
+      "bytes": 3371,
+      "lines": 72,
+      "deployed_as": "~/fetch_spark724a.sh",
+      "deployed_sha256": "ea3ded8943964d06d1a61614b63354e6cd1a8ceaa0a93be43c7bf7d91d33e486",
+      "identical_to_deployed": true
+    },
+    "spark724a/guard_uma.py": {
+      "sha256": "321cfb6d9d6e8cdfc3b4a3c08911fa54803cec538456ad4edab30dba1b2f1626",
+      "bytes": 9089,
+      "lines": 138,
+      "deployed_as": "~/mimo-exl3/guard/guard_uma.py",
+      "deployed_sha256": "321cfb6d9d6e8cdfc3b4a3c08911fa54803cec538456ad4edab30dba1b2f1626",
+      "identical_to_deployed": true
+    },
+    "spark724a/guard_uma.spark724a.diff": {
+      "sha256": "1c3b198dc7b0d6617960e9cb4ce5e3069d7149d59963745a0fbd038a0cd936a1",
+      "bytes": 4236,
+      "lines": 64
+    },
+    "spark724a/launch_spark724a.py": {
+      "sha256": "79b45d2cf80db7e12916169fd9bad111f39de7169cd5e3dd97981b4ee5258260",
+      "bytes": 5577,
+      "lines": 122,
+      "deployed_as": "~/mimo-exl3/launch_spark724a.py",
+      "deployed_sha256": "c30956143fe9015b66d995b1d87780f6ec175ba0ee008e6606feaef5f6a8beee",
+      "identical_to_deployed": false
+    },
+    "spark724a/memory.py.root-cgroup-fix.patch": {
+      "sha256": "d35fd1e866fa7edd4a0090eb9c35ff18bc666127bd81061e5dfeeeb3c8af667d",
+      "bytes": 1335,
+      "lines": 31,
+      "deployed_as": "~/mimo-exl3/overlays/memory.py.root-cgroup-fix.patch",
+      "deployed_sha256": "946437192639cf47ed0e40d1b17716e4739b00c8acb301ab3902ef2a8ea26b3a",
+      "identical_to_deployed": false
+    },
+    "spark724a/provision_spark724a.sh": {
+      "sha256": "fde1f5571fd9b5b9eb3779212737cad102de2e94a437893be2aaa58372058d8a",
+      "bytes": 3254,
+      "lines": 69,
+      "deployed_as": "~/provision_spark724a.sh",
+      "deployed_sha256": "807593443bd1e2009e25140099b7656e0c39efa4d04a25e973458070b588fbd4",
+      "identical_to_deployed": false
+    },
+    "spark724a/tensorfold_pull.sh": {
+      "sha256": "33e597694b837e7c6d041f828eb19af9fad047d1f4a07792e33a65cc9770a72e",
+      "bytes": 561,
+      "lines": 12,
+      "deployed_as": "~/tensorfold/pull.sh",
+      "deployed_sha256": "33e597694b837e7c6d041f828eb19af9fad047d1f4a07792e33a65cc9770a72e",
+      "identical_to_deployed": true
+    },
+    "spark724a/tensorfold_serve27b.sh": {
+      "sha256": "5f2cfea5250c620adccffb3e27cb1561809304a6b5ba6201076f25d7bf22c64d",
+      "bytes": 349,
+      "lines": 4,
+      "deployed_as": "~/tensorfold/serve27b.sh",
+      "deployed_sha256": "5f2cfea5250c620adccffb3e27cb1561809304a6b5ba6201076f25d7bf22c64d",
+      "identical_to_deployed": true
+    },
+    "spark724a/tf_bench_mimo.py": {
+      "sha256": "3c063e8adb2794cfd364f2d330b0ddb4647c6019723ca88d94c962ffdeec8659",
+      "bytes": 3195,
+      "lines": 55,
+      "deployed_as": "~/mimo-exl3/tf_bench_mimo.py",
+      "deployed_sha256": "3c063e8adb2794cfd364f2d330b0ddb4647c6019723ca88d94c962ffdeec8659",
+      "identical_to_deployed": true
+    },
+    "spark724a/wait_and_launch_spark724a_v2.sh": {
+      "sha256": "a0275b0e885b95db216468ad4c371e2a223efc7e563a5bd635e18c1180f20c82",
+      "bytes": 6129,
+      "lines": 114,
+      "deployed_as": "~/wait_and_launch_spark724a_v2.sh",
+      "deployed_sha256": "8eb66bce32a025e3c176f97672e78b3de751626faa24abb3a23273a5c062371d",
+      "identical_to_deployed": false
+    }
+  }
+}

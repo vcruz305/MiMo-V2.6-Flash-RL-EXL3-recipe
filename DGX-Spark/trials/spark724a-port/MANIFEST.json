@@ -1,0 +1,181 @@
+{
+  "note": "spark-724a bring-up of the retained France profile (2026-09-26): five guarded launch attempts and the France-protocol bench on attempt 5. Hashes are of the files exactly as committed (LF); source_sha256 is the file read back from the box; 'copy' says what changed. Doc: DGX-Spark/Second-Spark-Port.md.",
+  "attempts": {
+    "1": {
+      "run": "1790487206750227504",
+      "outcome": "server exit 1 after 0.25 s: ModuleNotFoundError jsonschema"
+    },
+    "2": {
+      "run": "1790487258826530503",
+      "outcome": "server exit 1 after 3.8 s: EXL3_UMA required telemetry unavailable /sys/fs/cgroup/memory.current"
+    },
+    "3": {
+      "run": "1790487431856938117",
+      "outcome": "server exit 1 after 4.5 s: Triton cuda_utils.c Python.h missing"
+    },
+    "4": {
+      "run": "1790487551047613618",
+      "outcome": "guard memory_pressure after 19.6 s: psi_full10 10.55 > 10 with the pack in page cache"
+    },
+    "5": {
+      "run": "1790488568731660869",
+      "outcome": "loaded, health 200; requested_stop after 3407.6 s; bench below"
+    }
+  },
+  "bench": "warm code 43.953333 / warm prose 23.720000 tok/s, prefill 653.25 tok/s at 3527 tokens (correct); France round-6 retained 41.293333 / 24.293333 / 702.86",
+  "oom_kills": "0 host, 0 cgroup, every attempt",
+  "runtime": {
+    "exllamav3": "vcruz305/exllamav3 249f22a153ce0fec9711ec7400ee8fd870958972 (feat/mixedk-handled-readback-elision) + spark724a/memory.py.root-cgroup-fix.patch",
+    "server": "this repo server/serve_native.py at 79a9b5c",
+    "torch": "2.11.0+cu130",
+    "triton": "3.6.0",
+    "target": "vcruz305/MiMo-V2.6-Flash-RL-EXL3 2.50bpw/ (Hub main ad3a4f0b69cb93034d7ffe2730d9ff694a9bd846 at time of writing)",
+    "drafter": "vcruz305/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0bpw d50ead3c6a3dec221e9a595fbdc103ef60db594e"
+  },
+  "files": {
+    "spark724a-port/attempt-1-guard-result.json": {
+      "sha256": "35b50025efcd2be10fdc9dfd95e92a10cd69f306c3a15da9e1dc6f5c98e8cd5c",
+      "bytes": 207,
+      "lines": 8,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487206750227504/result.json",
+      "source_sha256": "35b50025efcd2be10fdc9dfd95e92a10cd69f306c3a15da9e1dc6f5c98e8cd5c",
+      "copy": "verbatim"
+    },
+    "spark724a-port/attempt-1-server-log.txt": {
+      "sha256": "8ae3a7317f2b6fd3940b239808a6f777c8438db2b8e8bdc135cf0165769ae5a0",
+      "bytes": 437,
+      "lines": 6,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487206750227504/server.log",
+      "source_sha256": "4e9134b6cb14b8a101be38fbaf06e37e8b9c989d51b04e259a5e51af0e52aef8",
+      "copy": "home directory prefix replaced by $HOME; renamed .log -> .txt (*.log is gitignored)"
+    },
+    "spark724a-port/attempt-2-guard-result.json": {
+      "sha256": "5f896178f774c23c379b346332b97d8ba4f8fc53a72e8dbebb43b888e2133007",
+      "bytes": 207,
+      "lines": 8,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487258826530503/result.json",
+      "source_sha256": "5f896178f774c23c379b346332b97d8ba4f8fc53a72e8dbebb43b888e2133007",
+      "copy": "verbatim"
+    },
+    "spark724a-port/attempt-2-server-log.txt": {
+      "sha256": "a6032ccbf21a693319185dbd973b616dfcefffb4f08aeab8f971c74961faddee",
+      "bytes": 3514,
+      "lines": 50,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487258826530503/server.log",
+      "source_sha256": "84f71ba5d9ec4fbea3f938962f6a6f189f25ad42e6fe4f9d2525ba70c32a3dda",
+      "copy": "home directory prefix replaced by $HOME; renamed .log -> .txt (*.log is gitignored)"
+    },
+    "spark724a-port/attempt-3-guard-result.json": {
+      "sha256": "6e72191f114a7db026886032d6ce74c0b1a207eccbfeef55f6dc7868c1bddfbc",
+      "bytes": 208,
+      "lines": 8,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487431856938117/result.json",
+      "source_sha256": "6e72191f114a7db026886032d6ce74c0b1a207eccbfeef55f6dc7868c1bddfbc",
+      "copy": "verbatim"
+    },
+    "spark724a-port/attempt-3-server-log.txt": {
+      "sha256": "c85e5ad236841a9d3a05ae7b6767569ef655a439622a5630c5cf176b4df7b1d4",
+      "bytes": 6604,
+      "lines": 81,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487431856938117/server.log",
+      "source_sha256": "d35bc2a96c766c22a9848fa76c0f352dc257b87d52b5c2cce2f57ae7feea8794",
+      "copy": "home directory prefix replaced by $HOME; renamed .log -> .txt (*.log is gitignored)"
+    },
+    "spark724a-port/attempt-4-guard-result.json": {
+      "sha256": "6a283f4ed55ddae9d249ae2c5546434e9cc3a9457ab2732c56eb9dfb5b1f1b16",
+      "bytes": 220,
+      "lines": 8,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487551047613618/result.json",
+      "source_sha256": "6a283f4ed55ddae9d249ae2c5546434e9cc3a9457ab2732c56eb9dfb5b1f1b16",
+      "copy": "verbatim"
+    },
+    "spark724a-port/attempt-4-memory.jsonl": {
+      "sha256": "6234ba9bfc33047b687f11dabfcf827b0ebbd72994eee71de82fa3b23cb031c5",
+      "bytes": 27322,
+      "lines": 74,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487551047613618/memory.jsonl",
+      "source_sha256": "6234ba9bfc33047b687f11dabfcf827b0ebbd72994eee71de82fa3b23cb031c5",
+      "copy": "verbatim; *.jsonl is gitignored, force-added"
+    },
+    "spark724a-port/attempt-4-server-log.txt": {
+      "sha256": "4a7e02473db7b6498787e24cb8b9827caec3ab9f7c21d31ec5e1e5269233b953",
+      "bytes": 8377,
+      "lines": 94,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487551047613618/server.log",
+      "source_sha256": "2e5b4c1c36382ab4d55966deeb550e3d9cf3c0d5faf5fa591c98dcd9f3f076d5",
+      "copy": "home directory prefix replaced by $HOME; renamed .log -> .txt (*.log is gitignored)"
+    },
+    "spark724a-port/attempt-5-guard-result.json": {
+      "sha256": "fb3a4b4ad53079e1f76757d077c5d5c509b3bcb43b987a4e9063e0ff8ac933d3",
+      "bytes": 219,
+      "lines": 8,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790488568731660869/result.json",
+      "source_sha256": "fb3a4b4ad53079e1f76757d077c5d5c509b3bcb43b987a4e9063e0ff8ac933d3",
+      "copy": "verbatim"
+    },
+    "spark724a-port/attempt-5-memory-load-180s.jsonl": {
+      "sha256": "cc66c61677d18570b5abd46007775d443d1432465b0ee8ca53d26e322b9c7ad0",
+      "bytes": 68180,
+      "lines": 181,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790488568731660869/memory.jsonl",
+      "source_sha256": "709c555d052945a4a32fd474e4583e2f0bb82c9a41a4dd692f3a0721d4b23b7f",
+      "copy": "subset: first sample of each second for elapsed_s <= 180 (the load window; the full 57-minute trace is 5.1 MB); samples unchanged; force-added"
+    },
+    "spark724a-port/attempt-5-server-log.txt": {
+      "sha256": "92e5e746f42734a9aaf5581ede77e3f6e37852c5d2379b2a9f9beaa6d78d15fc",
+      "bytes": 27656,
+      "lines": 221,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790488568731660869/server.log",
+      "source_sha256": "1d4677a671c4ffc3565301dfc1004300ca348092a5b90d44b896c380ba6607a4",
+      "copy": "home directory prefix replaced by $HOME; renamed .log -> .txt (*.log is gitignored)"
+    },
+    "spark724a-port/launch-config.json": {
+      "sha256": "93909a99eda54445673ff2799630a84b6b82ece416461012db20d40fa3451302",
+      "bytes": 1226,
+      "lines": 57,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790487551047613618/launch.json",
+      "source_sha256": "45faec01bf95c1679d9cd65f4aa53133c2da983c53f573a70a7c01abc56c6cea",
+      "copy": "attempt 4's guard config (attempts 1-4 differ only in outdir; attempt 5 was launched from the same launcher); home directory prefix replaced by $HOME, re-indented"
+    },
+    "spark724a-port/prefill.json": {
+      "sha256": "c097efec95b3761e7f4c3a8dfcc664f1a3c0e1e1d6257c1feca27f7bf60a3233",
+      "bytes": 10076,
+      "lines": 51,
+      "source": "~/mimo-exl3/runs/bench-spark724a-retained/prefill.json",
+      "source_sha256": "c097efec95b3761e7f4c3a8dfcc664f1a3c0e1e1d6257c1feca27f7bf60a3233",
+      "copy": "verbatim"
+    },
+    "spark724a-port/relaunch-guard-result.json": {
+      "sha256": "199c3f7a8554b34217e502ba31469d68eed5ba0ad9c9da9599be9c3df8769a61",
+      "bytes": 219,
+      "lines": 8,
+      "source": "~/mimo-exl3/runs/spark724a-retained-1790492179945129265/result.json",
+      "source_sha256": "199c3f7a8554b34217e502ba31469d68eed5ba0ad9c9da9599be9c3df8769a61",
+      "copy": "verbatim; the relaunch after the TensorFold baseline"
+    },
+    "spark724a-port/responses.jsonl": {
+      "sha256": "9a0c04af0b328c5f0a98c18bd4135bcc5771724d11dae40453e81611a96a89ca",
+      "bytes": 31338,
+      "lines": 10,
+      "source": "~/mimo-exl3/runs/bench-spark724a-retained/responses.jsonl",
+      "source_sha256": "9a0c04af0b328c5f0a98c18bd4135bcc5771724d11dae40453e81611a96a89ca",
+      "copy": "verbatim; sha256 equals summary.json responses_sha256; force-added"
+    },
+    "spark724a-port/sanity.json": {
+      "sha256": "0e464dc73d8bba085b7a3b5783fab9e0c83a8c6de3a14d0702f4064c121d88bd",
+      "bytes": 430,
+      "lines": 17,
+      "source": "~/mimo-exl3/runs/bench-spark724a-retained/sanity.json",
+      "source_sha256": "0e464dc73d8bba085b7a3b5783fab9e0c83a8c6de3a14d0702f4064c121d88bd",
+      "copy": "verbatim"
+    },
+    "spark724a-port/summary.json": {
+      "sha256": "d52e4d28a08ef19b76d80799608d8e204e4fa4a7152ac0b0572cd42fa56e5441",
+      "bytes": 2300,
+      "lines": 101,
+      "source": "~/mimo-exl3/runs/bench-spark724a-retained/summary.json",
+      "source_sha256": "d52e4d28a08ef19b76d80799608d8e204e4fa4a7152ac0b0572cd42fa56e5441",
+      "copy": "verbatim"
+    }
+  }
+}

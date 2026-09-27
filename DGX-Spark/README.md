@@ -41,6 +41,30 @@ preexisting deployment artifacts; neither is a fresh-clone bootstrap. Old
 unchanged. The remaining sections below are the **2026-09-25 historical profiles**;
 their references to an adopted default/profiler describe those measurements only.
 
+## Second Spark (spark-724a) and the first TensorFold baseline (2026-09-26)
+
+The retained France profile (2.50 bpw, EXL3 4.0 bpw drafter, Q4 KV, chunk 4096, handled-readback
+elision) was brought up on a second, owned GB10 box with no container and no root for the build. On
+the France protocol it measured warm code **43.95 tok/s**, prose **23.72 tok/s** and fresh prefill
+**653 tok/s** at 3527 tokens. The France figures are 41.29 / 24.29 / 703. The texts differ from
+France's, so these compare operating profiles rather than identical requests.
+
+Getting the box to load needed four fixes:
+
+- `jsonschema` installed in the venv;
+- a root-cgroup patch to the fork's UMA budget;
+- the system Python headers for Triton's JIT;
+- evicting the freshly downloaded pack from page cache before launch.
+
+There was no kernel OOM at any point. The runbook, the network measurements (including a correction
+to an earlier "80 Mbit/s WAN cap" note) and the records are in
+[Second-Spark-Port.md](Second-Spark-Port.md). The scripts that ran are in [spark724a/](spark724a/README.md).
+
+[TensorFold-Baseline.md](TensorFold-Baseline.md) covers TensorFold v0.3.4 on the same box, running
+natively. It reproduces its README's single-Spark Qwen3.8-27B + DFlash2 figures, measuring 49.9 / 45.8 /
+49.5 / 46.1 tok/s. Under the same client MiMo on our serve measures 32.9 / 24.6 / 32.0 / 24.6.
+TensorFold cannot load MiMo yet. The doc lists what blocks it and the plan to add it.
+
 ## Measured (native `/v1`, server-reported counters)
 
 > **Harness:** this repo's own server and [chat.sh](../chat.sh) — one stream, one request at a

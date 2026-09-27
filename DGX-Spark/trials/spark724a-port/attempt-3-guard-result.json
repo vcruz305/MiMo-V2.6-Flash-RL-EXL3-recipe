@@ -1,0 +1,9 @@
+{
+  "reason": "exit",
+  "returncode": 1,
+  "elapsed_s": 4.5195651140002155,
+  "min_available_gib": 114.50607681274414,
+  "min_free_gib": 11.666767120361328,
+  "oom_kill_delta": 0,
+  "host_oom_kill_delta": 0
+}

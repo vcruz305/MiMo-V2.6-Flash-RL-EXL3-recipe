@@ -1,0 +1,102 @@
+{
+  "tag": "spark724a-retained",
+  "reps": 4,
+  "url": "http://127.0.0.1:8096",
+  "warm_mean_decode_tok_s": {
+    "code": 43.95333333333333,
+    "prose": 23.72
+  },
+  "all_mean_decode_tok_s": {
+    "code": 38.4575,
+    "prose": 23.7425
+  },
+  "warm_mean_draft_accept": {
+    "code": 0.8507462686567164,
+    "prose": 0.5913461538461539
+  },
+  "per_rep": [
+    {
+      "case": "code",
+      "rep": 0,
+      "decode_tok_s": 21.97,
+      "completion_tokens": 312,
+      "ttft_s": 5.02837618599915,
+      "wall_s": 17.411837894998826
+    },
+    {
+      "case": "prose",
+      "rep": 0,
+      "decode_tok_s": 23.81,
+      "completion_tokens": 252,
+      "ttft_s": 0.6072388579996186,
+      "wall_s": 11.114899902000616
+    },
+    {
+      "case": "code",
+      "rep": 1,
+      "decode_tok_s": 44.06,
+      "completion_tokens": 289,
+      "ttft_s": 0.5621352999987721,
+      "wall_s": 7.061835696998969
+    },
+    {
+      "case": "prose",
+      "rep": 1,
+      "decode_tok_s": 23.73,
+      "completion_tokens": 252,
+      "ttft_s": 0.6102670389991545,
+      "wall_s": 11.150823780999417
+    },
+    {
+      "case": "code",
+      "rep": 2,
+      "decode_tok_s": 43.92,
+      "completion_tokens": 289,
+      "ttft_s": 0.5834678889987117,
+      "wall_s": 7.103162736999366
+    },
+    {
+      "case": "prose",
+      "rep": 2,
+      "decode_tok_s": 23.73,
+      "completion_tokens": 252,
+      "ttft_s": 0.6069847760008997,
+      "wall_s": 11.151942185000735
+    },
+    {
+      "case": "code",
+      "rep": 3,
+      "decode_tok_s": 43.88,
+      "completion_tokens": 289,
+      "ttft_s": 0.563351054001032,
+      "wall_s": 7.089103020000039
+    },
+    {
+      "case": "prose",
+      "rep": 3,
+      "decode_tok_s": 23.7,
+      "completion_tokens": 252,
+      "ttft_s": 0.6108691790013836,
+      "wall_s": 11.164991577001274
+    }
+  ],
+  "prefill": {
+    "prompt_tokens": 3527,
+    "tok_s": 653.2521989889972,
+    "correct": true
+  },
+  "sanity_correct": true,
+  "min_available_gib": 20.19002914428711,
+  "server": {
+    "status": "healthy",
+    "healthy": true,
+    "requests": 0,
+    "max_active_requests": 1
+  },
+  "responses_sha256": "9a0c04af0b328c5f0a98c18bd4135bcc5771724d11dae40453e81611a96a89ca",
+  "france_retained_reference": {
+    "code": 41.293333,
+    "prose": 24.293333,
+    "prefill_tok_s": 703
+  }
+}

@@ -1,0 +1,31 @@
+diff --git a/exllamav3/util/memory.py b/exllamav3/util/memory.py
+index 45979c7..b821b3a 100644
+--- a/exllamav3/util/memory.py
++++ b/exllamav3/util/memory.py
+@@ -69,8 +69,25 @@ def _uma_absolute_path(value):
+     return path
+ 
+ 
++def _uma_cgroup_is_unaccounted_root(path):
++    # ROOT_CGROUP_FIX: the cgroup-v2 hierarchy root has neither memory.current nor
++    # memory.max by kernel design (it cannot be limited). True only if BOTH are unreadable.
++    for name in ("/memory.current", "/memory.max"):
++        try:
++            _uma_read(path + name)
++            return False
++        except RuntimeError:
++            pass
++    return True
++
++
+ def _uma_cgroup_headroom():
+-    limits = [_uma_cgroup_limit(path) for path in _uma_cgroup_dirs()]
++    # ROOT_CGROUP_FIX: on bare-metal cgroup-v2 the walk ends at the hierarchy root.
++    # Treat ONLY that last level as unlimited, and only when both files are absent; every other
++    # level, and any partial/garbled telemetry, stays fail-closed exactly as before.
++    dirs = _uma_cgroup_dirs()
++    limits = [None if (i == len(dirs) - 1 and len(dirs) > 1 and _uma_cgroup_is_unaccounted_root(path))
++              else _uma_cgroup_limit(path) for i, path in enumerate(dirs)]
+     finite = [limit for limit in limits if limit is not None]
+     return min(finite) if finite else None
+ 
