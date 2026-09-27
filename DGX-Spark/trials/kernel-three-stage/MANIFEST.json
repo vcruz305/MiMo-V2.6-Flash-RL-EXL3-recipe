@@ -1,0 +1,42 @@
+{
+  "note": "Verbatim copies of the round-9 / round-9b device-trial artifacts for the opt-in three-stage mixed-K kernel, plus the operator and parent readback records. Hashes are of the files exactly as committed (LF line endings); the operator-side originals differ only in line endings for the files that were CRLF on the Windows side.",
+  "round9": "numeric trial (--mode numeric, rc 0, 319.5 s of a 1800 s cap): 52 records, 25 identity cases all true, max |delta| 1.71e-05",
+  "round9b": "timing trial (--mode timing --samples 5 --iterations 20, rc 0, 328.75 s): 400 records, 16 q-widths, three/original median 1.096",
+  "files": {
+    "kernel-three-stage/round9-numeric-result.json": {
+      "sha256": "3152ddfa98c527be9762411cf5a3c0b2a162779ff6af0aca467a70d567d10701",
+      "bytes": 9955,
+      "lines": 448
+    },
+    "kernel-three-stage/round9-parent-readback.json": {
+      "sha256": "c6735906dee5969f7edb036d8d7a33205364d19ae01825bd457f7b09653748bd",
+      "bytes": 2832,
+      "lines": 50
+    },
+    "kernel-three-stage/round9-review.md": {
+      "sha256": "c6fc92c7e4807a3b2ed91cf445151e6cb8f538b67d3650731335199bee347d14",
+      "bytes": 4581,
+      "lines": 57
+    },
+    "kernel-three-stage/round9b-parent-readback.txt": {
+      "sha256": "afc505d61c91c9202a78bb3aab02aecdd695196e980b12568e3a4fbf3eed29e2",
+      "bytes": 2070,
+      "lines": 72
+    },
+    "kernel-three-stage/round9b-review.md": {
+      "sha256": "b3ea0267fb86301351c7b9a58d581cd395c58bfd453d54c1759c5a4acc0457a9",
+      "bytes": 3989,
+      "lines": 59
+    },
+    "kernel-three-stage/round9b-timing-result.json": {
+      "sha256": "deb6b199174e7e8165532b5f9e8443723903f931f7a5624cd57de95d81c012d9",
+      "bytes": 54560,
+      "lines": 2809
+    },
+    "kernel-three-stage/round9b-timing-table.md": {
+      "sha256": "5a6635328111fbfb1a0c167734c5aee99912bfbbe421f85ab24d73eac899fe1a",
+      "bytes": 1733,
+      "lines": 18
+    }
+  }
+}
