@@ -29,6 +29,11 @@ versus the A/A2 bracket, all 8 text/count/acceptance pairs equal. **Not 60 tok/s
 not SixCat, not aggregate throughput, not a broad quality pass.**
 
 [Full results, dependency caveats, operator mappings and tracked records](France-Quant-Readback.md).
+Kernel/draft experiments since round 6 — an exact three-stage mixed-K kernel that measures
+**slower** (do not deploy), the blocked draft-window cost selector, and the unpublished
+one-file runtime overlay the profile depends on — are recorded in
+[France-Optimization-Campaign.md](France-Optimization-Campaign.md) with their raw trial
+artifacts under `trials/`.
 The rental wrapper defaults to `quantized-draft` (original runtime); the faster
 `quantized-draft-readback` stays **opt-in pending runtime publication**. Both require
 preexisting deployment artifacts; neither is a fresh-clone bootstrap. Old
