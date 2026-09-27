@@ -32,7 +32,12 @@ MODELS_DIR="${MODELS_DIR:-$RECIPE_HOME/models}"
 PACK_HOME="${PACK_HOME:-$MODELS_DIR/MiMo-V2.6-Flash-RL-EXL3}"
 PACK_DIR="${PACK_DIR:-$PACK_HOME/$PACK_SUBDIR}"
 DRAFT_SRC="${DRAFT_SRC:-$MODELS_DIR/MiMo-V2.6-Flash-RL/$DRAFT_SUBDIR}"
-DRAFT_DIR="${DRAFT_DIR:-$MODELS_DIR/MiMo-V2.6-Flash-RL-dflash-fixed}"
+# The served drafter is the EXL3 4.0 bpw build, downloaded from its own repo by setup.sh.
+# $DRAFT_SRC above is only the input for rebuilding it (tools/fix_dflash.py then
+# tools/quantize_dflash.sh) and $DRAFT_FIXED the BF16 copy those tools stage.
+DRAFT_EXL3_REPO="${DRAFT_EXL3_REPO:-vcruz305/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0bpw}"
+DRAFT_FIXED="${DRAFT_FIXED:-$MODELS_DIR/MiMo-V2.6-Flash-RL-dflash-fixed}"
+DRAFT_DIR="${DRAFT_DIR:-$MODELS_DIR/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0}"
 
 # Toolchain. Only the source build needs these; the released wheel ships a fat arch list
 # (8.0 8.6 8.9 9.0 10.0 12.0+PTX) and needs a driver, not a toolkit.
@@ -220,12 +225,22 @@ show_card() {
 # Sizing sanity. cache_size is ONE pool shared by every concurrent request, not a
 # per-request allowance; that mismatch is what produces "my context is tiny" reports.
 check_sizing() {
-  local cache="$1" max_seq="$2" batch="$3" ambs="$4"
+  local cache="$1" max_seq="$2" batch="$3" ambs="$4" draft="${5:-1}"
   (( cache % 256 == 0 )) || die "CACHE_SIZE must be a multiple of 256"
   (( cache >= max_seq )) || die "CACHE_SIZE ($cache) < MAX_SEQ_LEN ($max_seq): one full-length request would not fit"
   (( batch >= 1 )) || die "MAX_ACTIVE_REQUESTS must be >= 1"
   (( batch <= ambs )) || die "MAX_ACTIVE_REQUESTS ($batch) > AUTOSPLIT_MAX_BATCH ($ambs): the server refuses this"
-  (( max_seq <= 65536 )) || echo "warning: MAX_SEQ_LEN > 65536 is past what has been measured for this recipe (the checkpoint's own position limit is 1048576, but nothing beyond 65536 is validated here)" >&2
+  # Measured ceilings, all with Q4 KV on the card in README "Cards tested on": 1048576 without a
+  # drafter, 655360 with one (a drafter costs KV budget for its own cache and weights).
+  local ceiling=1048576
+  [[ "$draft" == "1" ]] && ceiling=655360
+  if (( max_seq > 1048576 )); then
+    echo "warning: MAX_SEQ_LEN ($max_seq) is past the checkpoint's own position limit (1048576)" >&2
+  elif (( max_seq > ceiling )); then
+    echo "warning: MAX_SEQ_LEN ($max_seq) is past the measured ceiling for this profile (${ceiling} with drafter=$draft, Q4 KV). See README \"Best measured configuration (Q4 KV)\"" >&2
+  elif (( max_seq > 65536 )); then
+    echo "note: MAX_SEQ_LEN beyond 65536 is measured territory only with Q4 KV (KV_CACHE_Q=4): 1,048,576 without a drafter, 655,360 with one. See README \"Best measured configuration (Q4 KV)\"" >&2
+  fi
   say "sizing: ${max_seq} tokens per request, ${cache}-token pool shared by ${batch} concurrent requests"
 }
 

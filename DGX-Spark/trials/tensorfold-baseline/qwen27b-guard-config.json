@@ -1,0 +1,10 @@
+{
+ "command": [
+  "$HOME/tensorfold/serve27b.sh"
+ ],
+ "outdir": "$HOME/tensorfold/runs/qwen27b-baseline",
+ "max_seconds": 14400,
+ "memory_policy": "physical",
+ "lock_path": "$HOME/mimo-exl3/state/server.lock",
+ "env": {}
+}

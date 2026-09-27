@@ -1,0 +1,9 @@
+{
+  "reason": "requested_stop",
+  "returncode": 0,
+  "elapsed_s": 175.7240520410014,
+  "min_available_gib": 91.7789077758789,
+  "min_free_gib": 68.45719528198242,
+  "oom_kill_delta": 0,
+  "host_oom_kill_delta": 0
+}

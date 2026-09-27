@@ -1,0 +1,221 @@
+[transformers] You are using a model of type `mimo_v2` to instantiate a model of type ``. This may be expected if you are loading a checkpoint that shares a subset of the architecture (e.g., loading a `sam2_video` checkpoint into `Sam2Model`), but is otherwise not supported and can yield errors. Please verify that the checkpoint is compatible with the model you are instantiating.
+Canonical chat template sha256=853650bee57bf95020373e4c928bd5a4b41b9915adf964a77711d2b49a291887
+ !! Overriding mask_embedding from $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0/model.safetensors with $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0/mask_embedding.safetensors
+ !! Replaced 1 tensors from $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0
+ -- Loading $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0
+EXL3_UMA device=0 mode=use request_bytes=113816633344 current=23068672 host_available=126448357376 cgroup_headroom=unlimited device_headroom=130638139392 os_reserve=8589934592 effective_reserve=8589934592 additional_headroom=117858422784 cap_bytes=113839702016 fraction=0.87125860615217521
+EXL3_UMA device=0 mode=reserve request_bytes=0 current=864026624 host_available=125313269760 cgroup_headroom=unlimited device_headroom=129797181440 os_reserve=8589934592 effective_reserve=8589934592 additional_headroom=116723335168 cap_bytes=117587361792 fraction=0.89994087406878853
+
+ -- Loading $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-EXL3/2.50bpw
+EXL3_UMA device=0 mode=use request_bytes=113816633344 current=864026624 host_available=123976675328 cgroup_headroom=unlimited device_headroom=129797181440 os_reserve=8589934592 effective_reserve=8589934592 additional_headroom=115386740736 cap_bytes=114680659968 fraction=0.87769477771725124
+ -- Mixed-K experts in model.layers.14.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.14.mlp: 1 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.14.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.15.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.15.mlp: 1 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.15.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.17.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.17.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.17.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.18.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.18.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.18.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.19.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.19.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.19.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.20.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.20.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.20.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.21.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.21.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.21.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.22.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.22.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.22.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.23.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.23.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.23.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.24.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.24.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.24.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.25.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.25.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.25.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.26.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.26.mlp: 1 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.26.mlp: 256 experts, K_up range [4,4]
+ -- Mixed-K experts in model.layers.27.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.27.mlp: 2 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.27.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.28.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.28.mlp: 2 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.28.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.29.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.29.mlp: 2 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.29.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.30.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.30.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.30.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.31.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.31.mlp: 2 groups, 254/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.31.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.32.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.32.mlp: 2 groups, 253/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.32.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.33.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.33.mlp: 3 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.33.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.34.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.34.mlp: 4 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.34.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.35.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.35.mlp: 3 groups, 254/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.35.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.36.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.36.mlp: 3 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.36.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.37.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.37.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.37.mlp: 256 experts, K_up range [6,6]
+ -- Mixed-K experts in model.layers.38.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.38.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.38.mlp: 256 experts, K_up range [6,6]
+ -- Mixed-K experts in model.layers.39.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.39.mlp: 2 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.39.mlp: 256 experts, K_up range [4,6]
+ -- Mixed-K experts in model.layers.40.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.40.mlp: 2 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.40.mlp: 256 experts, K_up range [6,6]
+ -- Mixed-K experts in model.layers.41.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.41.mlp: 2 groups, 254/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.41.mlp: 256 experts, K_up range [6,8]
+ -- Mixed-K experts in model.layers.42.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.42.mlp: 3 groups, 253/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.42.mlp: 256 experts, K_up range [6,8]
+ -- Mixed-K experts in model.layers.43.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.43.mlp: 4 groups, 254/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.43.mlp: 256 experts, K_up range [4,8]
+ -- Mixed-K experts in model.layers.44.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.44.mlp: 4 groups, 256/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.44.mlp: 256 experts, K_up range [6,8]
+ -- Mixed-K experts in model.layers.45.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.45.mlp: 3 groups, 253/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.45.mlp: 256 experts, K_up range [6,8]
+ -- Mixed-K experts in model.layers.46.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.46.mlp: 4 groups, 255/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.46.mlp: 256 experts, K_up range [6,8]
+ -- Mixed-K experts in model.layers.47.mlp: dense per-expert path
+ -- Mixed-K fused groups in model.layers.47.mlp: 4 groups, 254/256 experts fused
+ -- Mixed-K UNIFIED kernel enabled in model.layers.47.mlp: 256 experts, K_up range [4,8]
+EXL3_UMA device=0 mode=reserve request_bytes=0 current=98855550976 host_available=23385243648 cgroup_headroom=unlimited device_headroom=31805657088 os_reserve=8589934592 effective_reserve=8589934592 additional_headroom=14795309056 cap_bytes=113650860032 fraction=0.86981332651028254
+
+ -- Warming up...
+
+ -- Warmup: 9/9 passes in 24.35 s
+ -- Loading tokenizer...
+Stop conditions: [151645, 151643, 151672, '<|im_end|>', '<|endoftext|>', 151644, '<|im_start|>']
+Native API listening 127.0.0.1:8096; max_active=1
+127.0.0.1 "GET /health HTTP/1.1" 200 -
+127.0.0.1 "GET /health HTTP/1.1" 200 -
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-45748c3f9ec1416a84ff5e98","finish_reason":"stop","usage":{"prompt_tokens":58,"completion_tokens":312,"total_tokens":370,"decode_tok_s":21.97,"draft_accept":0.6823204419889503,"time_prefill":3.1863269805908203,"time_generate":14.203287601470947,"time_enqueued":0.0002772808074951172}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-627dc23599d549aea33c5be8","finish_reason":"stop","usage":{"prompt_tokens":63,"completion_tokens":252,"total_tokens":315,"decode_tok_s":23.81,"draft_accept":0.5913461538461539,"time_prefill":0.5271751880645752,"time_generate":10.584222316741943,"time_enqueued":0.00010919570922851562}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-5ac9cfa53948401789c02cb3","finish_reason":"stop","usage":{"prompt_tokens":58,"completion_tokens":289,"total_tokens":347,"decode_tok_s":44.06,"draft_accept":0.8507462686567164,"time_prefill":0.4993166923522949,"time_generate":6.558781862258911,"time_enqueued":0.00010967254638671875}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-8239f8e22cf542d2acaec136","finish_reason":"stop","usage":{"prompt_tokens":63,"completion_tokens":252,"total_tokens":315,"decode_tok_s":23.73,"draft_accept":0.5913461538461539,"time_prefill":0.5277280807495117,"time_generate":10.619798421859741,"time_enqueued":0.00013184547424316406}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-5d7220c478ca49438ff84100","finish_reason":"stop","usage":{"prompt_tokens":58,"completion_tokens":289,"total_tokens":347,"decode_tok_s":43.92,"draft_accept":0.8507462686567164,"time_prefill":0.5196826457977295,"time_generate":6.580567121505737,"time_enqueued":0.00011205673217773438}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-0090a23b2c164d838c556b3c","finish_reason":"stop","usage":{"prompt_tokens":63,"completion_tokens":252,"total_tokens":315,"decode_tok_s":23.73,"draft_accept":0.5913461538461539,"time_prefill":0.5270349979400635,"time_generate":10.621085405349731,"time_enqueued":0.00013494491577148438}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-a76a29b57b994fd9a3b1982a","finish_reason":"stop","usage":{"prompt_tokens":58,"completion_tokens":289,"total_tokens":347,"decode_tok_s":43.88,"draft_accept":0.8507462686567164,"time_prefill":0.5000367164611816,"time_generate":6.586175918579102,"time_enqueued":0.0001342296600341797}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-38586b7bfae84773ae3159f9","finish_reason":"stop","usage":{"prompt_tokens":63,"completion_tokens":252,"total_tokens":315,"decode_tok_s":23.7,"draft_accept":0.5913461538461539,"time_prefill":0.5290982723236084,"time_generate":10.631503582000732,"time_enqueued":0.00010704994201660156}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-9e5313b85b5142d2a22db08c","finish_reason":"stop","usage":{"prompt_tokens":3527,"completion_tokens":8,"total_tokens":3535,"decode_tok_s":59.16,"draft_accept":1.0,"time_prefill":5.399139881134033,"time_generate":0.1352221965789795,"time_enqueued":0.00014901161193847656}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-1c72550a7ac54b20bc608bb1","finish_reason":"stop","usage":{"prompt_tokens":26,"completion_tokens":4,"total_tokens":30,"decode_tok_s":28.27,"draft_accept":1.0,"time_prefill":1.31917142868042,"time_generate":0.14149045944213867,"time_enqueued":0.00011396408081054688}}
+127.0.0.1 "GET /health HTTP/1.1" 200 -
+127.0.0.1 "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 "GET /health HTTP/1.1" 200 -
+127.0.0.1 "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 "POST /v1/completions HTTP/1.1" 404 -
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 404 -
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-060b66eba8374886987344e3","finish_reason":"length","usage":{"prompt_tokens":10,"completion_tokens":8,"total_tokens":18,"decode_tok_s":34.49,"draft_accept":0.8333333333333334,"time_prefill":0.7639811038970947,"time_generate":0.23196697235107422,"time_enqueued":0.00014972686767578125}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-3bdea39be68940d9b92241da","finish_reason":"length","usage":{"prompt_tokens":8,"completion_tokens":8,"total_tokens":16,"decode_tok_s":36.95,"draft_accept":0.75,"time_prefill":0.47328805923461914,"time_generate":0.21648120880126953,"time_enqueued":0.00010538101196289062}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-78fb067401a543548918cf2c","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":36.85,"draft_accept":0.7540983606557377,"time_prefill":0.3091106414794922,"time_generate":1.7366571426391602,"time_enqueued":0.0004875659942626953}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-abcc3ed35343458abfa3df7a","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":36.88,"draft_accept":0.7540983606557377,"time_prefill":0.2862436771392822,"time_generate":1.735414743423462,"time_enqueued":0.00011610984802246094}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-c791d6f7a71344ad88c4c202","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":32.26,"draft_accept":0.6197183098591549,"time_prefill":0.28930115699768066,"time_generate":1.9841365814208984,"time_enqueued":0.00011086463928222656}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-075efe6457584d34ba44a719","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":31.67,"draft_accept":0.5945945945945946,"time_prefill":0.2888052463531494,"time_generate":2.0205891132354736,"time_enqueued":0.00010156631469726562}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-b7a35435a9084694acddd239","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":32.41,"draft_accept":0.6197183098591549,"time_prefill":0.2892875671386719,"time_generate":1.9747073650360107,"time_enqueued":9.417533874511719e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-8c73a554a1ab443e8c67bbdd","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":37.79,"draft_accept":0.6410256410256411,"time_prefill":0.29051756858825684,"time_generate":1.6936049461364746,"time_enqueued":9.417533874511719e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-4860d94aff1a47e99cdbcf8e","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":33.95,"draft_accept":0.5212765957446809,"time_prefill":0.2898213863372803,"time_generate":1.8849740028381348,"time_enqueued":0.00010704994201660156}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-49956e9c8e7a4d24bba12805","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":34.09,"draft_accept":0.5875,"time_prefill":0.2896993160247803,"time_generate":1.8774158954620361,"time_enqueued":0.00010514259338378906}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-f09c97c69cf34b02b25f4476","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":31.61,"draft_accept":0.5945945945945946,"time_prefill":0.2900097370147705,"time_generate":2.024975538253784,"time_enqueued":0.00011134147644042969}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-ac00986add374c2692b665f3","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":22.47,"draft_accept":0.3391304347826087,"time_prefill":0.3280069828033447,"time_generate":2.847893238067627,"time_enqueued":0.00011157989501953125}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-60b835e09b1f488aa3714357","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":22.15,"draft_accept":0.38372093023255816,"time_prefill":0.32500123977661133,"time_generate":2.8896920680999756,"time_enqueued":0.00012493133544921875}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-f0f6b603e6d94e869bca93d9","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":24.01,"draft_accept":0.546875,"time_prefill":0.3238179683685303,"time_generate":2.665807008743286,"time_enqueued":9.632110595703125e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-a39274692e304c959c329dd7","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":27.24,"draft_accept":0.5185185185185185,"time_prefill":0.3248443603515625,"time_generate":2.349210500717163,"time_enqueued":0.00011301040649414062}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-d544bf2c707b47e58b018b2b","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":24.84,"draft_accept":0.5396825396825397,"time_prefill":0.32683324813842773,"time_generate":2.5765538215637207,"time_enqueued":0.00010824203491210938}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-e50551e8dab044dfac59f831","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":22.2,"draft_accept":0.3763440860215054,"time_prefill":0.3265979290008545,"time_generate":2.88301944732666,"time_enqueued":9.608268737792969e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-01aa553255ac473aa9971f8e","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":25.41,"draft_accept":0.546875,"time_prefill":0.3269209861755371,"time_generate":2.51908802986145,"time_enqueued":0.0001308917999267578}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-d62f30b87eab452d8d8613cf","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":25.41,"draft_accept":0.546875,"time_prefill":0.32502245903015137,"time_generate":2.5182600021362305,"time_enqueued":0.00010943412780761719}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-283a53638892442489e9947e","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":27.91,"draft_accept":0.5185185185185185,"time_prefill":0.326399564743042,"time_generate":2.293363094329834,"time_enqueued":0.00010514259338378906}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-688d0ec5b1ae415ba03e55e6","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":31.45,"draft_accept":0.5945945945945946,"time_prefill":0.2915308475494385,"time_generate":2.0349152088165283,"time_enqueued":0.00011229515075683594}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-d4be7ddaa524464fa0d5b735","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":31.45,"draft_accept":0.5945945945945946,"time_prefill":0.2920386791229248,"time_generate":2.0352890491485596,"time_enqueued":0.00010204315185546875}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-4c36d60ecea64d70bb7d0c9f","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":31.55,"draft_accept":0.5945945945945946,"time_prefill":0.2901313304901123,"time_generate":2.028482437133789,"time_enqueued":9.34600830078125e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-a25c3515f1384e8aab611d32","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":33.28,"draft_accept":0.6521739130434783,"time_prefill":0.290574312210083,"time_generate":1.9233605861663818,"time_enqueued":9.34600830078125e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-d025096e72be4321bae63723","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":29.54,"draft_accept":0.4563106796116505,"time_prefill":0.2894761562347412,"time_generate":2.1666576862335205,"time_enqueued":0.000102996826171875}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-be28fdc4632d4ff2aa34f1b2","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":39.37,"draft_accept":0.8275862068965517,"time_prefill":0.29210400581359863,"time_generate":1.6257967948913574,"time_enqueued":0.00010776519775390625}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-088a20cc60294c4882f8e7ba","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":32.28,"draft_accept":0.5921052631578947,"time_prefill":0.2919161319732666,"time_generate":1.9828190803527832,"time_enqueued":9.5367431640625e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-28cfa84a8742425da7e2a665","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":24.78,"draft_accept":0.4563106796116505,"time_prefill":0.2900071144104004,"time_generate":2.582428216934204,"time_enqueued":0.00010085105895996094}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-4210e6e628c5469bb7ba26fa","finish_reason":"length","usage":{"prompt_tokens":23,"completion_tokens":64,"total_tokens":87,"decode_tok_s":33.47,"draft_accept":0.6266666666666667,"time_prefill":0.2917137145996094,"time_generate":1.9123241901397705,"time_enqueued":0.00011491775512695312}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-ab206e864dff4863b7fc9d35","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":23.67,"draft_accept":0.3524590163934426,"time_prefill":0.32805538177490234,"time_generate":2.7034406661987305,"time_enqueued":0.0001266002655029297}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-c8106e2b2d6f4c0caaa0b59e","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":23.68,"draft_accept":0.3524590163934426,"time_prefill":0.326962947845459,"time_generate":2.702803373336792,"time_enqueued":0.00012040138244628906}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-5b832a17d17b40beb1d1039d","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":23.66,"draft_accept":0.3524590163934426,"time_prefill":0.3283524513244629,"time_generate":2.7055559158325195,"time_enqueued":9.131431579589844e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-69c91889a72e4dfbb867b8e3","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":23.67,"draft_accept":0.3524590163934426,"time_prefill":0.3286416530609131,"time_generate":2.7038135528564453,"time_enqueued":0.00010061264038085938}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-1efa6b1cd8fc4abbb5a136cc","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":23.62,"draft_accept":0.3524590163934426,"time_prefill":0.3275144100189209,"time_generate":2.709948778152466,"time_enqueued":0.00011205673217773438}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-ca4e3ef8518e437e9c70d1bb","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":23.81,"draft_accept":0.35833333333333334,"time_prefill":0.33001160621643066,"time_generate":2.6879723072052,"time_enqueued":9.441375732421875e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-17e129113be54ff39a1a86fe","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":22.82,"draft_accept":0.3387096774193548,"time_prefill":0.32737207412719727,"time_generate":2.80446720123291,"time_enqueued":8.7738037109375e-05}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-17871a2d351b4276b69e5f01","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":23.19,"draft_accept":0.35294117647058826,"time_prefill":0.32979583740234375,"time_generate":2.759485960006714,"time_enqueued":0.00011897087097167969}}
+127.0.0.1 "POST /v1/chat/completions HTTP/1.1" 200 -
+{"request_id":"chatcmpl-21fab138863a44caa4e66c03","finish_reason":"length","usage":{"prompt_tokens":28,"completion_tokens":64,"total_tokens":92,"decode_tok_s":23.26,"draft_accept":0.35294117647058826,"time_prefill":0.32743263244628906,"time_generate":2.751532554626465,"time_enqueued":0.00010132789611816406}}

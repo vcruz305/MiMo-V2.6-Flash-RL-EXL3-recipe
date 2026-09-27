@@ -1,0 +1,64 @@
+--- guard_uma.py (France, sha256 eef5706b)
++++ guard_uma.py (spark-724a, sha256 321cfb6d)
+@@ -8,9 +8,40 @@
+ def kv(path):
+     return {p[0]: int(p[1]) for line in Path(path).read_text().splitlines() if len(p:=line.split())==2}
+ 
++def cgroup_dir():
++    """First cgroup dir that actually carries memory accounting, else None.
++    France: the v2 root had current/max/stat. spark-724a (7.0.0-1019-nvidia) exposes only
++    memory.stat at the root and nothing memory.* in this session's scope, so walk the
++    self-cgroup ancestors and, failing that, report no cgroup accounting instead of crashing
++    or silently pretending to have a limit."""
++    root=Path('/sys/fs/cgroup')
++    if (root/'memory.current').is_file() and (root/'memory.max').is_file() and (root/'memory.stat').is_file():
++        return root
++    try:
++        rel=next(l.split('::',1)[1].strip() for l in Path('/proc/self/cgroup').read_text().splitlines() if l.startswith('0::'))
++    except Exception:
++        rel=''
++    p=root/rel.lstrip('/')
++    while True:
++        if (p/'memory.current').is_file() and (p/'memory.max').is_file() and (p/'memory.stat').is_file():
++            return p
++        if p==root or p.parent==p: return None
++        p=p.parent
++
+ def memory_sample():
+     mi={p[0].rstrip(':'):int(p[1])*1024 for line in Path('/proc/meminfo').read_text().splitlines() if len(p:=line.split())>=2}
+-    cg=Path('/sys/fs/cgroup'); s=kv(cg/'memory.stat'); ev=kv(cg/'memory.events')
++    cg=cgroup_dir()
++    if cg is None:
++        # No cgroup memory limit for this process tree: the host is the budget, and it is
++        # labelled so nobody reads a cgroup floor that was never enforced.
++        return dict(available_gib=mi['MemAvailable']/GIB, free_gib=mi['MemFree']/GIB,
++                    cached_gib=mi.get('Cached',0)/GIB, swap_used_gib=(mi['SwapTotal']-mi['SwapFree'])/GIB,
++                    cgroup_current_gib=(mi['MemTotal']-mi['MemAvailable'])/GIB,
++                    cgroup_headroom_gib=mi['MemAvailable']/GIB, cgroup_accounting=False,
++                    psi_full10=next(float(w.split('=')[1]) for l in Path('/proc/pressure/memory').read_text().splitlines() if l.startswith('full ') for w in l.split() if w.startswith('avg10=')),
++                    host_oom_kill=kv('/proc/vmstat')['oom_kill'], cgroup_oom_kill=0, cgroup_oom=0,
++                    oom_kill=kv('/proc/vmstat')['oom_kill'], oom=0)
++    s=kv(cg/'memory.stat'); ev=kv(cg/'memory.events')
+     current=int((cg/'memory.current').read_text()); raw=(cg/'memory.max').read_text().strip()
+     limit=int(raw) if raw!='max' else mi['MemTotal']
+     # Inactive clean file cache is reclaimable; do not equate disk allocation with RAM use.
+@@ -19,7 +50,7 @@
+     full=next(float(w.split('=')[1]) for l in psi if l.startswith('full ') for w in l.split() if w.startswith('avg10='))
+     return dict(available_gib=mi['MemAvailable']/GIB, free_gib=mi['MemFree']/GIB,
+                 cached_gib=mi.get('Cached',0)/GIB, swap_used_gib=(mi['SwapTotal']-mi['SwapFree'])/GIB,
+-                cgroup_current_gib=current/GIB,cgroup_headroom_gib=(limit-current+reclaim)/GIB,
++                cgroup_current_gib=current/GIB,cgroup_headroom_gib=(limit-current+reclaim)/GIB,cgroup_accounting=True,
+                 psi_full10=full,host_oom_kill=kv('/proc/vmstat')['oom_kill'],
+                 cgroup_oom_kill=ev['oom_kill'],cgroup_oom=ev['oom'],
+                 oom_kill=ev['oom_kill'],oom=ev['oom'])
+@@ -99,6 +130,9 @@
+ if __name__=='__main__':
+     ap=argparse.ArgumentParser();ap.add_argument('config');a=ap.parse_args()
+     cfg=json.loads(Path(a.config).read_text()); env=os.environ.copy();env.update(cfg.get('env',{}))
+-    with open('/workspace/mimo-tune/server.lock','w') as lock:
++    # spark-724a: the lock path is configurable; France hardcodes /workspace/mimo-tune/.
++    lock_path = Path(cfg.get('lock_path', '/workspace/mimo-tune/server.lock'))
++    lock_path.parent.mkdir(parents=True, exist_ok=True)
++    with lock_path.open('w') as lock:
+         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+         print(json.dumps(supervise(cfg['command'],cfg['outdir'],env=env,max_seconds=cfg.get('max_seconds',7200),memory_policy=cfg.get('memory_policy','physical'))),flush=True)

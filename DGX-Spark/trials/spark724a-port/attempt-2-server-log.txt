@@ -1,0 +1,50 @@
+[transformers] You are using a model of type `mimo_v2` to instantiate a model of type ``. This may be expected if you are loading a checkpoint that shares a subset of the architecture (e.g., loading a `sam2_video` checkpoint into `Sam2Model`), but is otherwise not supported and can yield errors. Please verify that the checkpoint is compatible with the model you are instantiating.
+Canonical chat template sha256=853650bee57bf95020373e4c928bd5a4b41b9915adf964a77711d2b49a291887
+ !! Overriding mask_embedding from $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0/model.safetensors with $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0/mask_embedding.safetensors
+ !! Replaced 1 tensors from $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0
+ -- Loading $HOME/mimo-exl3/models/MiMo-V2.6-Flash-RL-dflash-EXL3-4.0
+
+Traceback (most recent call last):
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/util/memory.py", line 27, in _uma_read
+    with open(path, encoding = "utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/sys/fs/cgroup/memory.current'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "$HOME/mimo-exl3/repo/server/serve_native.py", line 335, in <module>
+    main()
+  File "$HOME/mimo-exl3/repo/server/serve_native.py", line 298, in main
+    model, config, cache, tokenizer, draft_model, _, draft_cache = model_init.init(args)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/model_init.py", line 348, in init
+    draft_model.load(
+  File "$HOME/mimo-exl3/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/model/model.py", line 656, in load
+    for _ in f: pass
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/model/model.py", line 581, in load_gen
+    yield from self._load_autosplit(
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/model/model_ls.py", line 164, in _load_autosplit
+    device_budget[i] = set_memory_fraction_use(use_per_device[i], i)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/util/memory.py", line 213, in set_memory_fraction_use
+    return _uma_set_fraction(use, device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/util/memory.py", line 143, in _uma_set_fraction
+    snapshot = _uma_snapshot(device)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/util/memory.py", line 119, in _uma_snapshot
+    cgroup = _uma_cgroup_headroom()
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/util/memory.py", line 73, in _uma_cgroup_headroom
+    limits = [_uma_cgroup_limit(path) for path in _uma_cgroup_dirs()]
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/util/memory.py", line 79, in _uma_cgroup_limit
+    current = _uma_uint(_uma_read(path + "/memory.current").strip(), path + "/memory.current")
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "$HOME/mimo-exl3/exllamav3/exllamav3/util/memory.py", line 30, in _uma_read
+    raise RuntimeError(f"EXL3_UMA: required telemetry unavailable: {path}") from e
+RuntimeError: EXL3_UMA: required telemetry unavailable: /sys/fs/cgroup/memory.current

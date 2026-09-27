@@ -18,6 +18,53 @@ PROFILE=spark-with-draft bash serve.sh       # with-draft sizing + GPU_SPLIT=112
 bash chat.sh                                 # prints finish_reason, decode tok/s, draft_accept
 ```
 
+## Latest France rental measurements (2026-09-26)
+
+The separate **2.50 bpw** France path now has the requested **EXL3 4.0 bpw drafter**:
+warm code **40.566667 tok/s**, prose **23.813333 tok/s**, vs corrected BF16
+37.226667 / 19.610000 in the same ordered max-320-token workload. Only 3/8 texts
+match, all warm code; cold code regresses. With that quantized drafter held fixed,
+handled-readback A/B/A measured **41.293333 / 24.293333 tok/s**, +1.23396% / +1.65992%
+versus the A/A2 bracket, all 8 text/count/acceptance pairs equal. **Not 60 tok/s,
+not SixCat, not aggregate throughput, not a broad quality pass.**
+
+[Full results, dependency caveats, operator mappings and tracked records](France-Quant-Readback.md).
+Kernel/draft experiments since round 6 — an exact three-stage mixed-K kernel that measures
+**slower** (do not deploy), the blocked draft-window cost selector, and the unpublished
+one-file runtime overlay the profile depends on — are recorded in
+[France-Optimization-Campaign.md](France-Optimization-Campaign.md) with their raw trial
+artifacts under `trials/`.
+The rental wrapper defaults to `quantized-draft` (original runtime); the faster
+`quantized-draft-readback` stays **opt-in pending runtime publication**. Both require
+preexisting deployment artifacts; neither is a fresh-clone bootstrap. Old
+`dynamic-balanced` explicitly selects BF16. The root/RTX and Tabby defaults are
+unchanged. The remaining sections below are the **2026-09-25 historical profiles**;
+their references to an adopted default/profiler describe those measurements only.
+
+## Second Spark (spark-724a) and the first TensorFold baseline (2026-09-26)
+
+The retained France profile (2.50 bpw, EXL3 4.0 bpw drafter, Q4 KV, chunk 4096, handled-readback
+elision) was brought up on a second, owned GB10 box with no container and no root for the build. On
+the France protocol it measured warm code **43.95 tok/s**, prose **23.72 tok/s** and fresh prefill
+**653 tok/s** at 3527 tokens. The France figures are 41.29 / 24.29 / 703. The texts differ from
+France's, so these compare operating profiles rather than identical requests.
+
+Getting the box to load needed four fixes:
+
+- `jsonschema` installed in the venv;
+- a root-cgroup patch to the fork's UMA budget;
+- the system Python headers for Triton's JIT;
+- evicting the freshly downloaded pack from page cache before launch.
+
+There was no kernel OOM at any point. The runbook, the network measurements (including a correction
+to an earlier "80 Mbit/s WAN cap" note) and the records are in
+[Second-Spark-Port.md](Second-Spark-Port.md). The scripts that ran are in [spark724a/](spark724a/README.md).
+
+[TensorFold-Baseline.md](TensorFold-Baseline.md) covers TensorFold v0.3.4 on the same box, running
+natively. It reproduces its README's single-Spark Qwen3.8-27B + DFlash2 figures, measuring 49.9 / 45.8 /
+49.5 / 46.1 tok/s. Under the same client MiMo on our serve measures 32.9 / 24.6 / 32.0 / 24.6.
+TensorFold cannot load MiMo yet. The doc lists what blocks it and the plan to add it.
+
 ## Measured (native `/v1`, server-reported counters)
 
 > **Harness:** this repo's own server and [chat.sh](../chat.sh) — one stream, one request at a
@@ -147,7 +194,7 @@ comparison option. Final serial code measured 30.00 / 30.37 tok/s; Q4 KV and
 [raw sampler evidence](../bench/france-sampler-greedy.json). No quality pass or
 statistically established new speedup is claimed.
 
-### Current rental default: adaptive drafting
+### Historical rental default (2026-09-25): adaptive drafting
 
 The installed rental wrapper now defaults to `PROFILE=dynamic-balanced`
 (`-ndt 7 -dds -dc 0.6`, serial verify, **Q4 / chunk1024** unchanged).

@@ -24,9 +24,10 @@ CACHE_SIZE="${CACHE_SIZE:-65536}"
 MAX_BATCH_SIZE="${MAX_BATCH_SIZE:-16}"
 
 # Drafter. Default on: that is the measured fast path (DRAFT=0 is the no-draft row).
-# The directory must be the corrected copy (tap_shift 0 + mask_embedding shard).
+# The directory is the EXL3 4.0 bpw build (tap_shift 0 + the mask embedding are already in it),
+# downloaded by setup.sh; the core runtime accepts an EXL3 draft model directly.
 DRAFT="${DRAFT:-1}"
-DRAFT_NAME="${DRAFT_NAME:-MiMo-V2.6-Flash-RL-dflash-fixed}"
+DRAFT_NAME="${DRAFT_NAME:-MiMo-V2.6-Flash-RL-dflash-EXL3-4.0}"
 DRAFT_NUM_TOKENS="${DRAFT_NUM_TOKENS:-7}"
 
 # Fork knobs that TabbyAPI has no config key for are read from the environment, which is what

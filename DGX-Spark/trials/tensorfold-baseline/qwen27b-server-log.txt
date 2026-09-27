@@ -1,0 +1,2 @@
+[tensorfold] loading Qwen3.8-27B-MLX-4bit: Qwen3.8 dense (qwen3_5) on CUDA
+[tensorfold] serving Qwen3.8-27B-MLX-4bit at http://127.0.0.1:8080/v1 on CUDA (sampling: temperature 1.0, top_k 20, top_p 0.95; drafts: on; loaded in 32.8s)

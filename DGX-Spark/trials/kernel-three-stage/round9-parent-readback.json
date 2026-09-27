@@ -1,0 +1,50 @@
+{
+  "pdt": "2026-09-26T17:52:00-07:00",
+  "status": "passed",
+  "scope": "Parent read-only readback of the round9 handoff after operator ownership release. No CUDA initialization, no inference, no writes.",
+  "operator": {"delegation": "deleg_efb269c6", "subagent": "sa-0-1bc0103e", "ownership_released": true},
+  "restored_serve": {
+    "run": "/workspace/mimo-tune/runs/france-round6-quant-readback-1790469050287027155",
+    "previous_run": "/workspace/mimo-tune/runs/france-round6-quant-readback-1790461754447572632",
+    "guard_pid": 60108, "guard_starttime": "78971117",
+    "server_pid": 60109, "server_starttime": "78971119",
+    "health": {"status": "healthy", "healthy": true, "requests": 0, "max_active_requests": 1},
+    "retained_argv_identical_to_pre_trial": true,
+    "launch_json_equals_france_uma": true,
+    "retained_env_verified": true,
+    "original_files_verified": 678,
+    "drafter_files_verified": 13,
+    "draft_block_size": 8,
+    "extension_sha256": "02b0ae5bc8414d335facca41083f561cf24f41d56ef6e1e73a8b41fb16f80207",
+    "server_source_hashes_verified": 3,
+    "guard_sha256": "eef5706b327cf20007dd49087b6d70b97ec178fcdbde616374188a0bc916d24d",
+    "block_sparse_mlp_shadow_sha256": "61653605b432350db3cccddbaa00b12f121e38fa2b072fc9de2032adf9e2a706",
+    "handled_elision": "1", "counts": "0", "batch_verify": "0", "uma_reserve_mb": "8192",
+    "three_stage_env_absent": true,
+    "sole_gpu_process": true, "old_identities_gone": true, "failed_width_gone": true,
+    "round9_controller_processes": 0,
+    "MemAvailable_GiB": 19.470863342285156, "MemFree_GiB": 3.3656158447265625,
+    "host_oom_kill": 0, "cgroup_events": {"low": 0, "high": 0, "max": 0, "oom": 0, "oom_kill": 0, "oom_group_kill": 0}
+  },
+  "round9_trial": {
+    "result_sha256": "3152ddfa98c527be9762411cf5a3c0b2a162779ff6af0aca467a70d567d10701",
+    "status": "executed", "mode": "numeric", "poison": false,
+    "records": 52,
+    "flagged_five_three_and_off_original": 25,
+    "flagged_all_bitwise_true": true,
+    "max_abs_over_all_records": 1.7099082469940186e-05,
+    "peak_allocated_bytes": 886786048, "peak_reserved_bytes": 929038336,
+    "ownership_released": true,
+    "local_remote_evidence_files_hash_verified": 55
+  },
+  "not_done": [
+    "no throughput/TPS measurement of any kind (numeric mode only)",
+    "no kernel deployment: the retained serve still loads DSO 02b0ae5b (original entry, three-stage flag absent)",
+    "three-stage kernel not compiled into the serving runtime; no A/B/A speed run"
+  ],
+  "caveats": [
+    "UMA guard is a polling watchdog + allocator cap, not a kernel-hard OOM guarantee",
+    "cgroup ancestors above the container namespace root are not visible; the retained sampler is authoritative",
+    "trial used bounded synthetic ABI fixtures only; no model weights were loaded by the trial"
+  ]
+}

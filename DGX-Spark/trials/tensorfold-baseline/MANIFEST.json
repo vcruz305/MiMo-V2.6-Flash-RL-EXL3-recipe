@@ -1,0 +1,56 @@
+{
+  "note": "First TensorFold baseline on spark-724a (2026-09-26 23:48-23:56 -07:00): TensorFold's tools/bench_openai.py protocol against TensorFold serving Qwen3.8-27B + DFlash2, and against our exllamav3 serve of MiMo. Hashes are of the files exactly as committed (LF); source_sha256 is the file read back from the box. Doc: DGX-Spark/TensorFold-Baseline.md.",
+  "headline": {
+    "qwen27b_tensorfold": "49.92 / 45.77 / 49.48 / 46.06 tok/s (code sampled / chat sampled / code greedy / chat greedy); TensorFold README 1 Spark: 49.6 / 45.8 / 49.2 / 45.9",
+    "mimo_exllamav3": "32.89 / 24.56 / 32.00 / 24.61 tok/s (code prompt sent as chat: serve_native.py has no /v1/completions)"
+  },
+  "runtime": {
+    "tensorfold": "ashhart/TensorFold v0.3.4 2f8e514b0b7d615df7c971627ce3c0fb7e55d93a, native venv (no container), torch 2.11.0+cu130 / triton 3.6.0 from the MiMo venv",
+    "bench_openai_sha256": "39149b9468db2e9a3c7925f7c1a831b0c91bab1979166390da50313418ceafa4",
+    "qwen_target": "Vontra/Qwen3.8-27B-MLX-4bit 70ae7fac63274ff2eac54152031433374cb80f2f",
+    "qwen_drafter": "z-lab/Qwen3.8-27B-DFlash2 50307d4c4cde6860d4eee73e2547cd786fe8e8a4",
+    "mimo_server": "as trials/spark724a-port attempt 5"
+  },
+  "files": {
+    "tensorfold-baseline/qwen27b-guard-config.json": {
+      "sha256": "7ab85cea5aede0c0ad0687bf61f8fc9a5e955e50d074f51ec7721d5b7d1ff65b",
+      "bytes": 223,
+      "lines": 10,
+      "source": "~/tensorfold/runs/qwen27b-guard.json",
+      "source_sha256": "5280779ad2b495bc0dc1d8f50a883660ef113ef96e46333396ae0b927e97372b",
+      "copy": "home directory prefix replaced by $HOME"
+    },
+    "tensorfold-baseline/qwen27b-guard-result.json": {
+      "sha256": "d907b872b12c8e1cb08a9b70df3d55569db78300b5b7896124bdecb8e5b9136d",
+      "bytes": 214,
+      "lines": 8,
+      "source": "~/tensorfold/runs/qwen27b-baseline/result.json",
+      "source_sha256": "d907b872b12c8e1cb08a9b70df3d55569db78300b5b7896124bdecb8e5b9136d",
+      "copy": "verbatim"
+    },
+    "tensorfold-baseline/qwen27b-server-log.txt": {
+      "sha256": "d1f67354c6201ce3be4fdac3314a79be67520eae26a940413a8f8b9a1466e7af",
+      "bytes": 232,
+      "lines": 2,
+      "source": "~/tensorfold/runs/qwen27b-baseline/server.log",
+      "source_sha256": "d1f67354c6201ce3be4fdac3314a79be67520eae26a940413a8f8b9a1466e7af",
+      "copy": "verbatim content; renamed .log -> .txt (*.log is gitignored)"
+    },
+    "tensorfold-baseline/tf-bench-mimo-exllamav3.json": {
+      "sha256": "13d365c1220d0d72b1213c5721501adf62b4920561a735763a485b604321c16f",
+      "bytes": 2325,
+      "lines": 129,
+      "source": "~/mimo-exl3/results/tf-bench-mimo-exllamav3.json",
+      "source_sha256": "13d365c1220d0d72b1213c5721501adf62b4920561a735763a485b604321c16f",
+      "copy": "verbatim; spark724a/tf_bench_mimo.py output"
+    },
+    "tensorfold-baseline/tf-bench-qwen27b-tensorfold.json": {
+      "sha256": "babbc717b3e4d9e3978cc6b84daffe715a9bf2b96facfd037e3686a56b880bda",
+      "bytes": 1792,
+      "lines": 65,
+      "source": "~/mimo-exl3/results/tf-bench-qwen27b-tensorfold.json",
+      "source_sha256": "babbc717b3e4d9e3978cc6b84daffe715a9bf2b96facfd037e3686a56b880bda",
+      "copy": "verbatim; TensorFold tools/bench_openai.py output"
+    }
+  }
+}

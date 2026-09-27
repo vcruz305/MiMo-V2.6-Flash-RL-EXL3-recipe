@@ -62,7 +62,7 @@ if [[ "${DRAFT:-1}" == "1" ]]; then
   if [[ -d "$DRAFT_DIR" ]]; then
     verify_draft "$DRAFT_DIR" || FAILED=1
   else
-    warn "no corrected drafter at $DRAFT_DIR; run: python tools/fix_dflash.py"
+    warn "no drafter at $DRAFT_DIR; run: bash setup.sh (downloads the EXL3 4.0 bpw drafter from $DRAFT_EXL3_REPO)"
     FAILED=1
   fi
   if [[ -d "$DRAFT_SRC" ]]; then
