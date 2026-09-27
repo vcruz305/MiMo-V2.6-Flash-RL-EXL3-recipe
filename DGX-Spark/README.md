@@ -18,6 +18,24 @@ PROFILE=spark-with-draft bash serve.sh       # with-draft sizing + GPU_SPLIT=112
 bash chat.sh                                 # prints finish_reason, decode tok/s, draft_accept
 ```
 
+## Latest France rental measurements (2026-09-26)
+
+The separate **2.50 bpw** France path now has the requested **EXL3 4.0 bpw drafter**:
+warm code **40.566667 tok/s**, prose **23.813333 tok/s**, vs corrected BF16
+37.226667 / 19.610000 in the same ordered max-320-token workload. Only 3/8 texts
+match, all warm code; cold code regresses. With that quantized drafter held fixed,
+handled-readback A/B/A measured **41.293333 / 24.293333 tok/s**, +1.23396% / +1.65992%
+versus the A/A2 bracket, all 8 text/count/acceptance pairs equal. **Not 60 tok/s,
+not SixCat, not aggregate throughput, not a broad quality pass.**
+
+[Full results, dependency caveats, operator mappings and tracked records](France-Quant-Readback.md).
+The rental wrapper defaults to `quantized-draft` (original runtime); the faster
+`quantized-draft-readback` stays **opt-in pending runtime publication**. Both require
+preexisting deployment artifacts; neither is a fresh-clone bootstrap. Old
+`dynamic-balanced` explicitly selects BF16. The root/RTX and Tabby defaults are
+unchanged. The remaining sections below are the **2026-09-25 historical profiles**;
+their references to an adopted default/profiler describe those measurements only.
+
 ## Measured (native `/v1`, server-reported counters)
 
 > **Harness:** this repo's own server and [chat.sh](../chat.sh) — one stream, one request at a
@@ -147,7 +165,7 @@ comparison option. Final serial code measured 30.00 / 30.37 tok/s; Q4 KV and
 [raw sampler evidence](../bench/france-sampler-greedy.json). No quality pass or
 statistically established new speedup is claimed.
 
-### Current rental default: adaptive drafting
+### Historical rental default (2026-09-25): adaptive drafting
 
 The installed rental wrapper now defaults to `PROFILE=dynamic-balanced`
 (`-ndt 7 -dds -dc 0.6`, serial verify, **Q4 / chunk1024** unchanged).

@@ -291,8 +291,22 @@ GB10 the **2.50 bpw** pack (~98.5 GB) is the size that fits — loaded with the 
 opt-in unified-memory budget (`EXL3_UMA=1`, `EXL3_UMA_RESERVE_MB=8192`), because CUDA's
 "free" figure on that host excludes the reclaimable page cache the model can actually use.
 
-Current default profile: DFlash ceiling 7 with adaptive drafting (`-dds -dc 0.6`), Q4 paged
-KV, **4096-token prefill chunks**, 4K context, serial verification, batch 1.
+**France update (2026-09-26):** with the requested EXL3 4.0 bpw drafter,
+warm code **40.566667 tok/s** and prose **23.813333 tok/s** in the ordered
+cold + three-warm, max-320-token single-stream comparison. Versus corrected BF16:
+**+8.9721% / +21.4346%**, but only 3/8 texts match (all warm code); cold code slows.
+With the same quantized drafter, the handled-readback A/B/A arm measured
+**41.293333 code / 24.293333 prose tok/s**, **+1.23396% / +1.65992%** versus its
+A/A2 bracket, with all 8 text/count/acceptance pairs identical. Native usage timing,
+not SixCat or aggregate throughput; **60 tok/s was not reached**. The faster arm
+requires an unmerged isolated runtime shadow and stays operator-only opt-in.
+See [profiles, tracked records and limitations](DGX-Spark/France-Quant-Readback.md).
+These GB10 results do not replace or relabel the separate card's measurements above.
+
+**Historical BF16 profile (2026-09-25):** DFlash ceiling 7 with adaptive drafting
+(`-dds -dc 0.6`), Q4 paged KV, **4096-token prefill chunks**, 4K context, serial
+verification, batch 1. The table and profiler observations below describe that older
+profile, not the quantized-drafter update.
 
 | Workload | Measured |
 |---|---|

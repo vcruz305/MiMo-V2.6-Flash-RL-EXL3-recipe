@@ -2,7 +2,21 @@
 
 Local deployment record for the France rental; this does not replace the separately measured 2.20bpw/DFlash results in README.md. These changes have not been published upstream.
 
-## Current default: adaptive DFlash 7, confidence target 0.6
+## Current profile pointer (2026-09-26)
+
+The requested quantized drafter and handled-readback measurements are in
+[France-Quant-Readback.md](France-Quant-Readback.md): native single-stream warm code
+40.566667 tok/s with EXL3 4.0 bpw, then 41.293333 tok/s with the measured readback
+opt-in. See that record for prose, cold results, output differences and the unmerged
+runtime dependency. The operator wrapper now defaults to `quantized-draft`;
+`quantized-draft-readback` is an installed-rental opt-in, not a portable bootstrap.
+`dynamic-balanced` is the explicit old-BF16 opt-out, not the wrapper default.
+
+The sections below preserve the **2026-09-25 BF16 history**, including its ~35 tok/s
+results, failures and profiler. References below to the installed/current default
+are historical, not claims about the quantized drafter or a fresh deployment.
+
+## Historical default: adaptive DFlash 7, confidence target 0.6
 
 `PROFILE=dynamic-balanced` is now the installed default: `-ndt 7 -dds -dc 0.6`,
 Q4 paged KV, chunk1024, 4K context, one active request, serial verification,
@@ -11,8 +25,8 @@ The native diffusion block remains eight rows; adaptation shortens target
 verification, not the drafter's fixed-size forward.
 
 ```bash
-# Stop the existing owned process cleanly before launching any profile.
-bash DGX-Spark/serve-uma-rental.sh
+# Historical BF16 replay: stop the existing owned process cleanly first.
+PROFILE=dynamic-balanced bash DGX-Spark/serve-uma-rental.sh
 # Highest measured warmed code throughput in this small comparison:
 PROFILE=dynamic-code bash DGX-Spark/serve-uma-rental.sh
 # Static-window fallback with no online calibration:
