@@ -82,9 +82,13 @@ pass (20 new, 187 original, expected native8/request12 RED preserved). The one d
 **aborted in its own diagnostic** — a CPU-vs-CUDA `torch.equal` before the QKV path — and
 needed an exact-PID guard STOP; that harness is repaired and the recovery path has a locally
 verified Linux adapter. Neither the repair nor the adapter has ever been run against the live
-service, so the round-8 width trial is **not runnable as it stands**: the repaired harness, the
-recovery core and the retained-launcher rollback are being composed into one fail-closed
-package before any further device run. Do not hand-run the old controller.
+service, so the round-8 width trial is **not runnable as it stands**. The repaired harness, the
+recovery core and the retained-launcher rollback are now composed into one fail-closed package
+(fork branch `exp/native16-width-trial`) with sealed pins, a device preflight, a runbook and a
+27-item gap list. **It still does not launch the width attempt itself**
+(`G-WIDTH-LAUNCH-UNWIRED`) and it refuses to run outside its trial workspace layout, because the
+first thing it does is re-hash the sealed sibling trees it is meant to verify. Do not hand-run
+the old controller.
 
 ## The unpublished runtime overlay (why 41 tok/s needs more than the pinned source)
 
@@ -108,10 +112,18 @@ part of any retained profile.
 
 ## Continuing on another Spark
 
-1. Clone the fork and check out the branch you need (both default-off; nothing in them
-   changes a default): `feat/mixedk-handled-readback-elision` (the measured runtime win),
-   `feat/dflash-draft-cost-selector` (blocked, CPU-verified), `exp/mixedk-three-stage`
-   (closed, kept for the numerics).
+Everything below lives on the fork `vcruz305/exllamav3`, branched from `master` `74b6f5a`.
+**None of it is merged and none of it changes a default**; they exist so the next box can pick
+the thread up instead of rediscovering it.
+
+| branch | commit | what it is |
+|---|---|---|
+| `feat/mixedk-handled-readback-elision` | `249f22a` | the measured round-6 runtime win: 7 lines, `EXL3_MOE_MIXEDK_ELIDE_HANDLED`, device A/B/A +1.23396 % code / +1.65992 % prose with all 8 text/count pairs equal. Merging this is what would let a clean checkout reproduce the profile. |
+| `feat/dflash-draft-cost-selector` | `c372d66` | the repaired draft-window cost selector (254 CPU tests/tree, sealed inputs unchanged) — **blocked**, needs the weight/runtime attestation before it may run live. |
+| `exp/mixedk-three-stage` | `1fa4ef8` | the three-stage kernel: exact on device, slower on device. Kept for its numerics, **do not enable**. Its assets no longer vendor control trees; `materialize_controls.sh` rebuilds them from the recorded base sha. |
+| `exp/native16-width-trial` | `287d210` | the fail-closed width-trial package (preflight/runbook/gaps). Not a device trial yet; see `G-WIDTH-LAUNCH-UNWIRED`. |
+
+1. Clone the fork and check out the branch you need (all four are default-off):
 2. Build the extension for `TORCH_CUDA_ARCH_LIST=12.1` with `ninja` on PATH and
    `MAX_JOBS` bounded; the shadow overlay is a python-path override, not a build.
 3. Serve with the profile table above and the UMA guard, and watch **both** host and cgroup
